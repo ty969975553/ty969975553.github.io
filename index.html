@@ -65,6 +65,337 @@
     
     
     
+    <article id="post-GN构建" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/26/GN%E6%9E%84%E5%BB%BA/"
+    >google构建</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/26/GN%E6%9E%84%E5%BB%BA/" class="article-date">
+  <time datetime="2020-04-26T08:39:26.000Z" itemprop="datePublished">2020-04-26</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="GN构建系统"><a href="#GN构建系统" class="headerlink" title="GN构建系统"></a>GN构建系统</h2><h2 id="下载depot-tools并设置环境变量"><a href="#下载depot-tools并设置环境变量" class="headerlink" title="下载depot_tools并设置环境变量"></a>下载depot_tools并设置环境变量</h2><ol>
+<li><p>git clone <a href="https://chromium.googlesource.com/chromium/tools/depot_tools.git" target="_blank" rel="noopener">https://chromium.googlesource.com/chromium/tools/depot_tools.git</a> (需要翻墙)</p>
+</li>
+<li><p>设置环境变量 将depot_tools的路径添加到环境变量(建议放置第一条，在python环境变量之前)</p>
+</li>
+<li><p>禁止工具升级 ==设置环境变量== DEPOT_TOOLS_UPDATE=0 或者 ==删除.git目录==</p>
+</li>
+</ol>
+<p>工具库包含</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> gclient 支持svn和git</li>
+<li><input checked="" disabled="" type="checkbox"> gcl 预提交脚本for svn python的<a href="https://github.com/rietveld-codereview/rietveld" target="_blank" rel="noopener">codeview</a></li>
+<li><input checked="" disabled="" type="checkbox"> git-cl 预提交脚本for git python的<a href="https://github.com/rietveld-codereview/rietveld" target="_blank" rel="noopener">codeview</a></li>
+<li><input checked="" disabled="" type="checkbox"> svn</li>
+<li><input checked="" disabled="" type="checkbox"> drover 快速还原svn提交</li>
+<li><input checked="" disabled="" type="checkbox"> cpplint.py 静态检查工具</li>
+<li><input checked="" disabled="" type="checkbox"> pylint python静态检查工具</li>
+<li><input checked="" disabled="" type="checkbox"> presubmit_support.py脚本</li>
+<li><input checked="" disabled="" type="checkbox"> repo: The repo tool.</li>
+<li><input checked="" disabled="" type="checkbox"> zsh-goodies 补全</li>
+<li><input checked="" disabled="" type="checkbox"> wtf</li>
+<li><input checked="" disabled="" type="checkbox"> weekly</li>
+<li><input checked="" disabled="" type="checkbox"> git-gs</li>
+</ul>
+<h2 id="GN-exe的生成"><a href="#GN-exe的生成" class="headerlink" title="GN exe的生成"></a>GN exe的生成</h2><p>GN是一个元构建系统，可为Ninja生成构建文件。</p>
+<ol>
+<li><p>git clone <a href="https://gn.googlesource.com/gn" target="_blank" rel="noopener">https://gn.googlesource.com/gn</a></p>
+</li>
+<li><p>python build/gen.py</p>
+</li>
+<li><p>ninja -C out(环境要有ninja)</p>
+</li>
+</ol>
+<h2 id="GN使用命令"><a href="#GN使用命令" class="headerlink" title="GN使用命令"></a>GN使用命令</h2><ol>
+<li><p>生成构建目录 gn gen out/windows_x86_debug</p>
+</li>
+<li><p>添加构建参数 gn args out/windows_x86_debug</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// gn args --list out/windows_x86_debug</span></span><br><span class="line">is_debug = <span class="literal">true</span></span><br><span class="line">is_official_build=<span class="literal">false</span></span><br><span class="line">is_component_build = <span class="literal">false</span></span><br><span class="line">target_cpu=<span class="string">"x64"</span></span><br><span class="line">symbol_level = <span class="number">0</span></span><br><span class="line">is_win_fastlink = <span class="literal">true</span>   <span class="comment">//不生成pdb</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 交叉编译 https://gn.googlesource.com/gn/+/master/docs/cross_compiles.md</span></span><br><span class="line">target_os = <span class="string">"chromeos"</span></span><br><span class="line">target_os = <span class="string">"android"</span></span><br><span class="line"></span><br><span class="line">target_cpu = <span class="string">"arm"</span></span><br><span class="line">target_cpu = <span class="string">"x86"</span></span><br><span class="line">target_cpu = <span class="string">"x64"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编写GN文件"><a href="#编写GN文件" class="headerlink" title="编写GN文件"></a>编写GN文件</h2><h3 id="1-根目录下创建-gn文件"><a href="#1-根目录下创建-gn文件" class="headerlink" title="1. 根目录下创建.gn文件"></a>1. 根目录下创建.gn文件</h3><p>一般build目录下都有一些默认的配置 tool_chain</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The location of the build configuration file.</span></span><br><span class="line">buildconfig = <span class="string">"//build/BUILDCONFIG.gn"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-创建BUILD-gn"><a href="#2-创建BUILD-gn" class="headerlink" title="2. 创建BUILD.gn"></a>2. 创建BUILD.gn</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 可执行程序</span></span><br><span class="line">executable(<span class="string">"hello"</span>) &#123;</span><br><span class="line">  sources = [ <span class="string">"hello.cc"</span> ]</span><br><span class="line"></span><br><span class="line">  deps = [</span><br><span class="line">    <span class="string">":hello_shared"</span>,</span><br><span class="line">    <span class="string">":hello_static"</span>,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## dll</span></span><br><span class="line">shared_library(<span class="string">"hello_shared"</span>) &#123;</span><br><span class="line">  sources = [</span><br><span class="line">    <span class="string">"hello_shared.cc"</span>,</span><br><span class="line">    <span class="string">"hello_shared.h"</span>,</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  defines = [ <span class="string">"HELLO_SHARED_IMPLEMENTATION"</span> ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## lib</span></span><br><span class="line">static_library(<span class="string">"hello_static"</span>) &#123;</span><br><span class="line">  sources = [</span><br><span class="line">    <span class="string">"hello_static.cc"</span>,</span><br><span class="line">    <span class="string">"hello_static.h"</span>,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ninja"><a href="#ninja" class="headerlink" title="ninja"></a>ninja</h2><ol>
+<li><p>git clone <a href="git://github.com/ninja-build/ninja.git" target="_blank" rel="noopener">git://github.com/ninja-build/ninja.git</a></p>
+</li>
+<li><p>cmake 编译或者<a href="https://github.com/ninja-build/ninja/releases" target="_blank" rel="noopener">https://github.com/ninja-build/ninja/releases</a>下载binary</p>
+</li>
+</ol>
+<h2 id="编译问题"><a href="#编译问题" class="headerlink" title="编译问题"></a>编译问题</h2><p>warning: A compatible version of re2c (&gt;= 0.11.3) was not found; changes to src/*.in.cc will not affect your build.<br>wrote build.ninja.</p>
+<p>安装re2c <a href="http://re2c.org/" target="_blank" rel="noopener">http://re2c.org/</a></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/depot-tools/" rel="tag">depot_tools</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gn/" rel="tag">gn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ninja/" rel="tag">ninja</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9E%84%E5%BB%BA/" rel="tag">构建</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E8%AF%91/" rel="tag">编译</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-字体" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/20/%E5%AD%97%E4%BD%93/"
+    >字体</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/20/%E5%AD%97%E4%BD%93/" class="article-date">
+  <time datetime="2020-04-20T03:20:13.000Z" itemprop="datePublished">2020-04-20</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h3 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h3><ol>
+<li><p>SFNT: 文件字体格式(可缩放字体和样条字体)，最初是Macintosh TrueType字体开发的。 现有字体 <a href="https://en.wikipedia.org/wiki/TrueType" target="_blank" rel="noopener">TrueType</a>、<a href="https://en.wikipedia.org/wiki/OpenType" target="_blank" rel="noopener">OpenType</a>、<a href="https://en.wikipedia.org/wiki/Web_Open_Font_Format" target="_blank" rel="noopener">Web Open Font Format</a></p>
+</li>
+<li><p>字体专利之争 Adobe 霸主,  Apple 和 MS 合作，Type 1 被迫开放所有人使用.</p>
+</li>
+<li><p>微软创建字体 Times New Roman(与Times Roman兼容), Arial(与Helvetica兼容)和Courier New(与Courier兼容)</p>
+</li>
+<li><p>微软推出clearType(亚像素渲染技术)</p>
+</li>
+<li><p>OpenType  微软TrueType Open(和Adobe 合作) 印刷行为 10000 多种字体，Adobe占了三分之一 除Cambria Math外，还提供了三种免费字体：Asana-Math，Neo Euler和XITS 支持数学</p>
+</li>
+<li><p>WOFF 压缩网络字体Google主导 W3C标准</p>
+</li>
+</ol>
+<h3 id="文件格式"><a href="#文件格式" class="headerlink" title="文件格式"></a>文件格式</h3><ol>
+<li><p>TrueType Collection .ttcf格式</p>
+</li>
+<li><p>字体裁剪工具</p>
+</li>
+</ol>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SFNTLY/" rel="tag">SFNTLY</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%97%E4%BD%93/" rel="tag">字体</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A3%81%E5%89%AA%E5%AD%97%E4%BD%93/" rel="tag">裁剪字体</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-windows-v7-1-samples" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/14/windows-v7-1-samples/"
+    >windows_v7.1_samples</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/14/windows-v7-1-samples/" class="article-date">
+  <time datetime="2020-04-14T03:28:17.000Z" itemprop="datePublished">2020-04-14</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h3 id="时间函数"><a href="#时间函数" class="headerlink" title="时间函数"></a>时间函数</h3><ol>
+<li><p>GetTickCount()  精度1毫秒</p>
+</li>
+<li><p>QueryPerformanceCounter()</p>
+</li>
+<li><p>time()</p>
+</li>
+<li><p>GetSystemTimeAsFileTime()</p>
+</li>
+<li><p>ftime()</p>
+</li>
+<li><p>GetLocalTime()  = GetSystemTimeAsFileTime() +  FileTimeToSystemTime()<br>精度 0.1 us</p>
+</li>
+</ol>
+<p>Release Win32 Intel Core i7-8700 CPU @3.20GHz</p>
+<table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>1000000次执行时间(us)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GetSystemTimeAsFileTime() + FileTimeToSystemTime()</td>
+<td>723,836</td>
+</tr>
+<tr>
+<td>time()</td>
+<td>559,098</td>
+</tr>
+<tr>
+<td>GetLocalTime()</td>
+<td>783,646</td>
+</tr>
+<tr>
+<td>ftime()</td>
+<td>788,472</td>
+</tr>
+<tr>
+<td>GetTickCount()</td>
+<td>31,506</td>
+</tr>
+<tr>
+<td>QueryPerformanceCounter()</td>
+<td>243,223</td>
+</tr>
+</tbody></table>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%80%A7%E8%83%BD/" rel="tag">性能</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="c++关键词-C++关键词" class="article article-type-c++关键词" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -106,7 +437,7 @@
       
 
       
-      <h2 id="修饰"><a href="#修饰" class="headerlink" title="修饰"></a>修饰</h2><h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>4种修饰</p>
+      <h2 id="修饰关键词"><a href="#修饰关键词" class="headerlink" title="修饰关键词"></a>修饰关键词</h2><h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>4种修饰</p>
 <h3 id="mutable"><a href="#mutable" class="headerlink" title="mutable"></a>mutable</h3><p>适用场景: 当一个成员函数被从const 修饰后，需要修改某个成员属性 mutable 修饰属性</p>
 <h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>三大特性：</p>
 <ul>
@@ -115,6 +446,24 @@
 <li>顺序性 (volatile修饰的变量不会被编译器优化乱序，但是非volatile修饰的变量可能会跟volatile变量乱序，依赖于cpu指令,不可以作为线程顺序控制)</li>
 </ul>
 <p>Java的关键词增强较多不一样<br><a href="http://hedengcheng.com/?p=725" target="_blank" rel="noopener">http://hedengcheng.com/?p=725</a></p>
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><ul>
+<li>C语言</li>
+</ul>
+<ol>
+<li><p>静态局部变量(全局数据区) 用于函数体内部修饰变量，这种变量的生存期长于该函数</p>
+</li>
+<li><p>静态全局变量和静态全局函数 定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见</p>
+</li>
+</ol>
+<ul>
+<li>C++</li>
+</ul>
+<ol>
+<li><p>静态数据成员 类成员 每个class有一份</p>
+</li>
+<li><p>静态成员函数 (不可访问普通成员)</p>
+</li>
+</ol>
 
       
       <!-- reward -->
@@ -267,6 +616,7 @@
 <li>wxquare <a href="https://www.cnblogs.com/wxquare/" target="_blank" rel="noopener">https://www.cnblogs.com/wxquare/</a></li>
 <li>c++服务端 <a href="https://www.cnblogs.com/moyangvip/" target="_blank" rel="noopener">https://www.cnblogs.com/moyangvip/</a></li>
 <li>王垠 <a href="http://www.yinwang.org/" target="_blank" rel="noopener">http://www.yinwang.org/</a></li>
+<li>陈皓 <a href="https://coolshell.cn/" target="_blank" rel="noopener">https://coolshell.cn/</a></li>
 </ul>
 <h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ul>
 <li>何登成AliSql <a href="http://hedengcheng.com/" target="_blank" rel="noopener">http://hedengcheng.com/</a></li>
@@ -604,76 +954,6 @@
 
 </article>
     
-    <article id="title-c++序列化" class="article article-type-title" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/25/c++%E5%BA%8F%E5%88%97%E5%8C%96/"
-    >c++序列化</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/25/c++%E5%BA%8F%E5%88%97%E5%8C%96/" class="article-date">
-  <time datetime="2020-03-25T11:38:53.000Z" itemprop="datePublished">2020-03-25</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
     <article id="title-C++tuple" class="article article-type-title" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -747,169 +1027,13 @@
 
 </article>
     
-    <article id="title-高低权限消息" class="article article-type-title" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/25/%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B6%88%E6%81%AF/"
-    >高低权限进程消息通信</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/25/%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B6%88%E6%81%AF/" class="article-date">
-  <time datetime="2020-03-25T11:17:35.000Z" itemprop="datePublished">2020-03-25</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p><img src="result.png" alt="测试结果"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ChangeFilter</span><span class="params">(m_hWnd, WM_NOTEPAPER_SHOWTIP, MSGFLT_ALLOW)</span></span>;</span><br><span class="line"></span><br><span class="line">DWORD CMainWindow::ChangeFilter(HWND hwnd, UINT uMsg, DWORD dwMsgFlt)</span><br><span class="line">&#123;</span><br><span class="line">    BOOL                fSuccess = FALSE;</span><br><span class="line">    DWORD            dwMsgFltInfo = MSGFLTINFO_NONE;</span><br><span class="line">    CHANGEFILTERSTRUCT  ChangeFilterStruct;</span><br><span class="line"></span><br><span class="line">    ChangeFilterStruct.cbSize = <span class="keyword">sizeof</span>(CHANGEFILTERSTRUCT);</span><br><span class="line">    fSuccess = ChangeWindowMessageFilterEx(hwnd, uMsg, dwMsgFlt, &amp;ChangeFilterStruct);</span><br><span class="line">    dwMsgFltInfo = ChangeFilterStruct.ExtStatus;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!fSuccess) &#123;</span><br><span class="line">        wprintf(<span class="string">L"\nChangeWindowMessageFilterEx failed with %lu"</span>, GetLastError());</span><br><span class="line">        dwMsgFltInfo = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dwMsgFltInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows%E5%AE%89%E5%85%A8/" rel="tag">windows安全</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="title-window安全概念" class="article article-type-title" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/25/window%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5/"
-    >window安全概念</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/25/window%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5/" class="article-date">
-  <time datetime="2020-03-25T11:14:42.000Z" itemprop="datePublished">2020-03-25</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h1 id="window-安全概念"><a href="#window-安全概念" class="headerlink" title="window 安全概念"></a>window 安全概念</h1><p>整理于 <a href="http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin" target="_blank" rel="noopener">http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin</a></p>
-<p> <img src="https://note.youdao.com/yws/public/resource/0a79a67d0cd6f714303f83f564ba0dac/xmlnote/0A94AF3BCA574FCA9324E04A33A843E7/12904" alt="xmind"></p>
-<h2 id="判断是否管理员权限"><a href="#判断是否管理员权限" class="headerlink" title="判断是否管理员权限"></a>判断是否管理员权限</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">// Windows API IsUserAnAdmin()</span><br><span class="line">BOOL Am_I_In_Admin_Group(BOOL bCheckAdminMode /*= FALSE*/)</span><br><span class="line">&#123;</span><br><span class="line">	BOOL   fAdmin;</span><br><span class="line">	HANDLE  hThread;</span><br><span class="line">	TOKEN_GROUPS *ptg = NULL;</span><br><span class="line">	DWORD  cbTokenGroups;</span><br><span class="line">	DWORD  dwGroup;</span><br><span class="line">	PSID   psidAdmin;</span><br><span class="line">	SID_IDENTIFIER_AUTHORITY SystemSidAuthority= SECURITY_NT_AUTHORITY;</span><br><span class="line">	if ( !OpenThreadToken ( GetCurrentThread(), TOKEN_QUERY, FALSE, &amp;hThread))</span><br><span class="line">	&#123;</span><br><span class="line">		if ( GetLastError() == ERROR_NO_TOKEN)</span><br><span class="line">		&#123;</span><br><span class="line">			if (! OpenProcessToken ( GetCurrentProcess(), TOKEN_QUERY, </span><br><span class="line">				&amp;hThread))</span><br><span class="line">				return ( FALSE);</span><br><span class="line">		&#125;</span><br><span class="line">		else </span><br><span class="line">			return ( FALSE);</span><br><span class="line">	&#125;</span><br><span class="line">	if ( GetTokenInformation ( hThread, TokenGroups, NULL, 0, &amp;cbTokenGroups))</span><br><span class="line">		return ( FALSE);</span><br><span class="line">	if ( GetLastError() != ERROR_INSUFFICIENT_BUFFER)</span><br><span class="line">		return ( FALSE);</span><br><span class="line">	if ( ! ( ptg= (TOKEN_GROUPS*)_alloca ( cbTokenGroups))) </span><br><span class="line">		return ( FALSE);</span><br><span class="line">	if ( !GetTokenInformation ( hThread, TokenGroups, ptg, cbTokenGroups,</span><br><span class="line">		&amp;cbTokenGroups) )</span><br><span class="line">		return ( FALSE);</span><br><span class="line">	if ( ! AllocateAndInitializeSid ( &amp;SystemSidAuthority, 2, </span><br><span class="line">		SECURITY_BUILTIN_DOMAIN_RID, </span><br><span class="line">		DOMAIN_ALIAS_RID_ADMINS,</span><br><span class="line">		0, 0, 0, 0, 0, 0, &amp;psidAdmin) )</span><br><span class="line">		return ( FALSE);</span><br><span class="line">	fAdmin= FALSE;</span><br><span class="line">	for ( dwGroup= 0; dwGroup &lt; ptg-&gt;GroupCount; dwGroup++)</span><br><span class="line">	&#123;</span><br><span class="line">		if ( EqualSid ( ptg-&gt;Groups[dwGroup].Sid, psidAdmin))</span><br><span class="line">		&#123;</span><br><span class="line">			if(bCheckAdminMode)</span><br><span class="line">			&#123;</span><br><span class="line">				if((ptg-&gt;Groups[dwGroup].Attributes) &amp; SE_GROUP_ENABLED)</span><br><span class="line">				&#123;</span><br><span class="line">					fAdmin = TRUE;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">			&#123;</span><br><span class="line">				fAdmin = TRUE;</span><br><span class="line">			&#125;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	FreeSid ( psidAdmin);</span><br><span class="line">	return ( fAdmin);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//注意只有原来是Disable的权限才可以提成Enable， 如果原来就没有这个权限， 是提不上去的。</span><br><span class="line"></span><br><span class="line">BOOL EnablePrivilege(HANDLE hToken, LPCTSTR lpszPrivilegeName)</span><br><span class="line">&#123;</span><br><span class="line">    TOKEN_PRIVILEGES tkp = &#123;0&#125;;</span><br><span class="line">    BOOL bRet = LookupPrivilegeValue( NULL, lpszPrivilegeName, &amp;tkp.Privileges[0].Luid );</span><br><span class="line">    if(!bRet) return FALSE;</span><br><span class="line"></span><br><span class="line">    tkp.PrivilegeCount = 1;</span><br><span class="line">    tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;</span><br><span class="line">    bRet = AdjustTokenPrivileges( hToken, FALSE, &amp;tkp, sizeof(tkp), NULL, NULL );</span><br><span class="line"></span><br><span class="line">    return bRet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何判断用户的进程完整性级别"><a href="#如何判断用户的进程完整性级别" class="headerlink" title="如何判断用户的进程完整性级别"></a>如何判断用户的进程完整性级别</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">void CIntegrityLevel::Print(std::wostream&amp; os) const</span><br><span class="line">&#123;</span><br><span class="line">    SID* pSid = (SID*)m_pIntegrity-&gt;Label.Sid;</span><br><span class="line">    DWORD rid = pSid-&gt;SubAuthority[0];</span><br><span class="line"></span><br><span class="line">    LPCTSTR lpszIntegrity = L&quot;Unknown&quot;;</span><br><span class="line">    switch (rid)</span><br><span class="line">    &#123;</span><br><span class="line">    case SECURITY_MANDATORY_UNTRUSTED_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = L&quot;Untrusted&quot;;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    case SECURITY_MANDATORY_LOW_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = L&quot;Low&quot;;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    case SECURITY_MANDATORY_MEDIUM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = L&quot;Medium&quot;;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    case SECURITY_MANDATORY_MEDIUM_PLUS_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = L&quot;Medium +&quot;;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    case SECURITY_MANDATORY_HIGH_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = L&quot;High&quot;;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    case SECURITY_MANDATORY_SYSTEM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = L&quot;System&quot;;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    default:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = L&quot;XXXXX&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    os &lt;&lt; L&quot;Integrity: &quot; &lt;&lt; lpszIntegrity &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何指定程序默认启动运行的级别？"><a href="#如何指定程序默认启动运行的级别？" class="headerlink" title="如何指定程序默认启动运行的级别？"></a>如何指定程序默认启动运行的级别？</h2><p>在VC里配置Manifest文件。 </p>
-<ul>
-<li>asInvoker：默认选项，新的进程将简单地继承其父进程的访问令牌</li>
-<li>highestAvailable：应用程序会选择该用户允许范围内尽可能高的权限。对于标准用户来说，该选项与asInvoker一样，而对于管理员来说，这就意味着请求Admin令牌。</li>
-<li>requireAdministrator：应用程序需要Admin令牌。运行该程序时，标准用户将要输入管理员的用户名和密码，而管理员则要在弹出的确认对话框中进行确认。</li>
-<li><img src="https://note.youdao.com/yws/public/resource/df3ab20df5c03ba0ad1faef9f79e2f72/xmlnote/DD710385513C4681AA35C58A73D66AA4/12900" alt="AAA"></li>
-</ul>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows%E5%AE%89%E5%85%A8/" rel="tag">windows安全</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
   </nav>
   
 </section>
