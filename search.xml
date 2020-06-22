@@ -1,8 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C++ tuple输出</title>
+    <url>/2020/03/25/C++tuple/</url>
+    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// c++11</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tuple, <span class="keyword">size_t</span> N&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tuple_print</span> &#123;</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> Tuple&amp; t, <span class="built_in">std</span>::ostream&amp; os)</span> </span>&#123;</span><br><span class="line">       tuple_print&lt;Tuple, N - <span class="number">1</span>&gt;::<span class="built_in">print</span>(t, os);</span><br><span class="line">       os &lt;&lt; <span class="string">", "</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">get</span>&lt;N - <span class="number">1</span>&gt;(t);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 类模板的特化版本</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tuple&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tuple_print</span>&lt;Tuple, 1&gt; &#123;</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> Tuple&amp; t, <span class="built_in">std</span>::ostream&amp; os)</span> </span>&#123;</span><br><span class="line">       os &lt;&lt; <span class="string">"("</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">get</span>&lt;<span class="number">0</span>&gt;(t);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// operator&lt;&lt;</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="built_in">std</span>::ostream&amp; <span class="keyword">operator</span> &lt;&lt;(<span class="built_in">std</span>::ostream&amp; os, <span class="keyword">const</span> <span class="built_in">std</span>::tuple&lt;Args...&gt;&amp; t) &#123;</span><br><span class="line">   tuple_print&lt;<span class="keyword">decltype</span>(t), <span class="keyword">sizeof</span>...(Args)&gt;::<span class="built_in">print</span>(t, os);</span><br><span class="line">   <span class="keyword">return</span> os &lt;&lt; <span class="string">")"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//C++14</span></span><br><span class="line"><span class="comment">// 数组转换为 tuple</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Array, <span class="built_in">std</span>::<span class="keyword">size_t</span>... I&gt;</span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">a2t_impl</span><span class="params">(<span class="keyword">const</span> Array&amp; a, <span class="built_in">std</span>::index_sequence&lt;I...&gt;)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">std</span>::make_tuple(a[I]...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="built_in">std</span>::<span class="keyword">size_t</span> N, <span class="keyword">typename</span> Indices = <span class="built_in">std</span>::make_index_sequence&lt;N&gt;&gt;</span><br><span class="line"><span class="keyword">auto</span> a2t(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">array</span>&lt;T, N&gt;&amp; a) &#123;</span><br><span class="line">    <span class="keyword">return</span> a2t_impl(a, Indices&#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 漂亮地打印 tuple</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Ch</span>, <span class="title">class</span> <span class="title">Tr</span>, <span class="title">class</span> <span class="title">Tuple</span>, <span class="title">std</span>:</span>:<span class="keyword">size_t</span>... Is&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_tuple_impl</span><span class="params">(<span class="built_in">std</span>::basic_ostream&lt;Ch, Tr&gt;&amp; os,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">const</span> Tuple&amp; t,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="built_in">std</span>::index_sequence&lt;Is...&gt;)</span> </span>&#123;</span><br><span class="line">    ((os &lt;&lt; (Is == <span class="number">0</span> ? <span class="string">""</span> : <span class="string">", "</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">get</span>&lt;Is&gt;(t)), ...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Ch</span>, <span class="title">class</span> <span class="title">Tr</span>, <span class="title">class</span>... <span class="title">Args</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">auto</span>&amp; <span class="title">operator</span>&lt;&lt;(std::basic_ostream&lt;Ch, Tr&gt;&amp; os, const std::tuple&lt;Args...&gt;&amp; t) &#123;</span></span><br><span class="line"><span class="class">    os &lt;&lt; "(";</span></span><br><span class="line"><span class="class">    print_tuple_impl(os, t, std::index_sequence_for&lt;Args...&gt;&#123;&#125;);</span></span><br><span class="line"><span class="class">    return os &lt;&lt; ")";</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ const mutable volatile</title>
+    <url>/2020/04/08/C++%E5%85%B3%E9%94%AE%E8%AF%8D/</url>
+    <content><![CDATA[<h2 id="修饰关键词"><a href="#修饰关键词" class="headerlink" title="修饰关键词"></a>修饰关键词</h2><h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>4种修饰</p>
+<h3 id="mutable"><a href="#mutable" class="headerlink" title="mutable"></a>mutable</h3><p>适用场景: 当一个成员函数被从const 修饰后，需要修改某个成员属性 mutable 修饰属性</p>
+<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>三大特性：</p>
+<ul>
+<li>易变性</li>
+<li>不可优化性</li>
+<li>顺序性 (volatile修饰的变量不会被编译器优化乱序，但是非volatile修饰的变量可能会跟volatile变量乱序，依赖于cpu指令,不可以作为线程顺序控制)</li>
+</ul>
+<p>Java的关键词增强较多不一样<br><a href="http://hedengcheng.com/?p=725" target="_blank" rel="noopener">http://hedengcheng.com/?p=725</a></p>
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><ul>
+<li>C语言</li>
+</ul>
+<ol>
+<li><p>静态局部变量(全局数据区) 用于函数体内部修饰变量，这种变量的生存期长于该函数</p>
+</li>
+<li><p>静态全局变量和静态全局函数 定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见</p>
+</li>
+</ol>
+<ul>
+<li>C++</li>
+</ul>
+<ol>
+<li><p>静态数据成员 类成员 每个class有一份</p>
+</li>
+<li><p>静态成员函数 (不可访问普通成员)</p>
+</li>
+</ol>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><h3 id="sealed"><a href="#sealed" class="headerlink" title="sealed"></a>sealed</h3><p>/clr</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++编译问题总结</title>
+    <url>/2020/03/25/C++%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ol>
+<li><p>C4819 解决方案<br> 使用正则表达式搜索 [^\x00-\x7F]替换为空</p>
+<p> 或者保存为正确的编码方式</p>
+<p> 主要原因： 源码中含有非当前编码集识别的字符</p>
+</li>
+<li><p>midl 编译不过去</p>
+<p> 在c盘根目录创建名字叫program的空文件就可以无法找到exe编译IDL</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>编译问题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++链接问题总结</title>
+    <url>/2020/03/25/C++%E9%93%BE%E6%8E%A5%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ol>
+<li><p>QT5: LNK1123: 转换到 COFF 期间失败: 文件无效或损坏<br> 解答： vs的某个exe和系统的exe不匹配<br> cvtres.exe<br> <a href="http://www.cnblogs.com/newpanderking/articles/3372969.html" target="_blank" rel="noopener">http://www.cnblogs.com/newpanderking/articles/3372969.html</a><br> 实在不行就安装vs的sp1补丁包</p>
+</li>
+<li><p>fatal error LNK1318: 非意外的 PDB 错误<br> 清理重新编译、 去除链接器生成调试信息</p>
+</li>
+<li><p>fatal error LNK2019: 无法解析的外部符号 _sprintf</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>链接问题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Console 工程设置</title>
+    <url>/2020/03/24/Console%20%E5%B7%A5%E7%A8%8B%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<p>c++  控制台</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">SetConsoleOutputCP (<span class="number">65001</span>);</span><br><span class="line">CONSOLE_FONT_INFOEX info = &#123; <span class="number">0</span> &#125;; <span class="comment">// 以下设置字体来支持中文显示。</span></span><br><span class="line">info.cbSize = <span class="keyword">sizeof</span>(info);</span><br><span class="line">info.dwFontSize.Y = <span class="number">16</span>; <span class="comment">// leave X as zero</span></span><br><span class="line">info.FontWeight = FW_NORMAL;</span><br><span class="line">wcscpy(info.FaceName, <span class="string">L"Consolas"</span>);</span><br><span class="line">SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), <span class="literal">NULL</span>, &amp;info);</span><br></pre></td></tr></table></figure>
+
+<p>copy from vlpp</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> UI</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">namespace</span> <span class="built_in">Console</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">Console</span></span></span><br><span class="line"><span class="class">        &#123;</span></span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">            <span class="comment">/// &lt;summary&gt;Write to the command line window.&lt;/summary&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;param name="string"&gt;Content to write.&lt;/param&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;param name="length"&gt;Size of the content in wchar_t. The zero terminator is not</span></span><br><span class="line">            <span class="comment">/// included.&lt;/param&gt;</span></span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">const</span> <span class="keyword">wchar_t</span>* <span class="built_in">string</span>, <span class="keyword">int</span> length)</span></span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/// &lt;summary&gt;Write to the command line window.&lt;/summary&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;param name="string"&gt;Content to write.&lt;/param&gt;</span></span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">const</span> <span class="keyword">wchar_t</span>* <span class="built_in">string</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/// &lt;summary&gt;Write to the command line window.&lt;/summary&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;param name="string"&gt;Content to write.&lt;/param&gt;</span></span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">wstring</span>&amp; <span class="built_in">string</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/// &lt;summary&gt;Write to the command line window with a CRLF.&lt;/summary&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;param name="string"&gt;Content to write.&lt;/param&gt;</span></span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">WriteLine</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">wstring</span>&amp; <span class="built_in">string</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/// &lt;summary&gt;Read from the command line window.&lt;/summary&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;returns&gt;The whole line read from the command line window.&lt;/returns&gt;</span></span><br><span class="line">            <span class="keyword">static</span> <span class="built_in">std</span>::<span class="function"><span class="built_in">wstring</span> <span class="title">Read</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SetColor</span><span class="params">(<span class="keyword">bool</span> red, <span class="keyword">bool</span> green, <span class="keyword">bool</span> blue, <span class="keyword">bool</span> light)</span></span>;</span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SetTitle</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">wstring</span>&amp; <span class="built_in">string</span>)</span></span>;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="comment">// namespace console</span></span><br><span class="line">&#125; <span class="comment">// namespace UI</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+        <tag>标准库</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>google构建</title>
-    <url>/2020/04/26/GN%E6%9E%84%E5%BB%BA/</url>
+    <url>/2020/04/26/GN%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<h2 id="GN构建系统"><a href="#GN构建系统" class="headerlink" title="GN构建系统"></a>GN构建系统</h2><h2 id="下载depot-tools并设置环境变量"><a href="#下载depot-tools并设置环境变量" class="headerlink" title="下载depot_tools并设置环境变量"></a>下载depot_tools并设置环境变量</h2><ol>
 <li><p>git clone <a href="https://chromium.googlesource.com/chromium/tools/depot_tools.git" target="_blank" rel="noopener">https://chromium.googlesource.com/chromium/tools/depot_tools.git</a> (需要翻墙)</p>
 </li>
@@ -50,13 +159,17 @@
 <h3 id="2-创建BUILD-gn"><a href="#2-创建BUILD-gn" class="headerlink" title="2. 创建BUILD.gn"></a>2. 创建BUILD.gn</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 可执行程序</span></span><br><span class="line">executable(<span class="string">"hello"</span>) &#123;</span><br><span class="line">  sources = [ <span class="string">"hello.cc"</span> ]</span><br><span class="line"></span><br><span class="line">  deps = [</span><br><span class="line">    <span class="string">":hello_shared"</span>,</span><br><span class="line">    <span class="string">":hello_static"</span>,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## dll</span></span><br><span class="line">shared_library(<span class="string">"hello_shared"</span>) &#123;</span><br><span class="line">  sources = [</span><br><span class="line">    <span class="string">"hello_shared.cc"</span>,</span><br><span class="line">    <span class="string">"hello_shared.h"</span>,</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  defines = [ <span class="string">"HELLO_SHARED_IMPLEMENTATION"</span> ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## lib</span></span><br><span class="line">static_library(<span class="string">"hello_static"</span>) &#123;</span><br><span class="line">  sources = [</span><br><span class="line">    <span class="string">"hello_static.cc"</span>,</span><br><span class="line">    <span class="string">"hello_static.h"</span>,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="ninja"><a href="#ninja" class="headerlink" title="ninja"></a>ninja</h2><ol>
-<li><p>git clone <a href="git://github.com/ninja-build/ninja.git" target="_blank" rel="noopener">git://github.com/ninja-build/ninja.git</a></p>
+<li><p>git clone <a href="git://github.com/ninja-build/ninja.git">git://github.com/ninja-build/ninja.git</a></p>
 </li>
 <li><p>cmake 编译或者<a href="https://github.com/ninja-build/ninja/releases" target="_blank" rel="noopener">https://github.com/ninja-build/ninja/releases</a>下载binary</p>
 </li>
 </ol>
 <h2 id="编译问题"><a href="#编译问题" class="headerlink" title="编译问题"></a>编译问题</h2><p>warning: A compatible version of re2c (&gt;= 0.11.3) was not found; changes to src/*.in.cc will not affect your build.<br>wrote build.ninja.</p>
 <p>安装re2c <a href="http://re2c.org/" target="_blank" rel="noopener">http://re2c.org/</a></p>
+<h2 id="build-config"><a href="#build-config" class="headerlink" title="build config"></a>build config</h2><h3 id="win"><a href="#win" class="headerlink" title="win"></a>win</h3><ol>
+<li>Microsoft Message Compiler (mc.exe)</li>
+<li></li>
+</ol>
 ]]></content>
       <categories>
         <category>技术</category>
@@ -70,26 +183,49 @@
       </tags>
   </entry>
   <entry>
-    <title>字体</title>
-    <url>/2020/04/20/%E5%AD%97%E4%BD%93/</url>
-    <content><![CDATA[<h3 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h3><ol>
-<li><p>SFNT: 文件字体格式(可缩放字体和样条字体)，最初是Macintosh TrueType字体开发的。 现有字体 <a href="https://en.wikipedia.org/wiki/TrueType" target="_blank" rel="noopener">TrueType</a>、<a href="https://en.wikipedia.org/wiki/OpenType" target="_blank" rel="noopener">OpenType</a>、<a href="https://en.wikipedia.org/wiki/Web_Open_Font_Format" target="_blank" rel="noopener">Web Open Font Format</a></p>
+    <title>c++序列化</title>
+    <url>/2020/03/25/c++%E5%BA%8F%E5%88%97%E5%8C%96/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>botan 编译</title>
+    <url>/2020/03/24/botan%20%E7%BC%96%E8%AF%91/</url>
+    <content><![CDATA[<p><img src="%E5%AF%86%E7%A0%81%E5%AD%A6.png" alt="密码学"></p>
+<p>“C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat”</p>
+<p>python configure.py –cc=msvc –msvc-runtime=MT –disable-shared-library –cpu=x86_32 –cc-bin=”‘C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\cl.exe’”</p>
+<p>–list-modules</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>编译</tag>
+        <tag>windows</tag>
+        <tag>第三方库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Microsoft Defender ATP</title>
+    <url>/2020/03/25/Microsoft%20Defender%20ATP/</url>
+    <content><![CDATA[<h3 id="Microsoft-Defender-ATP"><a href="#Microsoft-Defender-ATP" class="headerlink" title="Microsoft Defender ATP"></a>Microsoft Defender ATP</h3><p> <img src="MicrosoftDefenderATP.svg" alt="xmind"></p>
+<h3 id="Exploit-Protection"><a href="#Exploit-Protection" class="headerlink" title="Exploit Protection"></a>Exploit Protection</h3><ol>
+<li><p>任意代码保护(ACG) Arbitrary Code Guard<br><a href="https://www.anquanke.com/post/id/145884" target="_blank" rel="noopener">https://www.anquanke.com/post/id/145884</a></p>
 </li>
-<li><p>字体专利之争 Adobe 霸主,  Apple 和 MS 合作，Type 1 被迫开放所有人使用.</p>
+<li><p>阻止远程图像(Block remote images) 通过发送待远程图片的邮件，根据服务器图片的访问情况，确认邮件查阅</p>
 </li>
-<li><p>微软创建字体 Times New Roman(与Times Roman兼容), Arial(与Helvetica兼容)和Courier New(与Courier兼容)</p>
+<li><p>阻止不受信任的字体(Block untrusted fonts)</p>
 </li>
-<li><p>微软推出clearType(亚像素渲染技术)</p>
+<li><p>数据执行保护(DEP) DEP 的主要优点是可以帮助防止数据页执行代码</p>
 </li>
-<li><p>OpenType  微软TrueType Open(和Adobe 合作) 印刷行为 10000 多种字体，Adobe占了三分之一 除Cambria Math外，还提供了三种免费字体：Asana-Math，Neo Euler和XITS 支持数学</p>
+<li><p>导出地址筛选(EAF)</p>
 </li>
-<li><p>WOFF 压缩网络字体Google主导 W3C标准</p>
-</li>
-</ol>
-<h3 id="文件格式"><a href="#文件格式" class="headerlink" title="文件格式"></a>文件格式</h3><ol>
-<li><p>TrueType Collection .ttcf格式</p>
-</li>
-<li><p>字体裁剪工具</p>
+<li><p>强制ASLR</p>
 </li>
 </ol>
 ]]></content>
@@ -97,13 +233,12 @@
         <category>技术</category>
       </categories>
       <tags>
-        <tag>字体</tag>
-        <tag>裁剪字体</tag>
-        <tag>SFNTLY</tag>
+        <tag>C++</tag>
+        <tag>Windows安全</tag>
       </tags>
   </entry>
   <entry>
-    <title>windows_v7.1_samples</title>
+    <title>时间函数性能</title>
     <url>/2020/04/14/windows-v7-1-samples/</url>
     <content><![CDATA[<h3 id="时间函数"><a href="#时间函数" class="headerlink" title="时间函数"></a>时间函数</h3><ol>
 <li><p>GetTickCount()  精度1毫秒</p>
@@ -162,41 +297,25 @@
       </tags>
   </entry>
   <entry>
-    <title>C++ const mutable volatile</title>
-    <url>/2020/04/08/C++%E5%85%B3%E9%94%AE%E8%AF%8D/</url>
-    <content><![CDATA[<h2 id="修饰关键词"><a href="#修饰关键词" class="headerlink" title="修饰关键词"></a>修饰关键词</h2><h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>4种修饰</p>
-<h3 id="mutable"><a href="#mutable" class="headerlink" title="mutable"></a>mutable</h3><p>适用场景: 当一个成员函数被从const 修饰后，需要修改某个成员属性 mutable 修饰属性</p>
-<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>三大特性：</p>
-<ul>
-<li>易变性</li>
-<li>不可优化性</li>
-<li>顺序性 (volatile修饰的变量不会被编译器优化乱序，但是非volatile修饰的变量可能会跟volatile变量乱序，依赖于cpu指令,不可以作为线程顺序控制)</li>
-</ul>
-<p>Java的关键词增强较多不一样<br><a href="http://hedengcheng.com/?p=725" target="_blank" rel="noopener">http://hedengcheng.com/?p=725</a></p>
-<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><ul>
-<li>C语言</li>
-</ul>
-<ol>
-<li><p>静态局部变量(全局数据区) 用于函数体内部修饰变量，这种变量的生存期长于该函数</p>
-</li>
-<li><p>静态全局变量和静态全局函数 定义在函数体外，用于修饰全局变量，表示该变量只在本文件可见</p>
-</li>
-</ol>
-<ul>
-<li>C++</li>
-</ul>
-<ol>
-<li><p>静态数据成员 类成员 每个class有一份</p>
-</li>
-<li><p>静态成员函数 (不可访问普通成员)</p>
-</li>
-</ol>
-]]></content>
+    <title>windows安全(1)</title>
+    <url>/2020/03/24/windows%E5%AE%89%E5%85%A81/</url>
+    <content><![CDATA[<h3 id="1-用户权限"><a href="#1-用户权限" class="headerlink" title="1.用户权限"></a>1.用户权限</h3><p>管理员Administrator账户        Administrators组<br>权限：</p>
+<p>标准用户（受限用户）              user组</p>
+<p>来宾用户                                   guest组</p>
+<p>密码存在sam数据库</p>
+<h3 id="2-sid"><a href="#2-sid" class="headerlink" title="2.sid"></a>2.sid</h3><p>查看Sid<br>whoami  /user</p>
+<p>SID                      组                      用途<br>s-1-1-0               everyone<br>s-1-2-0               local<br>s-1-3-0               Creator owner<br>s-1-3-1               Creator Group</p>
+<h3 id="3-ACL-访问控制列表-Access-Control-Lists"><a href="#3-ACL-访问控制列表-Access-Control-Lists" class="headerlink" title="3.ACL  访问控制列表(Access Control Lists)"></a>3.ACL  访问控制列表(Access Control Lists)</h3><p>登录给一个安全访问令牌（SAT） TOKEN 包含sid信息、</p>
+<p>每个对象都有Acl    ACL包含了sid的信息</p>
+<p>DACL 是安全对象(securable object)的一个属性</p>
+<p>SACL 是系统中的一个列表，用来记录指定用户（组）、指定类型的访问的访问结果，并记录。</p>
+<h3 id="4-ACE-访问控制项-Access-Control-ITEM"><a href="#4-ACE-访问控制项-Access-Control-ITEM" class="headerlink" title="4.ACE 访问控制项 (Access Control ITEM)"></a>4.ACE 访问控制项 (Access Control ITEM)</h3><h3 id="5-没有UAC文件系统和注册表虚拟化技术"><a href="#5-没有UAC文件系统和注册表虚拟化技术" class="headerlink" title="5.没有UAC文件系统和注册表虚拟化技术"></a>5.没有UAC文件系统和注册表虚拟化技术</h3><h3 id="6-应用程序清单文件"><a href="#6-应用程序清单文件" class="headerlink" title="6.应用程序清单文件"></a>6.应用程序清单文件</h3><p>1、RunAsInvoker<br>2、RunAsHighest<br>3、RunAsAdmin</p>
+<h3 id="7-组域"><a href="#7-组域" class="headerlink" title="7.组域"></a>7.组域</h3>]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>C++</tag>
+        <tag>windows安全</tag>
       </tags>
   </entry>
   <entry>
@@ -204,6 +323,7 @@
     <url>/2020/04/07/windows%E4%B8%8BhttpGet%E8%AF%B7%E6%B1%82/</url>
     <content><![CDATA[<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;WinInet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">"wininet.lib"</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">namespace</span> WinInet</span><br><span class="line">&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> region HttpGet</span></span><br><span class="line">    <span class="keyword">static</span>  __inline</span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="title">ParserUrl</span><span class="params">(<span class="built_in">string</span> Url, <span class="built_in">string</span>&amp; Host, <span class="built_in">string</span>&amp; Filename, WORD&amp; Port)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Port = INTERNET_DEFAULT_HTTP_PORT;</span><br><span class="line">        <span class="keyword">if</span> (Url.substr(<span class="number">0U</span>, <span class="number">7</span>) != <span class="string">"http://"</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Url = Url.substr(<span class="number">7</span>);</span><br><span class="line">        <span class="keyword">int</span>  HostLen = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (<span class="keyword">int</span>)Url.<span class="built_in">size</span>(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (Url[i] == (<span class="string">':'</span>) || Url[i] == (<span class="string">'/'</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            HostLen++;</span><br><span class="line">        &#125;</span><br><span class="line">        Host = Url.substr(<span class="number">0</span>, HostLen);</span><br><span class="line">        Url = Url.substr(HostLen);</span><br><span class="line">        <span class="keyword">if</span> (Url[<span class="number">0</span>] == <span class="string">':'</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; (<span class="keyword">int</span>)Url.<span class="built_in">size</span>(); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (Url[i] == (<span class="string">'/'</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">string</span> strPort = Url.substr(<span class="number">0</span>, i);</span><br><span class="line">                    Port = atoi(strPort.c_str());</span><br><span class="line">                    Url = Url.substr(i);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Filename = Url;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> _inline</span><br><span class="line">        <span class="function"><span class="built_in">string</span>  <span class="title">HttpGet</span><span class="params">(<span class="built_in">string</span> Url, DWORD&amp; httpStatus)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span>              ret;</span><br><span class="line">        DWORD               byteread = <span class="number">0</span>;</span><br><span class="line">        HINTERNET           m_hInternetSession = <span class="literal">NULL</span>;</span><br><span class="line">        HINTERNET           m_hHttpConnection = <span class="literal">NULL</span>;</span><br><span class="line">        HINTERNET           m_hHttpFile = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>                <span class="built_in">buffer</span>[<span class="number">1024</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        LPCSTR              ppszAcceptTypes[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">        DWORD   dwContentLength = <span class="number">0</span>, dwIndex = <span class="number">0</span>, filesize = <span class="number">0xffffffff</span>, totalSize = <span class="number">0</span>;</span><br><span class="line">        DWORD   dwBuffLen = <span class="keyword">sizeof</span>(dwContentLength);</span><br><span class="line"></span><br><span class="line">        DWORD dwFlags = INTERNET_FLAG_RELOAD;</span><br><span class="line">        DWORD TimeOut = <span class="number">15000</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span>  m_sServer, m_sObject;</span><br><span class="line">        WORD m_nPort = INTERNET_DEFAULT_HTTP_PORT;</span><br><span class="line">        httpStatus = DWORD(<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">if</span> (!ParserUrl(Url, m_sServer, m_sObject, m_nPort))</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        LPCSTR      headers = (<span class="string">"\r\n\r\n"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hInternetSession = ::InternetOpenA((<span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1"</span>), INTERNET_OPEN_TYPE_PRECONFIG, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_CONNECT_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_DATA_RECEIVE_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_DATA_SEND_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (m_hInternetSession == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hHttpConnection = ::InternetConnectA(m_hInternetSession, m_sServer.c_str(), m_nPort, <span class="literal">NULL</span>,</span><br><span class="line">            <span class="literal">NULL</span>, INTERNET_SERVICE_HTTP, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpConnection == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line">        <span class="comment">//Issue the request to read the file</span></span><br><span class="line"></span><br><span class="line">        ppszAcceptTypes[<span class="number">0</span>] = (<span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span>);  <span class="comment">//We support accepting any mime file type since this is a simple download of a file</span></span><br><span class="line">        ppszAcceptTypes[<span class="number">1</span>] = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hHttpFile = HttpOpenRequestA(m_hHttpConnection, <span class="string">"GET"</span>, m_sObject.c_str(), <span class="string">"HTTP/1.0"</span>, <span class="literal">NULL</span>, ppszAcceptTypes, dwFlags, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpFile == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!::HttpSendRequestA(m_hHttpFile, headers, <span class="built_in">strlen</span>(headers), <span class="literal">NULL</span>, <span class="number">0</span>))</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        dwBuffLen = <span class="keyword">sizeof</span>(httpStatus);</span><br><span class="line">        <span class="keyword">if</span> ((!HttpQueryInfoA(m_hHttpFile, HTTP_QUERY_STATUS_CODE | HTTP_QUERY_FLAG_NUMBER, &amp;httpStatus, &amp;dwBuffLen,</span><br><span class="line">            &amp;dwIndex)) || (httpStatus != HTTP_STATUS_OK))</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line">        dwBuffLen = <span class="keyword">sizeof</span>(dwContentLength);</span><br><span class="line">        <span class="keyword">if</span> ((HttpQueryInfoA(m_hHttpFile, HTTP_QUERY_CONTENT_LENGTH | HTTP_QUERY_FLAG_NUMBER, &amp;dwContentLength, &amp;dwBuffLen,</span><br><span class="line">            &amp;dwIndex)))</span><br><span class="line">        &#123;</span><br><span class="line">            filesize = dwContentLength;</span><br><span class="line">            ret.reserve(dwContentLength);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            DWORD byteread = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (!InternetReadFile(m_hHttpFile, <span class="built_in">buffer</span>, <span class="keyword">sizeof</span>(<span class="built_in">buffer</span>), &amp;byteread) || (byteread == <span class="number">0</span>))</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            totalSize += byteread;</span><br><span class="line">            ULONG written = <span class="number">0</span>;</span><br><span class="line">            ret += <span class="built_in">string</span>(<span class="built_in">buffer</span>, byteread);</span><br><span class="line">            <span class="comment">//ret-&gt;Write(buffer, byteread, &amp;written);</span></span><br><span class="line">            <span class="keyword">if</span> (totalSize &gt;= filesize)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    EXIT:</span><br><span class="line">        <span class="keyword">if</span> (m_hInternetSession)</span><br><span class="line">            InternetCloseHandle(m_hInternetSession);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpConnection)</span><br><span class="line">            InternetCloseHandle(m_hHttpConnection);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpFile)</span><br><span class="line">            InternetCloseHandle(m_hHttpFile);</span><br><span class="line">        <span class="keyword">return</span>  ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> endregion HttpGet</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>使用方法</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">DWORD httpStatus;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">string</span> buff = WinInet::HttpGet(w2a(url.c_str()), httpStatus);</span><br><span class="line">  <span class="keyword">if</span> (httpStatus != <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
@@ -213,6 +333,358 @@
         <tag>windows</tag>
         <tag>网络</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>windows安全(2)</title>
+    <url>/2020/05/06/windows%E5%AE%89%E5%85%A82/</url>
+    <content><![CDATA[<h2 id="MSDN"><a href="#MSDN" class="headerlink" title="MSDN"></a>MSDN</h2><p><a href="https://docs.microsoft.com/zh-cn/windows/win32/secauthz/authorization-portal" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/win32/secauthz/authorization-portal</a></p>
+<ol>
+<li><p>SID_NAME_USE SID类型</p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> _SID_NAME_USE &#123;</span><br><span class="line">    SidTypeUser = <span class="number">1</span>,</span><br><span class="line">    SidTypeGroup,</span><br><span class="line">    SidTypeDomain,</span><br><span class="line">    SidTypeAlias,</span><br><span class="line">    SidTypeWellKnownGroup,</span><br><span class="line">    SidTypeDeletedAccount,</span><br><span class="line">    SidTypeInvalid,</span><br><span class="line">    SidTypeUnknown,</span><br><span class="line">    SidTypeComputer,</span><br><span class="line">    SidTypeLabel</span><br><span class="line">&#125; SID_NAME_USE, *PSID_NAME_USE;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SECURITY_DESCRIPTOR</p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SECURITY_DESCRIPTOR</span> &#123;</span></span><br><span class="line">BYTE  Revision;</span><br><span class="line">BYTE  Sbz1;</span><br><span class="line">SECURITY_DESCRIPTOR_CONTROL Control;</span><br><span class="line">PSID Owner;</span><br><span class="line">PSID Group;</span><br><span class="line">PACL Sacl;</span><br><span class="line">PACL Dacl;</span><br><span class="line">&#125; SECURITY_DESCRIPTOR, *PISECURITY_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ACL</p>
+<ul>
+<li><p>DACL is a pointer to a discretionary ACL</p>
+</li>
+<li><p>SACL Sacl - is a pointer to a system ACL</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">ACL</span> &#123;</span></span><br><span class="line">    BYTE  AclRevision;</span><br><span class="line">    BYTE  Sbz1;</span><br><span class="line">    WORD   AclSize;</span><br><span class="line">    WORD   AceCount;</span><br><span class="line">    WORD   Sbz2;</span><br><span class="line">&#125; ACL;</span><br><span class="line"><span class="keyword">typedef</span> ACL *PACL;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>ACL_SIZE_INFORMATION</p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">ACL_SIZE_INFORMATION</span> &#123;</span></span><br><span class="line">    DWORD AceCount;</span><br><span class="line">    DWORD AclBytesInUse;</span><br><span class="line">    DWORD AclBytesFree;</span><br><span class="line">&#125; ACL_SIZE_INFORMATION;</span><br><span class="line"><span class="keyword">typedef</span> ACL_SIZE_INFORMATION *PACL_SIZE_INFORMATION;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>LookupAccountName</p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">SID_NAME_USE snuType;</span><br><span class="line">LPVOID pUserSID = <span class="literal">NULL</span>;   <span class="comment">// 都置为0</span></span><br><span class="line">DWORD cbUserSID = <span class="number">0</span>;</span><br><span class="line">LPVOID szDomain = <span class="literal">NULL</span>;</span><br><span class="line">DWORD cbUserSID = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>AddAce AddAccessAllowedAceEx</p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//https://docs.microsoft.com/en-us/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedaceex</span></span><br><span class="line"><span class="function">BOOL <span class="title">AddAccessAllowedAceEx</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">PACL  pAcl,</span></span></span><br><span class="line"><span class="function"><span class="params">DWORD dwAceRevision,</span></span></span><br><span class="line"><span class="function"><span class="params">DWORD AceFlags,</span></span></span><br><span class="line"><span class="function"><span class="params">DWORD AccessMask,</span></span></span><br><span class="line"><span class="function"><span class="params">PSID  pSid</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SID</p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SID_DEFINED</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SID_DEFINED</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SID</span> &#123;</span></span><br><span class="line">BYTE  Revision;</span><br><span class="line">BYTE  SubAuthorityCount;</span><br><span class="line">SID_IDENTIFIER_AUTHORITY IdentifierAuthority;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> MIDL_PASS</span></span><br><span class="line">[size_is(SubAuthorityCount)] DWORD SubAuthority[*];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span> <span class="comment">// MIDL_PASS</span></span></span><br><span class="line">DWORD SubAuthority[ANYSIZE_ARRAY];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// MIDL_PASS</span></span></span><br><span class="line">&#125; SID, *PISID;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>EXPLICIT_ACCESS</p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">EXPLICIT_ACCESS_W</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    DWORD        grfAccessPermissions;</span><br><span class="line">    ACCESS_MODE  grfAccessMode;</span><br><span class="line">    DWORD        grfInheritance;</span><br><span class="line">    TRUSTEE_W    Trustee;</span><br><span class="line">&#125; EXPLICIT_ACCESS_W, *PEXPLICIT_ACCESS_W, EXPLICIT_ACCESSW, *PEXPLICIT_ACCESSW;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> _ACCESS_MODE</span><br><span class="line">&#123;</span><br><span class="line">    NOT_USED_ACCESS = <span class="number">0</span>,</span><br><span class="line">    GRANT_ACCESS,</span><br><span class="line">    SET_ACCESS,</span><br><span class="line">    DENY_ACCESS,</span><br><span class="line">    REVOKE_ACCESS,</span><br><span class="line">    SET_AUDIT_SUCCESS,</span><br><span class="line">    SET_AUDIT_FAILURE</span><br><span class="line">&#125; ACCESS_MODE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">TRUSTEE_W</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">TRUSTEE_W</span>          *<span class="title">pMultipleTrustee</span>;</span></span><br><span class="line">    MULTIPLE_TRUSTEE_OPERATION  MultipleTrusteeOperation;</span><br><span class="line">    TRUSTEE_FORM                TrusteeForm;</span><br><span class="line">    TRUSTEE_TYPE                TrusteeType;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __midl</span></span><br><span class="line">    [switch_is(TrusteeForm)]</span><br><span class="line">    <span class="keyword">union</span></span><br><span class="line">    &#123;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_NAME)]</span><br><span class="line">        LPWSTR                  ptstrName;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_SID)]</span><br><span class="line">        SID                    *pSid;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_OBJECTS_AND_SID)]</span><br><span class="line">        OBJECTS_AND_SID        *pObjectsAndSid;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_OBJECTS_AND_NAME)]</span><br><span class="line">        OBJECTS_AND_NAME_W     *pObjectsAndName;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    LPWSTR                      ptstrName;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125; TRUSTEE_W, *PTRUSTEE_W, TRUSTEEW, *PTRUSTEEW;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>windows安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows安全性demo</title>
+    <url>/2020/05/08/windows%E5%AE%89%E5%85%A8%E6%80%A7demo/</url>
+    <content><![CDATA[<h2 id="账户"><a href="#账户" class="headerlink" title="账户"></a>账户</h2><ol>
+<li><p>MicroSoft账户 管理界面在 云端 类似 Mircosoft\23521@xx.com</p>
+</li>
+<li><p>本地账户</p>
+</li>
+</ol>
+<h2 id="删除添加用户账户-组账户"><a href="#删除添加用户账户-组账户" class="headerlink" title="删除添加用户账户 组账户"></a>删除添加用户账户 组账户</h2>]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>windows安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>window安全相关</title>
+    <url>/2020/03/25/window%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<p>整理于 <a href="http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin" target="_blank" rel="noopener">http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin</a></p>
+<p> <img src="https://note.youdao.com/yws/public/resource/0a79a67d0cd6f714303f83f564ba0dac/xmlnote/0A94AF3BCA574FCA9324E04A33A843E7/12904" alt="xmind"></p>
+<h2 id="判断是否管理员权限"><a href="#判断是否管理员权限" class="headerlink" title="判断是否管理员权限"></a>判断是否管理员权限</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Windows API IsUserAnAdmin()</span></span><br><span class="line"><span class="function">BOOL <span class="title">Am_I_In_Admin_Group</span><span class="params">(BOOL bCheckAdminMode <span class="comment">/*= FALSE*/</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    BOOL   fAdmin;</span><br><span class="line">    HANDLE  hThread;</span><br><span class="line">    TOKEN_GROUPS *ptg = <span class="literal">NULL</span>;</span><br><span class="line">    DWORD  cbTokenGroups;</span><br><span class="line">    DWORD  dwGroup;</span><br><span class="line">    PSID   psidAdmin;</span><br><span class="line">    SID_IDENTIFIER_AUTHORITY SystemSidAuthority= SECURITY_NT_AUTHORITY;</span><br><span class="line">    <span class="keyword">if</span> ( !OpenThreadToken ( GetCurrentThread(), TOKEN_QUERY, FALSE, &amp;hThread))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( GetLastError() == ERROR_NO_TOKEN)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (! OpenProcessToken ( GetCurrentProcess(), TOKEN_QUERY, </span><br><span class="line">                &amp;hThread))</span><br><span class="line">                <span class="keyword">return</span> ( FALSE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( GetTokenInformation ( hThread, TokenGroups, <span class="literal">NULL</span>, <span class="number">0</span>, &amp;cbTokenGroups))</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( GetLastError() != ERROR_INSUFFICIENT_BUFFER)</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( ! ( ptg= (TOKEN_GROUPS*)_alloca ( cbTokenGroups))) </span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( !GetTokenInformation ( hThread, TokenGroups, ptg, cbTokenGroups,</span><br><span class="line">        &amp;cbTokenGroups) )</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( ! AllocateAndInitializeSid ( &amp;SystemSidAuthority, <span class="number">2</span>, </span><br><span class="line">        SECURITY_BUILTIN_DOMAIN_RID, </span><br><span class="line">        DOMAIN_ALIAS_RID_ADMINS,</span><br><span class="line">        <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, &amp;psidAdmin) )</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    fAdmin= FALSE;</span><br><span class="line">    <span class="keyword">for</span> ( dwGroup= <span class="number">0</span>; dwGroup &lt; ptg-&gt;GroupCount; dwGroup++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( EqualSid ( ptg-&gt;Groups[dwGroup].Sid, psidAdmin))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(bCheckAdminMode)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>((ptg-&gt;Groups[dwGroup].Attributes) &amp; SE_GROUP_ENABLED)</span><br><span class="line">                &#123;</span><br><span class="line">                    fAdmin = TRUE;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                fAdmin = TRUE;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    FreeSid ( psidAdmin);</span><br><span class="line">    <span class="keyword">return</span> ( fAdmin);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意只有原来是Disable的权限才可以提成Enable， 如果原来就没有这个权限， 是提不上去的。</span></span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">EnablePrivilege</span><span class="params">(HANDLE hToken, LPCTSTR lpszPrivilegeName)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TOKEN_PRIVILEGES tkp = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    BOOL bRet = LookupPrivilegeValue( <span class="literal">NULL</span>, lpszPrivilegeName, &amp;tkp.Privileges[<span class="number">0</span>].Luid );</span><br><span class="line">    <span class="keyword">if</span>(!bRet) <span class="keyword">return</span> FALSE;</span><br><span class="line"></span><br><span class="line">    tkp.PrivilegeCount = <span class="number">1</span>;</span><br><span class="line">    tkp.Privileges[<span class="number">0</span>].Attributes = SE_PRIVILEGE_ENABLED;</span><br><span class="line">    bRet = AdjustTokenPrivileges( hToken, FALSE, &amp;tkp, <span class="keyword">sizeof</span>(tkp), <span class="literal">NULL</span>, <span class="literal">NULL</span> );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bRet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何判断用户的进程完整性级别"><a href="#如何判断用户的进程完整性级别" class="headerlink" title="如何判断用户的进程完整性级别"></a>如何判断用户的进程完整性级别</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> CIntegrityLevel::Print(<span class="built_in">std</span>::wostream&amp; os) <span class="keyword">const</span></span><br><span class="line">&#123;</span><br><span class="line">    SID* pSid = (SID*)m_pIntegrity-&gt;Label.Sid;</span><br><span class="line">    DWORD rid = pSid-&gt;SubAuthority[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    LPCTSTR lpszIntegrity = <span class="string">L"Unknown"</span>;</span><br><span class="line">    <span class="keyword">switch</span> (rid)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_UNTRUSTED_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Untrusted"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_LOW_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Low"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_MEDIUM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Medium"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_MEDIUM_PLUS_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Medium +"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_HIGH_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"High"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_SYSTEM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"System"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"XXXXX"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    os &lt;&lt; <span class="string">L"Integrity: "</span> &lt;&lt; lpszIntegrity &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何指定程序默认启动运行的级别"><a href="#如何指定程序默认启动运行的级别" class="headerlink" title="如何指定程序默认启动运行的级别?"></a>如何指定程序默认启动运行的级别?</h2><p>在VC里配置Manifest文件.</p>
+<ul>
+<li><p>asInvoker：默认选项，新的进程将简单地继承其父进程的访问令牌</p>
+</li>
+<li><p>highestAvailable：应用程序会选择该用户允许范围内尽可能高的权限。对于标准用户来说，该选项与asInvoker一样，而对于管理员来说，这就意味着请求Admin令牌。</p>
+</li>
+<li><p>requireAdministrator：应用程序需要Admin令牌。运行该程序时，标准用户将要输入管理员的用户名和密码，而管理员则要在弹出的确认对话框中进行确认。</p>
+</li>
+<li><p><img src="https://note.youdao.com/yws/public/resource/df3ab20df5c03ba0ad1faef9f79e2f72/xmlnote/DD710385513C4681AA35C58A73D66AA4/12900" alt="AAA"></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>windows安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>字体</title>
+    <url>/2020/04/20/%E5%AD%97%E4%BD%93/</url>
+    <content><![CDATA[<h3 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h3><ol>
+<li><p>SFNT: 文件字体格式(可缩放字体和样条字体)，最初是Macintosh TrueType字体开发的。 现有字体 <a href="https://en.wikipedia.org/wiki/TrueType" target="_blank" rel="noopener">TrueType</a>、<a href="https://en.wikipedia.org/wiki/OpenType" target="_blank" rel="noopener">OpenType</a>、<a href="https://en.wikipedia.org/wiki/Web_Open_Font_Format" target="_blank" rel="noopener">Web Open Font Format</a></p>
+</li>
+<li><p>字体专利之争 Adobe 霸主,  Apple 和 MS 合作，Type 1 被迫开放所有人使用.</p>
+</li>
+<li><p>微软创建字体 Times New Roman(与Times Roman兼容), Arial(与Helvetica兼容)和Courier New(与Courier兼容)</p>
+</li>
+<li><p>微软推出clearType(亚像素渲染技术)</p>
+</li>
+<li><p>OpenType  微软TrueType Open(和Adobe 合作) 印刷行为 10000 多种字体，Adobe占了三分之一 除Cambria Math外，还提供了三种免费字体：Asana-Math，Neo Euler和XITS 支持数学</p>
+</li>
+<li><p>WOFF 压缩网络字体Google主导 W3C标准</p>
+</li>
+</ol>
+<h3 id="文件格式"><a href="#文件格式" class="headerlink" title="文件格式"></a>文件格式</h3><ol>
+<li><p>TrueType Collection .ttcf格式</p>
+</li>
+<li><p>字体裁剪工具</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>字体</tag>
+        <tag>裁剪字体</tag>
+        <tag>SFNTLY</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows安全性</title>
+    <url>/2020/05/07/windows%E5%AE%89%E5%85%A8%E6%80%A7/</url>
+    <content><![CDATA[<h2 id="Antimalware-Scan-Interface-AMSI"><a href="#Antimalware-Scan-Interface-AMSI" class="headerlink" title="Antimalware Scan Interface AMSI"></a>Antimalware Scan Interface <a href="https://docs.microsoft.com/zh-cn/windows/win32/amsi/antimalware-scan-interface-portal" target="_blank" rel="noopener">AMSI</a></h2><p>Windows反恶意软件扫描接口（AMSI）是一种通用接口标准，可让您的应用程序和服务与计算机上存在的任何反恶意软件产品集成。</p>
+<h2 id="Authentication-认证"><a href="#Authentication-认证" class="headerlink" title="Authentication 认证"></a>Authentication 认证</h2><ol>
+<li><p>LSA身份验证</p>
+</li>
+<li><p>凭据管理</p>
+<p> 域凭证 域凭据的秘密部分（密码）受操作系统保护。只有使用LSA在进程中运行的代码才能读取和写入域凭据。应用程序仅限于编写域凭据</p>
+<p> 通用凭证 通用凭证可以由用户进程读取和写入</p>
+<p> 用户名格式</p>
+<ul>
+<li><a href="mailto:UserName@Example.Microsoft.com">UserName@Example.Microsoft.com</a></li>
+<li>DOMAIN \ UserName</li>
+</ul>
+</li>
+<li><p>智能卡身份验证</p>
+</li>
+<li><p>网络提供程序</p>
+</li>
+<li><p>安全支持提供程序接口(SSPI)</p>
+</li>
+<li><p>Winlogon</p>
+</li>
+<li><p>GINA</p>
+</li>
+</ol>
+<h2 id="Authorization-授权"><a href="#Authorization-授权" class="headerlink" title="Authorization 授权"></a>Authorization 授权</h2><h3 id="Access-Control"><a href="#Access-Control" class="headerlink" title="Access Control"></a>Access Control</h3><pre><code>[美国国防部定义的C2级安全性](https://docs.microsoft.com/zh-cn/windows/win32/secauthz/c2-level-security)</code></pre><h4 id="访问控制模型"><a href="#访问控制模型" class="headerlink" title="访问控制模型"></a>访问控制模型</h4><ol>
+<li><p>Access tokens</p>
+</li>
+<li><p>Security descriptors</p>
+<p> 每个进程都拥有用户登陆时创建的访问令牌。<br> 访问令牌中包含安全标识符<br> 安全描述符中包含用户的帐户以及用户所属的任何组帐户</p>
+</li>
+<li><p>ACL 访问控制列表</p>
+<p> DACL<br> SACL  进程必须要有 SE_SECURITY_NAME特权</p>
+<p> ACE   Access Rights and Access Masks</p>
+<table>
+<thead>
+<tr>
+<th>ACE类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Access-denied ACE</td>
+<td>Used in a discretionary access control list (DACL) to deny access rights to a trustee.</td>
+</tr>
+<tr>
+<td>Access-allowed ACE</td>
+<td>Used in a DACL to allow access rights to a trustee.</td>
+</tr>
+<tr>
+<td>System-audit ACE</td>
+<td>Used in a system access control list (SACL) to generate an audit record when the trustee attempts to exercise the specified access rights.</td>
+</tr>
+</tbody></table>
+<p> ==文件目录特有==</p>
+<table>
+<thead>
+<tr>
+<th>ACE类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Access-denied object ACE</td>
+<td>Used in a DACL to deny a trustee access to a property or property set on the object, or to limit ACE inheritance to a specified type of child object. Uses the ACCESS_DENIED_OBJECT_ACE structure.</td>
+</tr>
+<tr>
+<td>Access-allowed object ACE</td>
+<td>Used in a DACL to allow a trustee access to a property or property set on the object, or to limit ACE inheritance to a specified type of child object. Uses the ACCESS_ALLOWED_OBJECT_ACE structure.</td>
+</tr>
+<tr>
+<td>SSystem-audit object ACE</td>
+<td>Used in a SACL to log a trustee’s attempts to access a property or property set on the object, or to limit ACE inheritance to a specified type of child object. Uses the SYSTEM_AUDIT_OBJECT_ACE structure.</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>Trustees 委托人</p>
+<p> 用户账户、组账户、登录会话</p>
+</li>
+<li><p>Access Rights and Access Masks 访问权限和访问掩码</p>
+<ul>
+<li>Generic access rights 通用访问权限<ul>
+<li>GENERIC_ALL</li>
+<li>GENERIC_EXECUTE</li>
+<li>GENERIC_READ</li>
+<li>GENERIC_WRITE</li>
+</ul>
+</li>
+<li>Standard access rights 标准访问权限<ul>
+<li>DELETE</li>
+<li>READ_CONTROL</li>
+<li>SYNCHRONIZE</li>
+<li>WRITE_DAC</li>
+<li>WRITE_OWNER</li>
+</ul>
+</li>
+<li>SACL access right SACL访问权限<ol>
+<li>进程 AdjustTokenPrivileges 启用 SE_SECURITY_NAME</li>
+<li>Request the ACCESS_SYSTEM_SECURITY access right when you open a handle to the object.</li>
+<li>Get or set the object’s SACL by using a function such as GetSecurityInfo or SetSecurityInfo.</li>
+<li>进程 AdjustTokenPrivileges 禁用 SE_SECURITY_NAME</li>
+</ol>
+</li>
+<li>Directory services access rights 目录服务访问权限<ul>
+<li>ACTRL_DS_OPEN</li>
+<li>ACTRL_DS_CREATE_CHILD</li>
+<li>ACTRL_DS_DELETE_CHILD</li>
+<li>ACTRL_DS_LIST   枚举</li>
+<li>ACTRL_DS_READ_PROP</li>
+<li>ACTRL_DS_WRITE_PROP</li>
+<li>ACTRL_DS_SELF 仅在执行对象支持的经过验证的权限检查后才允许访问。此标志可以单独用于执行对象的所有已验证权限检查，也可以与特定已验证权限的标识符组合以仅执行该检查。</li>
+<li>ACTRL_DS_DELETE_TREE</li>
+<li>ACTRL_DS_LIST_OBJECT</li>
+<li>ACTRL_DS_CONTROL_ACCESS 仅在执行对象支持的扩展权限检查后才允许访问。该标志可以单独用于对对象执行所有扩展权限检查，也可以与特定扩展权限的标识符组合以仅执行该检查。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>SID 安全描述符</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AllocateAndInitializeSid</td>
+<td>用指定数量的子权限分配和初始化SID。</td>
+</tr>
+<tr>
+<td>ConvertSidToStringSid</td>
+<td>将SID转换为适合于显示，存储或传输的字符串格式。</td>
+</tr>
+<tr>
+<td>ConvertStringSidToSid</td>
+<td>将字符串格式的SID转换为有效的功能性SID。</td>
+</tr>
+<tr>
+<td>CopySid</td>
+<td>将源SID复制到缓冲区。</td>
+</tr>
+<tr>
+<td>EqualPrefixSid</td>
+<td>测试两个SID前缀值是否相等。SID前缀是除最后一个子权限值以外的整个SID。</td>
+</tr>
+<tr>
+<td>EqualSid</td>
+<td>测试两个SID是否相等。它们必须完全匹配才能被视为相等。</td>
+</tr>
+<tr>
+<td>FreeSid</td>
+<td>使用AllocateAndInitializeSid函数释放先前分配的SID 。</td>
+</tr>
+<tr>
+<td>GetLengthSid</td>
+<td>检索SID的长度。</td>
+</tr>
+<tr>
+<td>GetSidIdentifierAuthority</td>
+<td>检索指向SID标识符权限的指针。</td>
+</tr>
+<tr>
+<td>GetSidLengthRequired</td>
+<td>检索存储具有指定数量的子权限的SID所需的缓冲区大小。</td>
+</tr>
+<tr>
+<td>GetSidSubAuthority</td>
+<td>检索指向SID中指定的子权限的指针。</td>
+</tr>
+<tr>
+<td>GetSidSubAuthorityCount</td>
+<td>检索SID中的子机构数。</td>
+</tr>
+<tr>
+<td>InitialSid</td>
+<td>初始化SID结构。</td>
+</tr>
+<tr>
+<td>IsValidSid</td>
+<td>通过验证修订号是否在已知范围内以及子授权机构的数量小于最大值来测试SID的有效性。</td>
+</tr>
+<tr>
+<td>LookupAccountName</td>
+<td>检索与指定帐户名对应的SID。</td>
+</tr>
+<tr>
+<td>LookupAccountSid</td>
+<td>检索与指定的SID对应的帐户名。</td>
+</tr>
+</tbody></table>
+<p> SID 结构</p>
+<pre><code>S - R - I - S
+S-1-5-32-544  本地Administrators组
+1 修订级别
+5 SECURITY_NT_AUTHORITY
+32 SECURITY_BUILTIN_DOMAIN_RID
+544 DOMAIN_ALIAS_RID_ADMINS</code></pre></li>
+</ol>
+<h3 id="Access-Control-Editor"><a href="#Access-Control-Editor" class="headerlink" title="Access Control Editor"></a>Access Control Editor</h3><h3 id="Client-Server-Access-Control"><a href="#Client-Server-Access-Control" class="headerlink" title="Client/Server Access Control"></a>Client/Server Access Control</h3><h3 id="Access-Control-for-Application-Resources"><a href="#Access-Control-for-Application-Resources" class="headerlink" title="Access Control for Application Resources"></a>Access Control for Application Resources</h3><h3 id="Mandatory-Integrity-Control"><a href="#Mandatory-Integrity-Control" class="headerlink" title="Mandatory Integrity Control"></a>Mandatory Integrity Control</h3><p>强制完整性控制</p>
+<p>Windows Vista定义了四个完整性级别：低(SID: S-1-16-4096)、中(SID: S-1-16-8192)、高(SID: S-1-16-12288)、系统(SID: S-1-16-16384)。默认情况下，普通用户启动的进程将获得中完整性级别，而提升的进程则获得高完整性级别。通过引入完整性级别，强制完整性控制可以分类隔离程序，使得沙箱化潜在危险程序（如进行网络通信的程序）成为可能。低完整性进程所拥有的访问权限少于那些拥有更高完整性级别的进程。</p>
+<h3 id="User-Account-Control"><a href="#User-Account-Control" class="headerlink" title="User Account Control"></a>User Account Control</h3>]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>windows安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>活法读书笔记</title>
+    <url>/2020/03/24/%E6%B4%BB%E6%B3%95/</url>
+    <content><![CDATA[<p>1.树立共同理想<br>2.不要急功近利<br>3.心怀敬畏之心<br>4.现场解决问题<br>5.选取愚直方式<br>6.公私要分明（公车就是公车）<br>7.能力*激情 =成果<br>8.一心为公（所有的成果都是社会的成果） 当然也是自己努力的成果</p>
+]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>企业发展</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>生活</title>
+    <url>/2020/03/25/%E7%94%9F%E6%B4%BB/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>知名博客集锦</title>
@@ -341,128 +813,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C++链接问题总结</title>
-    <url>/2020/03/25/C++%E9%93%BE%E6%8E%A5%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ol>
-<li>QT5: LNK1123: 转换到 COFF 期间失败: 文件无效或损坏<br> 解答： vs的某个exe和系统的exe不匹配<br> cvtres.exe<br> <a href="http://www.cnblogs.com/newpanderking/articles/3372969.html" target="_blank" rel="noopener">http://www.cnblogs.com/newpanderking/articles/3372969.html</a><br> 实在不行就安装vs的sp1补丁包</li>
-</ol>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>链接问题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++编译问题总结</title>
-    <url>/2020/03/25/C++%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ol>
-<li>C4819 快速解决方案<br> 使用正则表达式搜索 [^\x00-\x7F]替换为空<br> 主要原因： 源码中含有非当前编码集识别的字符</li>
-</ol>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>编译问题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ tuple输出</title>
-    <url>/2020/03/25/C++tuple/</url>
-    <content><![CDATA[<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// c++11</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tuple, <span class="keyword">size_t</span> N&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tuple_print</span> &#123;</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> Tuple&amp; t, <span class="built_in">std</span>::ostream&amp; os)</span> </span>&#123;</span><br><span class="line">       tuple_print&lt;Tuple, N - <span class="number">1</span>&gt;::<span class="built_in">print</span>(t, os);</span><br><span class="line">       os &lt;&lt; <span class="string">", "</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">get</span>&lt;N - <span class="number">1</span>&gt;(t);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 类模板的特化版本</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tuple&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tuple_print</span>&lt;Tuple, 1&gt; &#123;</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> Tuple&amp; t, <span class="built_in">std</span>::ostream&amp; os)</span> </span>&#123;</span><br><span class="line">       os &lt;&lt; <span class="string">"("</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">get</span>&lt;<span class="number">0</span>&gt;(t);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// operator&lt;&lt;</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="built_in">std</span>::ostream&amp; <span class="keyword">operator</span> &lt;&lt;(<span class="built_in">std</span>::ostream&amp; os, <span class="keyword">const</span> <span class="built_in">std</span>::tuple&lt;Args...&gt;&amp; t) &#123;</span><br><span class="line">   tuple_print&lt;<span class="keyword">decltype</span>(t), <span class="keyword">sizeof</span>...(Args)&gt;::<span class="built_in">print</span>(t, os);</span><br><span class="line">   <span class="keyword">return</span> os &lt;&lt; <span class="string">")"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//C++14</span></span><br><span class="line"><span class="comment">// 数组转换为 tuple</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Array, <span class="built_in">std</span>::<span class="keyword">size_t</span>... I&gt;</span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">a2t_impl</span><span class="params">(<span class="keyword">const</span> Array&amp; a, <span class="built_in">std</span>::index_sequence&lt;I...&gt;)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">std</span>::make_tuple(a[I]...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="built_in">std</span>::<span class="keyword">size_t</span> N, <span class="keyword">typename</span> Indices = <span class="built_in">std</span>::make_index_sequence&lt;N&gt;&gt;</span><br><span class="line"><span class="keyword">auto</span> a2t(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">array</span>&lt;T, N&gt;&amp; a) &#123;</span><br><span class="line">    <span class="keyword">return</span> a2t_impl(a, Indices&#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 漂亮地打印 tuple</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Ch</span>, <span class="title">class</span> <span class="title">Tr</span>, <span class="title">class</span> <span class="title">Tuple</span>, <span class="title">std</span>:</span>:<span class="keyword">size_t</span>... Is&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_tuple_impl</span><span class="params">(<span class="built_in">std</span>::basic_ostream&lt;Ch, Tr&gt;&amp; os,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">const</span> Tuple&amp; t,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="built_in">std</span>::index_sequence&lt;Is...&gt;)</span> </span>&#123;</span><br><span class="line">    ((os &lt;&lt; (Is == <span class="number">0</span> ? <span class="string">""</span> : <span class="string">", "</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">get</span>&lt;Is&gt;(t)), ...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Ch</span>, <span class="title">class</span> <span class="title">Tr</span>, <span class="title">class</span>... <span class="title">Args</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">auto</span>&amp; <span class="title">operator</span>&lt;&lt;(std::basic_ostream&lt;Ch, Tr&gt;&amp; os, const std::tuple&lt;Args...&gt;&amp; t) &#123;</span></span><br><span class="line"><span class="class">    os &lt;&lt; "(";</span></span><br><span class="line"><span class="class">    print_tuple_impl(os, t, std::index_sequence_for&lt;Args...&gt;&#123;&#125;);</span></span><br><span class="line"><span class="class">    return os &lt;&lt; ")";</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Microsoft Defender ATP</title>
-    <url>/2020/03/25/Microsoft%20Defender%20ATP/</url>
-    <content><![CDATA[<h3 id="Microsoft-Defender-ATP"><a href="#Microsoft-Defender-ATP" class="headerlink" title="Microsoft Defender ATP"></a>Microsoft Defender ATP</h3><p> <img src="MicrosoftDefenderATP.svg" alt="xmind"></p>
-<h3 id="Exploit-Protection"><a href="#Exploit-Protection" class="headerlink" title="Exploit Protection"></a>Exploit Protection</h3><ol>
-<li><p>任意代码保护(ACG) Arbitrary Code Guard<br><a href="https://www.anquanke.com/post/id/145884" target="_blank" rel="noopener">https://www.anquanke.com/post/id/145884</a></p>
-</li>
-<li><p>阻止远程图像(Block remote images) 通过发送待远程图片的邮件，根据服务器图片的访问情况，确认邮件查阅</p>
-</li>
-<li><p>阻止不受信任的字体(Block untrusted fonts)</p>
-</li>
-<li><p>数据执行保护(DEP) DEP 的主要优点是可以帮助防止数据页执行代码</p>
-</li>
-<li><p>导出地址筛选(EAF)</p>
-</li>
-<li><p>强制ASLR</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>Windows安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c++序列化</title>
-    <url>/2020/03/25/c++%E5%BA%8F%E5%88%97%E5%8C%96/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>高低权限进程消息通信</title>
-    <url>/2020/03/25/%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B6%88%E6%81%AF/</url>
-    <content><![CDATA[<p><img src="result.png" alt="测试结果"></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ChangeFilter</span><span class="params">(m_hWnd, WM_NOTEPAPER_SHOWTIP, MSGFLT_ALLOW)</span></span>;</span><br><span class="line"></span><br><span class="line">DWORD CMainWindow::ChangeFilter(HWND hwnd, UINT uMsg, DWORD dwMsgFlt)</span><br><span class="line">&#123;</span><br><span class="line">    BOOL                fSuccess = FALSE;</span><br><span class="line">    DWORD            dwMsgFltInfo = MSGFLTINFO_NONE;</span><br><span class="line">    CHANGEFILTERSTRUCT  ChangeFilterStruct;</span><br><span class="line"></span><br><span class="line">    ChangeFilterStruct.cbSize = <span class="keyword">sizeof</span>(CHANGEFILTERSTRUCT);</span><br><span class="line">    fSuccess = ChangeWindowMessageFilterEx(hwnd, uMsg, dwMsgFlt, &amp;ChangeFilterStruct);</span><br><span class="line">    dwMsgFltInfo = ChangeFilterStruct.ExtStatus;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!fSuccess) &#123;</span><br><span class="line">        wprintf(<span class="string">L"\nChangeWindowMessageFilterEx failed with %lu"</span>, GetLastError());</span><br><span class="line">        dwMsgFltInfo = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dwMsgFltInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>windows安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>window安全概念</title>
-    <url>/2020/03/25/window%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5/</url>
-    <content><![CDATA[<p>整理于 <a href="http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin" target="_blank" rel="noopener">http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin</a></p>
-<p> <img src="https://note.youdao.com/yws/public/resource/0a79a67d0cd6f714303f83f564ba0dac/xmlnote/0A94AF3BCA574FCA9324E04A33A843E7/12904" alt="xmind"></p>
-<h2 id="判断是否管理员权限"><a href="#判断是否管理员权限" class="headerlink" title="判断是否管理员权限"></a>判断是否管理员权限</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Windows API IsUserAnAdmin()</span></span><br><span class="line"><span class="function">BOOL <span class="title">Am_I_In_Admin_Group</span><span class="params">(BOOL bCheckAdminMode <span class="comment">/*= FALSE*/</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    BOOL   fAdmin;</span><br><span class="line">    HANDLE  hThread;</span><br><span class="line">    TOKEN_GROUPS *ptg = <span class="literal">NULL</span>;</span><br><span class="line">    DWORD  cbTokenGroups;</span><br><span class="line">    DWORD  dwGroup;</span><br><span class="line">    PSID   psidAdmin;</span><br><span class="line">    SID_IDENTIFIER_AUTHORITY SystemSidAuthority= SECURITY_NT_AUTHORITY;</span><br><span class="line">    <span class="keyword">if</span> ( !OpenThreadToken ( GetCurrentThread(), TOKEN_QUERY, FALSE, &amp;hThread))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( GetLastError() == ERROR_NO_TOKEN)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (! OpenProcessToken ( GetCurrentProcess(), TOKEN_QUERY, </span><br><span class="line">                &amp;hThread))</span><br><span class="line">                <span class="keyword">return</span> ( FALSE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( GetTokenInformation ( hThread, TokenGroups, <span class="literal">NULL</span>, <span class="number">0</span>, &amp;cbTokenGroups))</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( GetLastError() != ERROR_INSUFFICIENT_BUFFER)</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( ! ( ptg= (TOKEN_GROUPS*)_alloca ( cbTokenGroups))) </span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( !GetTokenInformation ( hThread, TokenGroups, ptg, cbTokenGroups,</span><br><span class="line">        &amp;cbTokenGroups) )</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( ! AllocateAndInitializeSid ( &amp;SystemSidAuthority, <span class="number">2</span>, </span><br><span class="line">        SECURITY_BUILTIN_DOMAIN_RID, </span><br><span class="line">        DOMAIN_ALIAS_RID_ADMINS,</span><br><span class="line">        <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, &amp;psidAdmin) )</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    fAdmin= FALSE;</span><br><span class="line">    <span class="keyword">for</span> ( dwGroup= <span class="number">0</span>; dwGroup &lt; ptg-&gt;GroupCount; dwGroup++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( EqualSid ( ptg-&gt;Groups[dwGroup].Sid, psidAdmin))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(bCheckAdminMode)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>((ptg-&gt;Groups[dwGroup].Attributes) &amp; SE_GROUP_ENABLED)</span><br><span class="line">                &#123;</span><br><span class="line">                    fAdmin = TRUE;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                fAdmin = TRUE;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    FreeSid ( psidAdmin);</span><br><span class="line">    <span class="keyword">return</span> ( fAdmin);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意只有原来是Disable的权限才可以提成Enable， 如果原来就没有这个权限， 是提不上去的。</span></span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">EnablePrivilege</span><span class="params">(HANDLE hToken, LPCTSTR lpszPrivilegeName)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TOKEN_PRIVILEGES tkp = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    BOOL bRet = LookupPrivilegeValue( <span class="literal">NULL</span>, lpszPrivilegeName, &amp;tkp.Privileges[<span class="number">0</span>].Luid );</span><br><span class="line">    <span class="keyword">if</span>(!bRet) <span class="keyword">return</span> FALSE;</span><br><span class="line"></span><br><span class="line">    tkp.PrivilegeCount = <span class="number">1</span>;</span><br><span class="line">    tkp.Privileges[<span class="number">0</span>].Attributes = SE_PRIVILEGE_ENABLED;</span><br><span class="line">    bRet = AdjustTokenPrivileges( hToken, FALSE, &amp;tkp, <span class="keyword">sizeof</span>(tkp), <span class="literal">NULL</span>, <span class="literal">NULL</span> );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bRet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何判断用户的进程完整性级别"><a href="#如何判断用户的进程完整性级别" class="headerlink" title="如何判断用户的进程完整性级别"></a>如何判断用户的进程完整性级别</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> CIntegrityLevel::Print(<span class="built_in">std</span>::wostream&amp; os) <span class="keyword">const</span></span><br><span class="line">&#123;</span><br><span class="line">    SID* pSid = (SID*)m_pIntegrity-&gt;Label.Sid;</span><br><span class="line">    DWORD rid = pSid-&gt;SubAuthority[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    LPCTSTR lpszIntegrity = <span class="string">L"Unknown"</span>;</span><br><span class="line">    <span class="keyword">switch</span> (rid)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_UNTRUSTED_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Untrusted"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_LOW_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Low"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_MEDIUM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Medium"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_MEDIUM_PLUS_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Medium +"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_HIGH_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"High"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_SYSTEM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"System"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"XXXXX"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    os &lt;&lt; <span class="string">L"Integrity: "</span> &lt;&lt; lpszIntegrity &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="如何指定程序默认启动运行的级别"><a href="#如何指定程序默认启动运行的级别" class="headerlink" title="如何指定程序默认启动运行的级别?"></a>如何指定程序默认启动运行的级别?</h2><p>在VC里配置Manifest文件.</p>
-<ul>
-<li><p>asInvoker：默认选项，新的进程将简单地继承其父进程的访问令牌</p>
-</li>
-<li><p>highestAvailable：应用程序会选择该用户允许范围内尽可能高的权限。对于标准用户来说，该选项与asInvoker一样，而对于管理员来说，这就意味着请求Admin令牌。</p>
-</li>
-<li><p>requireAdministrator：应用程序需要Admin令牌。运行该程序时，标准用户将要输入管理员的用户名和密码，而管理员则要在弹出的确认对话框中进行确认。</p>
-</li>
-<li><p><img src="https://note.youdao.com/yws/public/resource/df3ab20df5c03ba0ad1faef9f79e2f72/xmlnote/DD710385513C4681AA35C58A73D66AA4/12900" alt="AAA"></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>windows安全</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>程序员口头禅</title>
     <url>/2020/03/25/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%8F%A3%E5%A4%B4%E7%A6%85/</url>
     <content><![CDATA[<ul>
@@ -487,45 +837,102 @@
       </tags>
   </entry>
   <entry>
-    <title>生活</title>
-    <url>/2020/03/25/%E7%94%9F%E6%B4%BB/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>windows安全</title>
-    <url>/2020/03/24/windows%E5%AE%89%E5%85%A8/</url>
-    <content><![CDATA[<h3 id="1-用户权限"><a href="#1-用户权限" class="headerlink" title="1.用户权限"></a>1.用户权限</h3><p>管理员Administrator账户        Administrators组<br>权限：</p>
-<p>标准用户（受限用户）              user组</p>
-<p>来宾用户                                   guest组</p>
-<p>密码存在sam数据库</p>
-<h3 id="2-sid"><a href="#2-sid" class="headerlink" title="2.sid"></a>2.sid</h3><p>查看Sid<br>whoami  /user</p>
-<p>SID                      组                      用途<br>s-1-1-0               everyone<br>s-1-2-0               local<br>s-1-3-0               Creator owner<br>s-1-3-1               Creator Group</p>
-<h3 id="3-ACL-访问控制列表"><a href="#3-ACL-访问控制列表" class="headerlink" title="3.ACL  访问控制列表"></a>3.ACL  访问控制列表</h3><p>登录给一个安全访问令牌（SAT） TOKEN 包含sid信息、</p>
-<p>每个对象都有Acl    ACL包含了sid的信息</p>
-<h3 id="4-没有UAC文件系统和注册表虚拟化技术"><a href="#4-没有UAC文件系统和注册表虚拟化技术" class="headerlink" title="4.没有UAC文件系统和注册表虚拟化技术"></a>4.没有UAC文件系统和注册表虚拟化技术</h3><h3 id="5-应用程序清单文件"><a href="#5-应用程序清单文件" class="headerlink" title="5.应用程序清单文件"></a>5.应用程序清单文件</h3><p>1、RunAsInvoker<br>2、RunAsHighest<br>3、RunAsAdmin</p>
+    <title>权限相关的英文</title>
+    <url>/2020/05/07/%E8%8B%B1%E6%96%87%E7%9A%84%E6%9D%83%E9%99%90/</url>
+    <content><![CDATA[<h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><ol>
+<li><p>permission  许可证、许可、允许</p>
+<p> v.</p>
+<ul>
+<li><p>ask (for) permission 请求许可</p>
+</li>
+<li><p>get permission 得到许可</p>
+</li>
+<li><p>permission to leave     准许离开</p>
+</li>
+<li><p>need permission     需要获准</p>
+</li>
+<li><p>obtain permission 取得许可</p>
+</li>
+<li><p>receive permission 收到许可</p>
+</li>
+<li><p>request permission 要求给予许可</p>
+</li>
+<li><p>seek permission 寻求获准</p>
+<p>adj.</p>
+</li>
+<li><p>special permission 特别许可</p>
+</li>
+<li><p>written permission 书面许可</p>
+<p>it.</p>
+</li>
+<li><p>用户权限 动作和客体 加入文档的权限  相近的Access Control</p>
+</li>
+</ul>
+</li>
+<li><p>Access</p>
+<p> U 道路</p>
+<ul>
+<li><p>access to the building</p>
+<p>it.</p>
+</li>
+<li><p>memory access 内存访问 存取访问</p>
+</li>
+</ul>
+</li>
+<li><p>Privilege 特权</p>
+<p> adj.</p>
+<ul>
+<li><p>special Privilege 特权</p>
+<p>n.</p>
+</li>
+<li><p>power and privilege 权势</p>
+</li>
+<li><p>executive privilege 行政官员豁免权</p>
+<p>it.</p>
+</li>
+<li><p>小张拥有这个权力操作文档</p>
+</li>
+</ul>
+</li>
+<li><p>Authorization 授权</p>
+</li>
+<li><p>Authentication 验证权限、身份验证、鉴定、认证<br> it.</p>
+<ul>
+<li>数据库授权</li>
+<li>加密认证</li>
+<li>服务器登录认证</li>
+</ul>
+</li>
+<li><p>rights 权力、正当的权力、公正<br> n.</p>
+<ul>
+<li>human rights 人权</li>
+<li>visitation rights 探视权</li>
+</ul>
+</li>
+<li><p>token 代币、令牌、装点门面、证明、标记</p>
+<p> As a token of goodwill, 为了证明我的好意</p>
+<p> it.</p>
+<ul>
+<li>access token 访问令牌</li>
+<li>tokens to the parser 解释器的标记</li>
+</ul>
+</li>
+<li><p>certificate 毕业证书、证书、文凭</p>
+</li>
+<li><p>identifier  标识符</p>
+<p> it.</p>
+<ul>
+<li>scope of the identifier 作用域标识</li>
+<li>Another common mistake is to confuse a prefix with an identifier. 另一种常见的错误是混淆了前缀和标识符</li>
+</ul>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>windows安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>botan 编译</title>
-    <url>/2020/03/24/botan%20%E7%BC%96%E8%AF%91/</url>
-    <content><![CDATA[<p><img src="%E5%AF%86%E7%A0%81%E5%AD%A6.png" alt="密码学"></p>
-<p>“C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat”</p>
-<p>python configure.py –cc=msvc –msvc-runtime=MT –disable-shared-library –cpu=x86_32 –cc-bin=”‘C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\cl.exe’”</p>
-<p>–list-modules</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>编译</tag>
-        <tag>windows</tag>
-        <tag>第三方库</tag>
+        <tag>语言</tag>
       </tags>
   </entry>
   <entry>
@@ -541,32 +948,15 @@
       </tags>
   </entry>
   <entry>
-    <title>Console 工程设置</title>
-    <url>/2020/03/24/Console%20%E5%B7%A5%E7%A8%8B%E8%AE%BE%E7%BD%AE/</url>
-    <content><![CDATA[<p>c++  控制台</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">SetConsoleOutputCP (<span class="number">65001</span>);</span><br><span class="line">CONSOLE_FONT_INFOEX info = &#123; <span class="number">0</span> &#125;; <span class="comment">// 以下设置字体来支持中文显示。</span></span><br><span class="line">info.cbSize = <span class="keyword">sizeof</span>(info);</span><br><span class="line">info.dwFontSize.Y = <span class="number">16</span>; <span class="comment">// leave X as zero</span></span><br><span class="line">info.FontWeight = FW_NORMAL;</span><br><span class="line">wcscpy(info.FaceName, <span class="string">L"Consolas"</span>);</span><br><span class="line">SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), <span class="literal">NULL</span>, &amp;info);</span><br></pre></td></tr></table></figure>
-
-<p>copy from vlpp</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> UI</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">namespace</span> <span class="built_in">Console</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">Console</span></span></span><br><span class="line"><span class="class">        &#123;</span></span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">            <span class="comment">/// &lt;summary&gt;Write to the command line window.&lt;/summary&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;param name="string"&gt;Content to write.&lt;/param&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;param name="length"&gt;Size of the content in wchar_t. The zero terminator is not</span></span><br><span class="line">            <span class="comment">/// included.&lt;/param&gt;</span></span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">const</span> <span class="keyword">wchar_t</span>* <span class="built_in">string</span>, <span class="keyword">int</span> length)</span></span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/// &lt;summary&gt;Write to the command line window.&lt;/summary&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;param name="string"&gt;Content to write.&lt;/param&gt;</span></span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">const</span> <span class="keyword">wchar_t</span>* <span class="built_in">string</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/// &lt;summary&gt;Write to the command line window.&lt;/summary&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;param name="string"&gt;Content to write.&lt;/param&gt;</span></span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">wstring</span>&amp; <span class="built_in">string</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/// &lt;summary&gt;Write to the command line window with a CRLF.&lt;/summary&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;param name="string"&gt;Content to write.&lt;/param&gt;</span></span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">WriteLine</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">wstring</span>&amp; <span class="built_in">string</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/// &lt;summary&gt;Read from the command line window.&lt;/summary&gt;</span></span><br><span class="line">            <span class="comment">/// &lt;returns&gt;The whole line read from the command line window.&lt;/returns&gt;</span></span><br><span class="line">            <span class="keyword">static</span> <span class="built_in">std</span>::<span class="function"><span class="built_in">wstring</span> <span class="title">Read</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SetColor</span><span class="params">(<span class="keyword">bool</span> red, <span class="keyword">bool</span> green, <span class="keyword">bool</span> blue, <span class="keyword">bool</span> light)</span></span>;</span><br><span class="line">            <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SetTitle</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">wstring</span>&amp; <span class="built_in">string</span>)</span></span>;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="comment">// namespace console</span></span><br><span class="line">&#125; <span class="comment">// namespace UI</span></span><br></pre></td></tr></table></figure>
-]]></content>
+    <title>高低权限进程消息通信</title>
+    <url>/2020/03/25/%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B6%88%E6%81%AF/</url>
+    <content><![CDATA[<p><img src="result.png" alt="测试结果"></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ChangeFilter</span><span class="params">(m_hWnd, WM_NOTEPAPER_SHOWTIP, MSGFLT_ALLOW)</span></span>;</span><br><span class="line"></span><br><span class="line">DWORD CMainWindow::ChangeFilter(HWND hwnd, UINT uMsg, DWORD dwMsgFlt)</span><br><span class="line">&#123;</span><br><span class="line">    BOOL                fSuccess = FALSE;</span><br><span class="line">    DWORD            dwMsgFltInfo = MSGFLTINFO_NONE;</span><br><span class="line">    CHANGEFILTERSTRUCT  ChangeFilterStruct;</span><br><span class="line"></span><br><span class="line">    ChangeFilterStruct.cbSize = <span class="keyword">sizeof</span>(CHANGEFILTERSTRUCT);</span><br><span class="line">    fSuccess = ChangeWindowMessageFilterEx(hwnd, uMsg, dwMsgFlt, &amp;ChangeFilterStruct);</span><br><span class="line">    dwMsgFltInfo = ChangeFilterStruct.ExtStatus;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!fSuccess) &#123;</span><br><span class="line">        wprintf(<span class="string">L"\nChangeWindowMessageFilterEx failed with %lu"</span>, GetLastError());</span><br><span class="line">        dwMsgFltInfo = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dwMsgFltInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>c++</tag>
-        <tag>标准库</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>活法读书笔记</title>
-    <url>/2020/03/24/%E6%B4%BB%E6%B3%95/</url>
-    <content><![CDATA[<p>1.树立共同理想<br>2.不要急功近利<br>3.心怀敬畏之心<br>4.现场解决问题<br>5.选取愚直方式<br>6.公私要分明（公车就是公车）<br>7.能力*激情 =成果<br>8.一心为公（所有的成果都是社会的成果） 当然也是自己努力的成果</p>
-]]></content>
-      <categories>
-        <category>读书笔记</category>
-      </categories>
-      <tags>
-        <tag>企业发展</tag>
+        <tag>windows安全</tag>
       </tags>
   </entry>
 </search>
