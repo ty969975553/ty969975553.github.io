@@ -251,7 +251,7 @@
 </li>
 <li><p>fatal error LNK1318: 非意外的 PDB 错误<br> 清理重新编译、 去除链接器生成调试信息</p>
 </li>
-<li><p>fatal error LNK2019: 无法解析的外部符号 _sprintf</p>
+<li><p>fatal error LNK2019: 无法解析的外部符号 _sprintf<br> 当二进制文件lib为旧版本编译器生成，使用高版本vs重新编译可能会出现该错误，需要在lib输入添加</p>
 </li>
 </ol>
 
@@ -547,7 +547,23 @@
 
       
       <h3 id="Microsoft-Defender-ATP"><a href="#Microsoft-Defender-ATP" class="headerlink" title="Microsoft Defender ATP"></a>Microsoft Defender ATP</h3><p> <img src="MicrosoftDefenderATP.svg" alt="xmind"></p>
-<h3 id="Exploit-Protection"><a href="#Exploit-Protection" class="headerlink" title="Exploit Protection"></a>Exploit Protection</h3><ol>
+<h4 id="减少攻击面"><a href="#减少攻击面" class="headerlink" title="减少攻击面"></a>减少攻击面</h4><pre><code>| 规则名称 | GUID | 文件 &amp; 文件夹排除 | 支持的最低操作系统 |
+| ---- | ---- |---- | ---- |
+| 阻止来自电子邮件客户端和 Web 邮件的可执行内容 | BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止所有 Office 应用程序创建子进程 | D4F940AB-401B-4EFC-AADC-AD5F3C50688A | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 Office 应用程序创建可执行内容 | 3B576869-A4EC-4529-8536-B80A7769E899 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 Office 应用程序将代码注入其他进程 | 75668C1F-73B5-4CF0-BB93-3ECF5CB7CC84 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 JavaScript 或 VBScript 启动下载的可执行内容 | D3E037E1-3EB8-44C8-A917-57927947596D | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止执行可能混淆的脚本 | 5BEB7EFE-FD9A-4556-801D-275E5FFC04CC | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 Office 宏的 Win32 API 调用 | 92E97FA1-2EDF-4476-BDD6-9DD0B4DDDC7B | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止可执行文件，除非它们满足流行、年龄或受信任的列表条件 | 01443614-cd74-433a-b99e-2ecdc07bfc25 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 对勒索软件使用高级防护 | c1db55ab-c21a-4637-bb3f-a12568109d35 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止从 Windows 本地安全颁发机构子系统中盗取凭据 ( # A0) | 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止从 PSExec 和 WMI 命令发起的进程创建 | d1e49aac-8f56-4280-b9ba-993a6d77406c | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止从 USB 运行的不受信任和未签名的进程 | b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 Office 通信应用程序创建子进程 | 26190899-1602-49e8-8b27-eb1d0a1ce869 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 Adobe Reader 创建子流程 | 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 通过 WMI 事件订阅阻止持久性 | e6db77e5-3df2-4cf1-b95a-636979351e5b | 不支持 | Windows 10 版本 1903 (内部版本 18362) 或更高版本 |</code></pre><h4 id="Exploit-Protection-漏洞利用保护"><a href="#Exploit-Protection-漏洞利用保护" class="headerlink" title="Exploit Protection (漏洞利用保护)"></a>Exploit Protection (漏洞利用保护)</h4><ol>
 <li><p>任意代码保护(ACG) Arbitrary Code Guard<br><a href="https://www.anquanke.com/post/id/145884" target="_blank" rel="noopener">https://www.anquanke.com/post/id/145884</a></p>
 </li>
 <li><p>阻止远程图像(Block remote images) 通过发送待远程图片的邮件，根据服务器图片的访问情况，确认邮件查阅</p>
@@ -558,7 +574,41 @@
 </li>
 <li><p>导出地址筛选(EAF)</p>
 </li>
-<li><p>强制ASLR</p>
+<li><p>强制ASLR   Address Space Load Randomization</p>
+</li>
+<li><p>Null 页安全缓解</p>
+</li>
+<li><p>随机内存分配(由下而上 ASLR)</p>
+</li>
+<li><p>模拟执行 (SimExec)</p>
+</li>
+<li><p>验证 API 调用 (CallerCheck)</p>
+</li>
+<li><p>验证异常链 (SEHOP)</p>
+</li>
+<li><p>验证堆栈完整性 (StackPivot)</p>
+</li>
+<li><p>证书信任（可配置的证书固定） 企业版证书</p>
+</li>
+<li><p>堆喷射分配</p>
+</li>
+<li><p>阻止低完整性图像</p>
+</li>
+<li><p>代码完整性防护</p>
+</li>
+<li><p>禁用扩展点</p>
+</li>
+<li><p>禁用win32k系统调用</p>
+</li>
+<li><p>不允许子进程</p>
+</li>
+<li><p>导入地址筛选(IAF)</p>
+</li>
+<li><p>验证处理使用情况</p>
+</li>
+<li><p>验证堆完整性</p>
+</li>
+<li><p>验证映像依赖项完整性</p>
 </li>
 </ol>
 

@@ -8,7 +8,7 @@
    
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    google构建 |  ꧁༺自由天空༻꧂
+    windows安全对象结构体 |  ꧁༺自由天空༻꧂
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -33,7 +33,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-GN构建系统" class="article article-type-post" itemscope
+  <article id="post-windows安全对象结构体" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -41,7 +41,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  google构建
+  windows安全对象结构体
 </h1>
   
 
@@ -50,8 +50,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/04/26/GN%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" class="article-date">
-  <time datetime="2020-04-26T08:39:26.000Z" itemprop="datePublished">2020-04-26</time>
+      <a href="/2020/05/06/windows%E5%AE%89%E5%85%A8%E5%AF%B9%E8%B1%A1%E7%BB%93%E6%9E%84%E4%BD%93/" class="article-date">
+  <time datetime="2020-05-06T06:26:07.000Z" itemprop="datePublished">2020-05-06</time>
 </a>
       
   <div class="article-category">
@@ -65,7 +65,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">407字</span>
+            <span class="post-count">261字</span>
         </span>
     </span>
 
@@ -99,63 +99,38 @@
       
 
       
-      <h2 id="GN构建系统"><a href="#GN构建系统" class="headerlink" title="GN构建系统"></a>GN构建系统</h2><h2 id="下载depot-tools并设置环境变量"><a href="#下载depot-tools并设置环境变量" class="headerlink" title="下载depot_tools并设置环境变量"></a>下载depot_tools并设置环境变量</h2><ol>
-<li><p>git clone <a href="https://chromium.googlesource.com/chromium/tools/depot_tools.git" target="_blank" rel="noopener">https://chromium.googlesource.com/chromium/tools/depot_tools.git</a> (需要翻墙)</p>
-</li>
-<li><p>设置环境变量 将depot_tools的路径添加到环境变量(建议放置第一条，在python环境变量之前)</p>
-</li>
-<li><p>禁止工具升级 ==设置环境变量== DEPOT_TOOLS_UPDATE=0 或者 ==删除.git目录==</p>
-</li>
-</ol>
-<p>工具库包含</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> gclient 支持svn和git</li>
-<li><input checked="" disabled="" type="checkbox"> gcl 预提交脚本for svn python的<a href="https://github.com/rietveld-codereview/rietveld" target="_blank" rel="noopener">codeview</a></li>
-<li><input checked="" disabled="" type="checkbox"> git-cl 预提交脚本for git python的<a href="https://github.com/rietveld-codereview/rietveld" target="_blank" rel="noopener">codeview</a></li>
-<li><input checked="" disabled="" type="checkbox"> svn</li>
-<li><input checked="" disabled="" type="checkbox"> drover 快速还原svn提交</li>
-<li><input checked="" disabled="" type="checkbox"> cpplint.py 静态检查工具</li>
-<li><input checked="" disabled="" type="checkbox"> pylint python静态检查工具</li>
-<li><input checked="" disabled="" type="checkbox"> presubmit_support.py脚本</li>
-<li><input checked="" disabled="" type="checkbox"> repo: The repo tool.</li>
-<li><input checked="" disabled="" type="checkbox"> zsh-goodies 补全</li>
-<li><input checked="" disabled="" type="checkbox"> wtf</li>
-<li><input checked="" disabled="" type="checkbox"> weekly</li>
-<li><input checked="" disabled="" type="checkbox"> git-gs</li>
-</ul>
-<h2 id="GN-exe的生成"><a href="#GN-exe的生成" class="headerlink" title="GN exe的生成"></a>GN exe的生成</h2><p>GN是一个元构建系统，可为Ninja生成构建文件。</p>
+      <h2 id="MSDN"><a href="#MSDN" class="headerlink" title="MSDN"></a>MSDN</h2><p><a href="https://docs.microsoft.com/zh-cn/windows/win32/secauthz/authorization-portal" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/win32/secauthz/authorization-portal</a></p>
 <ol>
-<li><p>git clone <a href="https://gn.googlesource.com/gn" target="_blank" rel="noopener">https://gn.googlesource.com/gn</a></p>
+<li><p>SID_NAME_USE SID类型</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> _SID_NAME_USE &#123;</span><br><span class="line">    SidTypeUser = <span class="number">1</span>,</span><br><span class="line">    SidTypeGroup,</span><br><span class="line">    SidTypeDomain,</span><br><span class="line">    SidTypeAlias,</span><br><span class="line">    SidTypeWellKnownGroup,</span><br><span class="line">    SidTypeDeletedAccount,</span><br><span class="line">    SidTypeInvalid,</span><br><span class="line">    SidTypeUnknown,</span><br><span class="line">    SidTypeComputer,</span><br><span class="line">    SidTypeLabel</span><br><span class="line">&#125; SID_NAME_USE, *PSID_NAME_USE;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>python build/gen.py</p>
+<li><p>SECURITY_DESCRIPTOR</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SECURITY_DESCRIPTOR</span> &#123;</span></span><br><span class="line">BYTE  Revision;</span><br><span class="line">BYTE  Sbz1;</span><br><span class="line">SECURITY_DESCRIPTOR_CONTROL Control;</span><br><span class="line">PSID Owner;</span><br><span class="line">PSID Group;</span><br><span class="line">PACL Sacl;</span><br><span class="line">PACL Dacl;</span><br><span class="line">&#125; SECURITY_DESCRIPTOR, *PISECURITY_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>ninja -C out(环境要有ninja)</p>
+<li><p>ACL</p>
+<ul>
+<li><p>DACL is a pointer to a discretionary ACL</p>
 </li>
-</ol>
-<h2 id="GN使用命令"><a href="#GN使用命令" class="headerlink" title="GN使用命令"></a>GN使用命令</h2><ol>
-<li><p>生成构建目录 gn gen out/windows_x86_debug</p>
+<li><p>SACL Sacl - is a pointer to a system ACL</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">ACL</span> &#123;</span></span><br><span class="line">    BYTE  AclRevision;</span><br><span class="line">    BYTE  Sbz1;</span><br><span class="line">    WORD   AclSize;</span><br><span class="line">    WORD   AceCount;</span><br><span class="line">    WORD   Sbz2;</span><br><span class="line">&#125; ACL;</span><br><span class="line"><span class="keyword">typedef</span> ACL *PACL;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>添加构建参数 gn args out/windows_x86_debug</p>
+</ul>
 </li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// gn args --list out/windows_x86_debug</span></span><br><span class="line">is_debug = <span class="literal">true</span></span><br><span class="line">is_official_build=<span class="literal">false</span></span><br><span class="line">is_component_build = <span class="literal">false</span></span><br><span class="line">target_cpu=<span class="string">"x64"</span></span><br><span class="line">symbol_level = <span class="number">0</span></span><br><span class="line">is_win_fastlink = <span class="literal">true</span>   <span class="comment">//不生成pdb</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 交叉编译 https://gn.googlesource.com/gn/+/master/docs/cross_compiles.md</span></span><br><span class="line">target_os = <span class="string">"chromeos"</span></span><br><span class="line">target_os = <span class="string">"android"</span></span><br><span class="line"></span><br><span class="line">target_cpu = <span class="string">"arm"</span></span><br><span class="line">target_cpu = <span class="string">"x86"</span></span><br><span class="line">target_cpu = <span class="string">"x64"</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="编写GN文件"><a href="#编写GN文件" class="headerlink" title="编写GN文件"></a>编写GN文件</h2><h3 id="1-根目录下创建-gn文件"><a href="#1-根目录下创建-gn文件" class="headerlink" title="1. 根目录下创建.gn文件"></a>1. 根目录下创建.gn文件</h3><p>一般build目录下都有一些默认的配置 tool_chain</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The location of the build configuration file.</span></span><br><span class="line">buildconfig = <span class="string">"//build/BUILDCONFIG.gn"</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-创建BUILD-gn"><a href="#2-创建BUILD-gn" class="headerlink" title="2. 创建BUILD.gn"></a>2. 创建BUILD.gn</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 可执行程序</span></span><br><span class="line">executable(<span class="string">"hello"</span>) &#123;</span><br><span class="line">  sources = [ <span class="string">"hello.cc"</span> ]</span><br><span class="line"></span><br><span class="line">  deps = [</span><br><span class="line">    <span class="string">":hello_shared"</span>,</span><br><span class="line">    <span class="string">":hello_static"</span>,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## dll</span></span><br><span class="line">shared_library(<span class="string">"hello_shared"</span>) &#123;</span><br><span class="line">  sources = [</span><br><span class="line">    <span class="string">"hello_shared.cc"</span>,</span><br><span class="line">    <span class="string">"hello_shared.h"</span>,</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  defines = [ <span class="string">"HELLO_SHARED_IMPLEMENTATION"</span> ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## lib</span></span><br><span class="line">static_library(<span class="string">"hello_static"</span>) &#123;</span><br><span class="line">  sources = [</span><br><span class="line">    <span class="string">"hello_static.cc"</span>,</span><br><span class="line">    <span class="string">"hello_static.h"</span>,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="ninja"><a href="#ninja" class="headerlink" title="ninja"></a>ninja</h2><ol>
-<li><p>git clone <a href="git://github.com/ninja-build/ninja.git">git://github.com/ninja-build/ninja.git</a></p>
+<li><p>ACL_SIZE_INFORMATION</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">ACL_SIZE_INFORMATION</span> &#123;</span></span><br><span class="line">    DWORD AceCount;</span><br><span class="line">    DWORD AclBytesInUse;</span><br><span class="line">    DWORD AclBytesFree;</span><br><span class="line">&#125; ACL_SIZE_INFORMATION;</span><br><span class="line"><span class="keyword">typedef</span> ACL_SIZE_INFORMATION *PACL_SIZE_INFORMATION;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>cmake 编译或者<a href="https://github.com/ninja-build/ninja/releases" target="_blank" rel="noopener">https://github.com/ninja-build/ninja/releases</a>下载binary</p>
+<li><p>LookupAccountName</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SID_NAME_USE snuType;</span><br><span class="line">LPVOID pUserSID = <span class="literal">NULL</span>;   <span class="comment">// 都置为0</span></span><br><span class="line">DWORD cbUserSID = <span class="number">0</span>;</span><br><span class="line">LPVOID szDomain = <span class="literal">NULL</span>;</span><br><span class="line">DWORD cbUserSID = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<h2 id="编译问题"><a href="#编译问题" class="headerlink" title="编译问题"></a>编译问题</h2><p>warning: A compatible version of re2c (&gt;= 0.11.3) was not found; changes to src/*.in.cc will not affect your build.<br>wrote build.ninja.</p>
-<p>安装re2c <a href="http://re2c.org/" target="_blank" rel="noopener">http://re2c.org/</a></p>
-<h2 id="build-config"><a href="#build-config" class="headerlink" title="build config"></a>build config</h2><h3 id="win"><a href="#win" class="headerlink" title="win"></a>win</h3><ol>
-<li>Microsoft Message Compiler (mc.exe)</li>
-<li></li>
+<li><p>AddAce AddAccessAllowedAceEx</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//https://docs.microsoft.com/en-us/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedaceex</span></span><br><span class="line"><span class="function">BOOL <span class="title">AddAccessAllowedAceEx</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">PACL  pAcl,</span></span></span><br><span class="line"><span class="function"><span class="params">DWORD dwAceRevision,</span></span></span><br><span class="line"><span class="function"><span class="params">DWORD AceFlags,</span></span></span><br><span class="line"><span class="function"><span class="params">DWORD AccessMask,</span></span></span><br><span class="line"><span class="function"><span class="params">PSID  pSid</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SID</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SID_DEFINED</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SID_DEFINED</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SID</span> &#123;</span></span><br><span class="line">BYTE  Revision;</span><br><span class="line">BYTE  SubAuthorityCount;</span><br><span class="line">SID_IDENTIFIER_AUTHORITY IdentifierAuthority;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> MIDL_PASS</span></span><br><span class="line">[size_is(SubAuthorityCount)] DWORD SubAuthority[*];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span> <span class="comment">// MIDL_PASS</span></span></span><br><span class="line">DWORD SubAuthority[ANYSIZE_ARRAY];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// MIDL_PASS</span></span></span><br><span class="line">&#125; SID, *PISID;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>EXPLICIT_ACCESS</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">EXPLICIT_ACCESS_W</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    DWORD        grfAccessPermissions;</span><br><span class="line">    ACCESS_MODE  grfAccessMode;</span><br><span class="line">    DWORD        grfInheritance;</span><br><span class="line">    TRUSTEE_W    Trustee;</span><br><span class="line">&#125; EXPLICIT_ACCESS_W, *PEXPLICIT_ACCESS_W, EXPLICIT_ACCESSW, *PEXPLICIT_ACCESSW;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> _ACCESS_MODE</span><br><span class="line">&#123;</span><br><span class="line">    NOT_USED_ACCESS = <span class="number">0</span>,</span><br><span class="line">    GRANT_ACCESS,</span><br><span class="line">    SET_ACCESS,</span><br><span class="line">    DENY_ACCESS,</span><br><span class="line">    REVOKE_ACCESS,</span><br><span class="line">    SET_AUDIT_SUCCESS,</span><br><span class="line">    SET_AUDIT_FAILURE</span><br><span class="line">&#125; ACCESS_MODE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">TRUSTEE_W</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">TRUSTEE_W</span>          *<span class="title">pMultipleTrustee</span>;</span></span><br><span class="line">    MULTIPLE_TRUSTEE_OPERATION  MultipleTrusteeOperation;</span><br><span class="line">    TRUSTEE_FORM                TrusteeForm;</span><br><span class="line">    TRUSTEE_TYPE                TrusteeType;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __midl</span></span><br><span class="line">    [switch_is(TrusteeForm)]</span><br><span class="line">    <span class="keyword">union</span></span><br><span class="line">    &#123;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_NAME)]</span><br><span class="line">        LPWSTR                  ptstrName;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_SID)]</span><br><span class="line">        SID                    *pSid;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_OBJECTS_AND_SID)]</span><br><span class="line">        OBJECTS_AND_SID        *pObjectsAndSid;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_OBJECTS_AND_NAME)]</span><br><span class="line">        OBJECTS_AND_NAME_W     *pObjectsAndName;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    LPWSTR                      ptstrName;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125; TRUSTEE_W, *PTRUSTEE_W, TRUSTEEW, *PTRUSTEEW;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 
       
@@ -226,14 +201,14 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://969975553.gitee.io/2020/04/26/GN%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://969975553.gitee.io/2020/05/06/windows%E5%AE%89%E5%85%A8%E5%AF%B9%E8%B1%A1%E7%BB%93%E6%9E%84%E4%BD%93/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/depot-tools/" rel="tag">depot_tools</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gn/" rel="tag">gn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ninja/" rel="tag">ninja</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9E%84%E5%BB%BA/" rel="tag">构建</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E8%AF%91/" rel="tag">编译</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows%E5%AE%89%E5%85%A8/" rel="tag">windows安全</a></li></ul>
 
 
     </footer>
@@ -244,19 +219,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/05/06/windows%E5%AE%89%E5%85%A8%E5%AF%B9%E8%B1%A1%E7%BB%93%E6%9E%84%E4%BD%93/" class="article-nav-link">
+      <a href="/2020/05/07/%E8%8B%B1%E6%96%87%E7%9A%84%E6%9D%83%E9%99%90/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            windows安全对象结构体
+            权限相关的英文
           
         </div>
       </a>
     
     
-      <a href="/2020/04/20/%E5%AD%97%E4%BD%93/" class="article-nav-link">
+      <a href="/2020/04/26/GN%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">字体</div>
+        <div class="article-nav-title">google构建</div>
       </a>
     
   </nav>

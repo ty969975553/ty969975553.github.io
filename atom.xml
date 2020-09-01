@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://969975553.gitee.io/"/>
-  <updated>2020-05-08T02:01:27.545Z</updated>
+  <updated>2020-05-13T06:11:50.824Z</updated>
   <id>https://969975553.gitee.io/</id>
   
   <author>
@@ -15,35 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>windows安全性demo</title>
-    <link href="https://969975553.gitee.io/2020/05/08/windows%E5%AE%89%E5%85%A8%E6%80%A7demo/"/>
-    <id>https://969975553.gitee.io/2020/05/08/windows%E5%AE%89%E5%85%A8%E6%80%A7demo/</id>
-    <published>2020-05-08T01:51:58.000Z</published>
-    <updated>2020-05-08T02:01:27.545Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="账户"><a href="#账户" class="headerlink" title="账户"></a>账户</h2><ol><li><p>MicroSoft账户 管理界面在 云端 类似 Mircosoft\23521@xx.com</p></li><li><p>本地账户</p></li></ol><h2 id="删除添加用户账户-组账户"><a href="#删除添加用户账户-组账户" class="headerlink" title="删除添加用户账户 组账户"></a>删除添加用户账户 组账户</h2>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;账户&quot;&gt;&lt;a href=&quot;#账户&quot; class=&quot;headerlink&quot; title=&quot;账户&quot;&gt;&lt;/a&gt;账户&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;MicroSoft账户 管理界面在 云端 类似 Mircosoft\23521@xx.com&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-      
-    
-    </summary>
-    
-    
-      <category term="技术" scheme="https://969975553.gitee.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="windows安全" scheme="https://969975553.gitee.io/tags/windows%E5%AE%89%E5%85%A8/"/>
-    
-  </entry>
   
   <entry>
     <title>windows安全性</title>
@@ -102,11 +73,11 @@
   </entry>
   
   <entry>
-    <title>windows安全(2)</title>
-    <link href="https://969975553.gitee.io/2020/05/06/windows%E5%AE%89%E5%85%A82/"/>
-    <id>https://969975553.gitee.io/2020/05/06/windows%E5%AE%89%E5%85%A82/</id>
+    <title>windows安全对象结构体</title>
+    <link href="https://969975553.gitee.io/2020/05/06/windows%E5%AE%89%E5%85%A8%E5%AF%B9%E8%B1%A1%E7%BB%93%E6%9E%84%E4%BD%93/"/>
+    <id>https://969975553.gitee.io/2020/05/06/windows%E5%AE%89%E5%85%A8%E5%AF%B9%E8%B1%A1%E7%BB%93%E6%9E%84%E4%BD%93/</id>
     <published>2020-05-06T06:26:07.000Z</published>
-    <updated>2020-05-07T06:18:20.817Z</updated>
+    <updated>2020-07-21T03:50:15.902Z</updated>
     
     <content type="html"><![CDATA[<h2 id="MSDN"><a href="#MSDN" class="headerlink" title="MSDN"></a>MSDN</h2><p><a href="https://docs.microsoft.com/zh-cn/windows/win32/secauthz/authorization-portal" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/win32/secauthz/authorization-portal</a></p><ol><li><p>SID_NAME_USE SID类型</p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> _SID_NAME_USE &#123;</span><br><span class="line">    SidTypeUser = <span class="number">1</span>,</span><br><span class="line">    SidTypeGroup,</span><br><span class="line">    SidTypeDomain,</span><br><span class="line">    SidTypeAlias,</span><br><span class="line">    SidTypeWellKnownGroup,</span><br><span class="line">    SidTypeDeletedAccount,</span><br><span class="line">    SidTypeInvalid,</span><br><span class="line">    SidTypeUnknown,</span><br><span class="line">    SidTypeComputer,</span><br><span class="line">    SidTypeLabel</span><br><span class="line">&#125; SID_NAME_USE, *PSID_NAME_USE;</span><br></pre></td></tr></table></figure></li><li><p>SECURITY_DESCRIPTOR</p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SECURITY_DESCRIPTOR</span> &#123;</span></span><br><span class="line">BYTE  Revision;</span><br><span class="line">BYTE  Sbz1;</span><br><span class="line">SECURITY_DESCRIPTOR_CONTROL Control;</span><br><span class="line">PSID Owner;</span><br><span class="line">PSID Group;</span><br><span class="line">PACL Sacl;</span><br><span class="line">PACL Dacl;</span><br><span class="line">&#125; SECURITY_DESCRIPTOR, *PISECURITY_DESCRIPTOR;</span><br></pre></td></tr></table></figure></li><li><p>ACL</p><ul><li><p>DACL is a pointer to a discretionary ACL</p></li><li><p>SACL Sacl - is a pointer to a system ACL</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">ACL</span> &#123;</span></span><br><span class="line">    BYTE  AclRevision;</span><br><span class="line">    BYTE  Sbz1;</span><br><span class="line">    WORD   AclSize;</span><br><span class="line">    WORD   AceCount;</span><br><span class="line">    WORD   Sbz2;</span><br><span class="line">&#125; ACL;</span><br><span class="line"><span class="keyword">typedef</span> ACL *PACL;</span><br></pre></td></tr></table></figure></li></ul></li><li><p>ACL_SIZE_INFORMATION</p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">ACL_SIZE_INFORMATION</span> &#123;</span></span><br><span class="line">    DWORD AceCount;</span><br><span class="line">    DWORD AclBytesInUse;</span><br><span class="line">    DWORD AclBytesFree;</span><br><span class="line">&#125; ACL_SIZE_INFORMATION;</span><br><span class="line"><span class="keyword">typedef</span> ACL_SIZE_INFORMATION *PACL_SIZE_INFORMATION;</span><br></pre></td></tr></table></figure></li><li><p>LookupAccountName</p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SID_NAME_USE snuType;</span><br><span class="line">LPVOID pUserSID = <span class="literal">NULL</span>;   <span class="comment">// 都置为0</span></span><br><span class="line">DWORD cbUserSID = <span class="number">0</span>;</span><br><span class="line">LPVOID szDomain = <span class="literal">NULL</span>;</span><br><span class="line">DWORD cbUserSID = <span class="number">0</span>;</span><br></pre></td></tr></table></figure></li><li><p>AddAce AddAccessAllowedAceEx</p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//https://docs.microsoft.com/en-us/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedaceex</span></span><br><span class="line"><span class="function">BOOL <span class="title">AddAccessAllowedAceEx</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">PACL  pAcl,</span></span></span><br><span class="line"><span class="function"><span class="params">DWORD dwAceRevision,</span></span></span><br><span class="line"><span class="function"><span class="params">DWORD AceFlags,</span></span></span><br><span class="line"><span class="function"><span class="params">DWORD AccessMask,</span></span></span><br><span class="line"><span class="function"><span class="params">PSID  pSid</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure></li><li><p>SID</p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SID_DEFINED</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SID_DEFINED</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SID</span> &#123;</span></span><br><span class="line">BYTE  Revision;</span><br><span class="line">BYTE  SubAuthorityCount;</span><br><span class="line">SID_IDENTIFIER_AUTHORITY IdentifierAuthority;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> MIDL_PASS</span></span><br><span class="line">[size_is(SubAuthorityCount)] DWORD SubAuthority[*];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span> <span class="comment">// MIDL_PASS</span></span></span><br><span class="line">DWORD SubAuthority[ANYSIZE_ARRAY];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// MIDL_PASS</span></span></span><br><span class="line">&#125; SID, *PISID;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure></li><li><p>EXPLICIT_ACCESS</p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">EXPLICIT_ACCESS_W</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    DWORD        grfAccessPermissions;</span><br><span class="line">    ACCESS_MODE  grfAccessMode;</span><br><span class="line">    DWORD        grfInheritance;</span><br><span class="line">    TRUSTEE_W    Trustee;</span><br><span class="line">&#125; EXPLICIT_ACCESS_W, *PEXPLICIT_ACCESS_W, EXPLICIT_ACCESSW, *PEXPLICIT_ACCESSW;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> _ACCESS_MODE</span><br><span class="line">&#123;</span><br><span class="line">    NOT_USED_ACCESS = <span class="number">0</span>,</span><br><span class="line">    GRANT_ACCESS,</span><br><span class="line">    SET_ACCESS,</span><br><span class="line">    DENY_ACCESS,</span><br><span class="line">    REVOKE_ACCESS,</span><br><span class="line">    SET_AUDIT_SUCCESS,</span><br><span class="line">    SET_AUDIT_FAILURE</span><br><span class="line">&#125; ACCESS_MODE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">TRUSTEE_W</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">TRUSTEE_W</span>          *<span class="title">pMultipleTrustee</span>;</span></span><br><span class="line">    MULTIPLE_TRUSTEE_OPERATION  MultipleTrusteeOperation;</span><br><span class="line">    TRUSTEE_FORM                TrusteeForm;</span><br><span class="line">    TRUSTEE_TYPE                TrusteeType;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __midl</span></span><br><span class="line">    [switch_is(TrusteeForm)]</span><br><span class="line">    <span class="keyword">union</span></span><br><span class="line">    &#123;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_NAME)]</span><br><span class="line">        LPWSTR                  ptstrName;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_SID)]</span><br><span class="line">        SID                    *pSid;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_OBJECTS_AND_SID)]</span><br><span class="line">        OBJECTS_AND_SID        *pObjectsAndSid;</span><br><span class="line">    [<span class="keyword">case</span>(TRUSTEE_IS_OBJECTS_AND_NAME)]</span><br><span class="line">        OBJECTS_AND_NAME_W     *pObjectsAndName;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    LPWSTR                      ptstrName;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125; TRUSTEE_W, *PTRUSTEE_W, TRUSTEEW, *PTRUSTEEW;</span><br></pre></td></tr></table></figure></li></ol>]]></content>
     
@@ -189,6 +160,38 @@
       <category term="裁剪字体" scheme="https://969975553.gitee.io/tags/%E8%A3%81%E5%89%AA%E5%AD%97%E4%BD%93/"/>
     
       <category term="SFNTLY" scheme="https://969975553.gitee.io/tags/SFNTLY/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络1</title>
+    <link href="https://969975553.gitee.io/2020/04/20/%E7%BD%91%E7%BB%9C/"/>
+    <id>https://969975553.gitee.io/2020/04/20/%E7%BD%91%E7%BB%9C/</id>
+    <published>2020-04-20T03:20:13.000Z</published>
+    <updated>2020-07-13T09:58:03.867Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h3><ol><li><p>FTP RFC 959</p></li><li><p>HTTP 1.0 RFC 1945</p></li><li><p>HTTP 2.0 RFC 2616</p></li></ol><p>WinInet 是 WinHttp 的超集</p><p>会话隔离的服务使用 WinHttp</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;概念介绍&quot;&gt;&lt;a href=&quot;#概念介绍&quot; class=&quot;headerlink&quot; title=&quot;概念介绍&quot;&gt;&lt;/a&gt;概念介绍&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;FTP RFC 959&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;HTTP 1.0 RFC 1945&lt;/p&gt;
+&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="技术" scheme="https://969975553.gitee.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="windows" scheme="https://969975553.gitee.io/tags/windows/"/>
+    
+      <category term="计算机网络" scheme="https://969975553.gitee.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
@@ -337,9 +340,9 @@
     <link href="https://969975553.gitee.io/2020/03/25/C++%E9%93%BE%E6%8E%A5%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"/>
     <id>https://969975553.gitee.io/2020/03/25/C++%E9%93%BE%E6%8E%A5%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</id>
     <published>2020-03-25T11:53:37.000Z</published>
-    <updated>2020-06-22T03:15:47.476Z</updated>
+    <updated>2020-06-22T06:34:44.059Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ol><li><p>QT5: LNK1123: 转换到 COFF 期间失败: 文件无效或损坏<br> 解答： vs的某个exe和系统的exe不匹配<br> cvtres.exe<br> <a href="http://www.cnblogs.com/newpanderking/articles/3372969.html" target="_blank" rel="noopener">http://www.cnblogs.com/newpanderking/articles/3372969.html</a><br> 实在不行就安装vs的sp1补丁包</p></li><li><p>fatal error LNK1318: 非意外的 PDB 错误<br> 清理重新编译、 去除链接器生成调试信息</p></li><li><p>fatal error LNK2019: 无法解析的外部符号 _sprintf</p></li></ol>]]></content>
+    <content type="html"><![CDATA[<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ol><li><p>QT5: LNK1123: 转换到 COFF 期间失败: 文件无效或损坏<br> 解答： vs的某个exe和系统的exe不匹配<br> cvtres.exe<br> <a href="http://www.cnblogs.com/newpanderking/articles/3372969.html" target="_blank" rel="noopener">http://www.cnblogs.com/newpanderking/articles/3372969.html</a><br> 实在不行就安装vs的sp1补丁包</p></li><li><p>fatal error LNK1318: 非意外的 PDB 错误<br> 清理重新编译、 去除链接器生成调试信息</p></li><li><p>fatal error LNK2019: 无法解析的外部符号 _sprintf<br> 当二进制文件lib为旧版本编译器生成，使用高版本vs重新编译可能会出现该错误，需要在lib输入添加</p></li></ol>]]></content>
     
     <summary type="html">
     
@@ -437,9 +440,9 @@
     <link href="https://969975553.gitee.io/2020/03/25/Microsoft%20Defender%20ATP/"/>
     <id>https://969975553.gitee.io/2020/03/25/Microsoft%20Defender%20ATP/</id>
     <published>2020-03-25T11:38:53.000Z</published>
-    <updated>2020-04-09T11:14:05.848Z</updated>
+    <updated>2020-09-01T07:25:36.560Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="Microsoft-Defender-ATP"><a href="#Microsoft-Defender-ATP" class="headerlink" title="Microsoft Defender ATP"></a>Microsoft Defender ATP</h3><p> <img src="MicrosoftDefenderATP.svg" alt="xmind"></p><h3 id="Exploit-Protection"><a href="#Exploit-Protection" class="headerlink" title="Exploit Protection"></a>Exploit Protection</h3><ol><li><p>任意代码保护(ACG) Arbitrary Code Guard<br><a href="https://www.anquanke.com/post/id/145884" target="_blank" rel="noopener">https://www.anquanke.com/post/id/145884</a></p></li><li><p>阻止远程图像(Block remote images) 通过发送待远程图片的邮件，根据服务器图片的访问情况，确认邮件查阅</p></li><li><p>阻止不受信任的字体(Block untrusted fonts)</p></li><li><p>数据执行保护(DEP) DEP 的主要优点是可以帮助防止数据页执行代码</p></li><li><p>导出地址筛选(EAF)</p></li><li><p>强制ASLR</p></li></ol>]]></content>
+    <content type="html"><![CDATA[<h3 id="Microsoft-Defender-ATP"><a href="#Microsoft-Defender-ATP" class="headerlink" title="Microsoft Defender ATP"></a>Microsoft Defender ATP</h3><p> <img src="MicrosoftDefenderATP.svg" alt="xmind"></p><h4 id="减少攻击面"><a href="#减少攻击面" class="headerlink" title="减少攻击面"></a>减少攻击面</h4><pre><code>| 规则名称 | GUID | 文件 &amp; 文件夹排除 | 支持的最低操作系统 || ---- | ---- |---- | ---- || 阻止来自电子邮件客户端和 Web 邮件的可执行内容 | BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止所有 Office 应用程序创建子进程 | D4F940AB-401B-4EFC-AADC-AD5F3C50688A | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止 Office 应用程序创建可执行内容 | 3B576869-A4EC-4529-8536-B80A7769E899 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止 Office 应用程序将代码注入其他进程 | 75668C1F-73B5-4CF0-BB93-3ECF5CB7CC84 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止 JavaScript 或 VBScript 启动下载的可执行内容 | D3E037E1-3EB8-44C8-A917-57927947596D | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止执行可能混淆的脚本 | 5BEB7EFE-FD9A-4556-801D-275E5FFC04CC | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止 Office 宏的 Win32 API 调用 | 92E97FA1-2EDF-4476-BDD6-9DD0B4DDDC7B | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止可执行文件，除非它们满足流行、年龄或受信任的列表条件 | 01443614-cd74-433a-b99e-2ecdc07bfc25 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 对勒索软件使用高级防护 | c1db55ab-c21a-4637-bb3f-a12568109d35 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止从 Windows 本地安全颁发机构子系统中盗取凭据 ( # A0) | 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止从 PSExec 和 WMI 命令发起的进程创建 | d1e49aac-8f56-4280-b9ba-993a6d77406c | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止从 USB 运行的不受信任和未签名的进程 | b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止 Office 通信应用程序创建子进程 | 26190899-1602-49e8-8b27-eb1d0a1ce869 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 阻止 Adobe Reader 创建子流程 | 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 || 通过 WMI 事件订阅阻止持久性 | e6db77e5-3df2-4cf1-b95a-636979351e5b | 不支持 | Windows 10 版本 1903 (内部版本 18362) 或更高版本 |</code></pre><h4 id="Exploit-Protection-漏洞利用保护"><a href="#Exploit-Protection-漏洞利用保护" class="headerlink" title="Exploit Protection (漏洞利用保护)"></a>Exploit Protection (漏洞利用保护)</h4><ol><li><p>任意代码保护(ACG) Arbitrary Code Guard<br><a href="https://www.anquanke.com/post/id/145884" target="_blank" rel="noopener">https://www.anquanke.com/post/id/145884</a></p></li><li><p>阻止远程图像(Block remote images) 通过发送待远程图片的邮件，根据服务器图片的访问情况，确认邮件查阅</p></li><li><p>阻止不受信任的字体(Block untrusted fonts)</p></li><li><p>数据执行保护(DEP) DEP 的主要优点是可以帮助防止数据页执行代码</p></li><li><p>导出地址筛选(EAF)</p></li><li><p>强制ASLR   Address Space Load Randomization</p></li><li><p>Null 页安全缓解</p></li><li><p>随机内存分配(由下而上 ASLR)</p></li><li><p>模拟执行 (SimExec)</p></li><li><p>验证 API 调用 (CallerCheck)</p></li><li><p>验证异常链 (SEHOP)</p></li><li><p>验证堆栈完整性 (StackPivot)</p></li><li><p>证书信任（可配置的证书固定） 企业版证书</p></li><li><p>堆喷射分配</p></li><li><p>阻止低完整性图像</p></li><li><p>代码完整性防护</p></li><li><p>禁用扩展点</p></li><li><p>禁用win32k系统调用</p></li><li><p>不允许子进程</p></li><li><p>导入地址筛选(IAF)</p></li><li><p>验证处理使用情况</p></li><li><p>验证堆完整性</p></li><li><p>验证映像依赖项完整性</p></li></ol>]]></content>
     
     <summary type="html">
     
