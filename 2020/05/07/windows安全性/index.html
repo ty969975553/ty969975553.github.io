@@ -65,7 +65,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.2k字</span>
+            <span class="post-count">1.3k字</span>
         </span>
     </span>
 
@@ -108,7 +108,7 @@
 <p> 通用凭证 通用凭证可以由用户进程读取和写入</p>
 <p> 用户名格式</p>
 <ul>
-<li><a href="mailto:UserName@Example.Microsoft.com">UserName@Example.Microsoft.com</a></li>
+<li><a href="mailto:&#85;&#x73;&#x65;&#x72;&#78;&#x61;&#x6d;&#x65;&#64;&#69;&#120;&#x61;&#109;&#x70;&#108;&#101;&#x2e;&#77;&#x69;&#x63;&#114;&#x6f;&#115;&#111;&#102;&#116;&#x2e;&#99;&#111;&#109;">&#85;&#x73;&#x65;&#x72;&#78;&#x61;&#x6d;&#x65;&#64;&#69;&#120;&#x61;&#109;&#x70;&#108;&#101;&#x2e;&#77;&#x69;&#x63;&#114;&#x6f;&#115;&#111;&#102;&#116;&#x2e;&#99;&#111;&#109;</a></li>
 <li>DOMAIN \ UserName</li>
 </ul>
 </li>
@@ -123,7 +123,8 @@
 <li><p>GINA</p>
 </li>
 </ol>
-<h2 id="Authorization-授权"><a href="#Authorization-授权" class="headerlink" title="Authorization 授权"></a>Authorization 授权</h2><h3 id="Access-Control"><a href="#Access-Control" class="headerlink" title="Access Control"></a>Access Control</h3><pre><code>[美国国防部定义的C2级安全性](https://docs.microsoft.com/zh-cn/windows/win32/secauthz/c2-level-security)</code></pre><h4 id="访问控制模型"><a href="#访问控制模型" class="headerlink" title="访问控制模型"></a>访问控制模型</h4><ol>
+<h2 id="Authorization-授权"><a href="#Authorization-授权" class="headerlink" title="Authorization 授权"></a>Authorization 授权</h2><h3 id="Access-Control"><a href="#Access-Control" class="headerlink" title="Access Control"></a>Access Control</h3><pre><code>[美国国防部定义的C2级安全性](https://docs.microsoft.com/zh-cn/windows/win32/secauthz/c2-level-security)</code></pre>
+<h4 id="访问控制模型"><a href="#访问控制模型" class="headerlink" title="访问控制模型"></a>访问控制模型</h4><ol>
 <li><p>Access tokens</p>
 </li>
 <li><p>Security descriptors</p>
@@ -290,12 +291,13 @@
 </tr>
 </tbody></table>
 <p> SID 结构</p>
-<pre><code>S - R - I - S
-S-1-5-32-544  本地Administrators组
-1 修订级别
-5 SECURITY_NT_AUTHORITY
-32 SECURITY_BUILTIN_DOMAIN_RID
-544 DOMAIN_ALIAS_RID_ADMINS</code></pre></li>
+<pre><code> S - R - I - S
+ S-1-5-32-544  本地Administrators组
+ 1 修订级别
+ 5 SECURITY_NT_AUTHORITY
+ 32 SECURITY_BUILTIN_DOMAIN_RID
+ 544 DOMAIN_ALIAS_RID_ADMINS</code></pre>
+</li>
 </ol>
 <h3 id="Access-Control-Editor"><a href="#Access-Control-Editor" class="headerlink" title="Access Control Editor"></a>Access Control Editor</h3><h3 id="Client-Server-Access-Control"><a href="#Client-Server-Access-Control" class="headerlink" title="Client/Server Access Control"></a>Client/Server Access Control</h3><h3 id="Access-Control-for-Application-Resources"><a href="#Access-Control-for-Application-Resources" class="headerlink" title="Access Control for Application Resources"></a>Access Control for Application Resources</h3><h3 id="Mandatory-Integrity-Control"><a href="#Mandatory-Integrity-Control" class="headerlink" title="Mandatory Integrity Control"></a>Mandatory Integrity Control</h3><p>强制完整性控制</p>
 <p>Windows Vista定义了四个完整性级别：低(SID: S-1-16-4096)、中(SID: S-1-16-8192)、高(SID: S-1-16-12288)、系统(SID: S-1-16-16384)。默认情况下，普通用户启动的进程将获得中完整性级别，而提升的进程则获得高完整性级别。通过引入完整性级别，强制完整性控制可以分类隔离程序，使得沙箱化潜在危险程序（如进行网络通信的程序）成为可能。低完整性进程所拥有的访问权限少于那些拥有更高完整性级别的进程。</p>
@@ -385,6 +387,15 @@ S-1-5-32-544  本地Administrators组
   
   
   <nav class="article-nav">
+    
+      <a href="/2020/09/10/Windows%E7%A8%8B%E5%BA%8F%E8%AF%8A%E6%96%AD%E6%8A%80%E6%9C%AF/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Windows程序诊断技术
+          
+        </div>
+      </a>
     
     
       <a href="/2020/05/07/%E8%8B%B1%E6%96%87%E7%9A%84%E6%9D%83%E9%99%90/" class="article-nav-link">
@@ -742,6 +753,30 @@ S-1-5-32-544  本地Administrators组
     viewer_init()
 </script>
 
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
 
 
 

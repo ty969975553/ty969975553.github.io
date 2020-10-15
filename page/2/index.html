@@ -67,6 +67,188 @@
     
     
     
+    <article id="post-windows下httpGet请求" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/07/windows%E4%B8%8BhttpGet%E8%AF%B7%E6%B1%82/"
+    >windows下httpGet请求</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/07/windows%E4%B8%8BhttpGet%E8%AF%B7%E6%B1%82/" class="article-date">
+  <time datetime="2020-04-07T07:54:51.000Z" itemprop="datePublished">2020-04-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;WinInet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">"wininet.lib"</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">namespace</span> WinInet</span><br><span class="line">&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> region HttpGet</span></span><br><span class="line">    <span class="keyword">static</span>  __inline</span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="title">ParserUrl</span><span class="params">(<span class="built_in">string</span> Url, <span class="built_in">string</span>&amp; Host, <span class="built_in">string</span>&amp; Filename, WORD&amp; Port)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Port = INTERNET_DEFAULT_HTTP_PORT;</span><br><span class="line">        <span class="keyword">if</span> (Url.substr(<span class="number">0U</span>, <span class="number">7</span>) != <span class="string">"http://"</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Url = Url.substr(<span class="number">7</span>);</span><br><span class="line">        <span class="keyword">int</span>  HostLen = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (<span class="keyword">int</span>)Url.<span class="built_in">size</span>(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (Url[i] == (<span class="string">':'</span>) || Url[i] == (<span class="string">'/'</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            HostLen++;</span><br><span class="line">        &#125;</span><br><span class="line">        Host = Url.substr(<span class="number">0</span>, HostLen);</span><br><span class="line">        Url = Url.substr(HostLen);</span><br><span class="line">        <span class="keyword">if</span> (Url[<span class="number">0</span>] == <span class="string">':'</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; (<span class="keyword">int</span>)Url.<span class="built_in">size</span>(); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (Url[i] == (<span class="string">'/'</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">string</span> strPort = Url.substr(<span class="number">0</span>, i);</span><br><span class="line">                    Port = atoi(strPort.c_str());</span><br><span class="line">                    Url = Url.substr(i);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Filename = Url;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> _inline</span><br><span class="line">        <span class="function"><span class="built_in">string</span>  <span class="title">HttpGet</span><span class="params">(<span class="built_in">string</span> Url, DWORD&amp; httpStatus)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span>              ret;</span><br><span class="line">        DWORD               byteread = <span class="number">0</span>;</span><br><span class="line">        HINTERNET           m_hInternetSession = <span class="literal">NULL</span>;</span><br><span class="line">        HINTERNET           m_hHttpConnection = <span class="literal">NULL</span>;</span><br><span class="line">        HINTERNET           m_hHttpFile = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>                <span class="built_in">buffer</span>[<span class="number">1024</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        LPCSTR              ppszAcceptTypes[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">        DWORD   dwContentLength = <span class="number">0</span>, dwIndex = <span class="number">0</span>, filesize = <span class="number">0xffffffff</span>, totalSize = <span class="number">0</span>;</span><br><span class="line">        DWORD   dwBuffLen = <span class="keyword">sizeof</span>(dwContentLength);</span><br><span class="line"></span><br><span class="line">        DWORD dwFlags = INTERNET_FLAG_RELOAD;</span><br><span class="line">        DWORD TimeOut = <span class="number">15000</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span>  m_sServer, m_sObject;</span><br><span class="line">        WORD m_nPort = INTERNET_DEFAULT_HTTP_PORT;</span><br><span class="line">        httpStatus = DWORD(<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">if</span> (!ParserUrl(Url, m_sServer, m_sObject, m_nPort))</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        LPCSTR      headers = (<span class="string">"\r\n\r\n"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hInternetSession = ::InternetOpenA((<span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1"</span>), INTERNET_OPEN_TYPE_PRECONFIG, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_CONNECT_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_DATA_RECEIVE_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_DATA_SEND_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (m_hInternetSession == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hHttpConnection = ::InternetConnectA(m_hInternetSession, m_sServer.c_str(), m_nPort, <span class="literal">NULL</span>,</span><br><span class="line">            <span class="literal">NULL</span>, INTERNET_SERVICE_HTTP, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpConnection == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line">        <span class="comment">//Issue the request to read the file</span></span><br><span class="line"></span><br><span class="line">        ppszAcceptTypes[<span class="number">0</span>] = (<span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span>);  <span class="comment">//We support accepting any mime file type since this is a simple download of a file</span></span><br><span class="line">        ppszAcceptTypes[<span class="number">1</span>] = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hHttpFile = HttpOpenRequestA(m_hHttpConnection, <span class="string">"GET"</span>, m_sObject.c_str(), <span class="string">"HTTP/1.0"</span>, <span class="literal">NULL</span>, ppszAcceptTypes, dwFlags, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpFile == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!::HttpSendRequestA(m_hHttpFile, headers, <span class="built_in">strlen</span>(headers), <span class="literal">NULL</span>, <span class="number">0</span>))</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        dwBuffLen = <span class="keyword">sizeof</span>(httpStatus);</span><br><span class="line">        <span class="keyword">if</span> ((!HttpQueryInfoA(m_hHttpFile, HTTP_QUERY_STATUS_CODE | HTTP_QUERY_FLAG_NUMBER, &amp;httpStatus, &amp;dwBuffLen,</span><br><span class="line">            &amp;dwIndex)) || (httpStatus != HTTP_STATUS_OK))</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line">        dwBuffLen = <span class="keyword">sizeof</span>(dwContentLength);</span><br><span class="line">        <span class="keyword">if</span> ((HttpQueryInfoA(m_hHttpFile, HTTP_QUERY_CONTENT_LENGTH | HTTP_QUERY_FLAG_NUMBER, &amp;dwContentLength, &amp;dwBuffLen,</span><br><span class="line">            &amp;dwIndex)))</span><br><span class="line">        &#123;</span><br><span class="line">            filesize = dwContentLength;</span><br><span class="line">            ret.reserve(dwContentLength);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            DWORD byteread = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (!InternetReadFile(m_hHttpFile, <span class="built_in">buffer</span>, <span class="keyword">sizeof</span>(<span class="built_in">buffer</span>), &amp;byteread) || (byteread == <span class="number">0</span>))</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            totalSize += byteread;</span><br><span class="line">            ULONG written = <span class="number">0</span>;</span><br><span class="line">            ret += <span class="built_in">string</span>(<span class="built_in">buffer</span>, byteread);</span><br><span class="line">            <span class="comment">//ret-&gt;Write(buffer, byteread, &amp;written);</span></span><br><span class="line">            <span class="keyword">if</span> (totalSize &gt;= filesize)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    EXIT:</span><br><span class="line">        <span class="keyword">if</span> (m_hInternetSession)</span><br><span class="line">            InternetCloseHandle(m_hInternetSession);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpConnection)</span><br><span class="line">            InternetCloseHandle(m_hHttpConnection);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpFile)</span><br><span class="line">            InternetCloseHandle(m_hHttpFile);</span><br><span class="line">        <span class="keyword">return</span>  ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> endregion HttpGet</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DWORD httpStatus;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">string</span> buff = WinInet::HttpGet(w2a(url.c_str()), httpStatus);</span><br><span class="line">  <span class="keyword">if</span> (httpStatus != <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="title-知名博客集锦" class="article article-type-title" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/25/%E7%9F%A5%E5%90%8D%E5%8D%9A%E5%AE%A2%E9%9B%86%E9%94%A6/"
+    >知名博客集锦</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/25/%E7%9F%A5%E5%90%8D%E5%8D%9A%E5%AE%A2%E9%9B%86%E9%94%A6/" class="article-date">
+  <time datetime="2020-03-25T12:08:52.000Z" itemprop="datePublished">2020-03-25</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h3 id="🐂🍺"><a href="#🐂🍺" class="headerlink" title="🐂🍺"></a>🐂🍺</h3><ul>
+<li>Fabrice Bellard <a href="https://bellard.org/" target="_blank" rel="noopener">https://bellard.org/</a></li>
+</ul>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><ul>
+<li>randomascii <a href="https://randomascii.wordpress.com/" target="_blank" rel="noopener">https://randomascii.wordpress.com/</a></li>
+</ul>
+<h3 id="C-程序员博客列表"><a href="#C-程序员博客列表" class="headerlink" title="C++程序员博客列表"></a>C++程序员博客列表</h3><ul>
+<li>VCZH <a href="http://www.cppblog.com/vczh" target="_blank" rel="noopener">http://www.cppblog.com/vczh</a></li>
+<li>朝闻道 <a href="https://www.cnblogs.com/findumars/" target="_blank" rel="noopener">https://www.cnblogs.com/findumars/</a></li>
+<li>chromium技术博客 <a href="https://gclxry.com/" target="_blank" rel="noopener">https://gclxry.com/</a></li>
+<li>morewindow <a href="https://blog.csdn.net/morewindows" target="_blank" rel="noopener">https://blog.csdn.net/morewindows</a></li>
+<li>c++ <a href="http://r12f.com/" target="_blank" rel="noopener">http://r12f.com/</a></li>
+<li>vs调试器 <a href="http://r12f.com/" target="_blank" rel="noopener">http://r12f.com/</a></li>
+<li>wxquare <a href="https://www.cnblogs.com/wxquare/" target="_blank" rel="noopener">https://www.cnblogs.com/wxquare/</a></li>
+<li>c++服务端 <a href="https://www.cnblogs.com/moyangvip/" target="_blank" rel="noopener">https://www.cnblogs.com/moyangvip/</a></li>
+<li>王垠 <a href="http://www.yinwang.org/" target="_blank" rel="noopener">http://www.yinwang.org/</a></li>
+<li>陈皓 <a href="https://coolshell.cn/" target="_blank" rel="noopener">https://coolshell.cn/</a></li>
+<li>saschawillems <a href="https://www.saschawillems.de/" target="_blank" rel="noopener">https://www.saschawillems.de/</a>  图形</li>
+</ul>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ul>
+<li>何登成AliSql <a href="http://hedengcheng.com/" target="_blank" rel="noopener">http://hedengcheng.com/</a></li>
+</ul>
+<h3 id="JAVA程序员博客列表"><a href="#JAVA程序员博客列表" class="headerlink" title="JAVA程序员博客列表"></a>JAVA程序员博客列表</h3><ul>
+<li>ajian005 <a href="https://blog.csdn.net/ajian005/" target="_blank" rel="noopener">https://blog.csdn.net/ajian005/</a></li>
+</ul>
+<h3 id="算法博客"><a href="#算法博客" class="headerlink" title="算法博客"></a>算法博客</h3><ul>
+<li>hnust_xiehonghao <a href="https://blog.csdn.net/hnust_xiehonghao" target="_blank" rel="noopener">https://blog.csdn.net/hnust_xiehonghao</a></li>
+</ul>
+<h3 id="知识图谱"><a href="#知识图谱" class="headerlink" title="知识图谱"></a>知识图谱</h3><ul>
+<li><a href="https://github.com/TeamStuQ/skill-map" target="_blank" rel="noopener">https://github.com/TeamStuQ/skill-map</a></li>
+</ul>
+<h3 id="安全博客"><a href="#安全博客" class="headerlink" title="安全博客"></a>安全博客</h3><ul>
+<li>seebug <a href="https://paper.seebug.org/" target="_blank" rel="noopener">https://paper.seebug.org/</a></li>
+<li>predator-wang <a href="https://www.cnblogs.com/predator-wang/" target="_blank" rel="noopener">https://www.cnblogs.com/predator-wang/</a></li>
+<li>killcoco <a href="https://blog.csdn.net/qq_36810340" target="_blank" rel="noopener">https://blog.csdn.net/qq_36810340</a></li>
+</ul>
+<blockquote>
+<p>有趣的二进制</p>
+</blockquote>
+<h3 id="其他行业教学视频合集"><a href="#其他行业教学视频合集" class="headerlink" title="其他行业教学视频合集"></a>其他行业教学视频合集</h3><ul>
+<li>知乎专栏 <a href="https://zhuanlan.zhihu.com/p/27664328" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27664328</a></li>
+</ul>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="title-程序员修炼之道-读书笔记" class="article article-type-title" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -493,7 +675,8 @@
 | 阻止从 USB 运行的不受信任和未签名的进程 | b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
 | 阻止 Office 通信应用程序创建子进程 | 26190899-1602-49e8-8b27-eb1d0a1ce869 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
 | 阻止 Adobe Reader 创建子流程 | 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
-| 通过 WMI 事件订阅阻止持久性 | e6db77e5-3df2-4cf1-b95a-636979351e5b | 不支持 | Windows 10 版本 1903 (内部版本 18362) 或更高版本 |</code></pre><h4 id="Exploit-Protection-漏洞利用保护"><a href="#Exploit-Protection-漏洞利用保护" class="headerlink" title="Exploit Protection (漏洞利用保护)"></a>Exploit Protection (漏洞利用保护)</h4><ol>
+| 通过 WMI 事件订阅阻止持久性 | e6db77e5-3df2-4cf1-b95a-636979351e5b | 不支持 | Windows 10 版本 1903 (内部版本 18362) 或更高版本 |</code></pre>
+<h4 id="Exploit-Protection-漏洞利用保护"><a href="#Exploit-Protection-漏洞利用保护" class="headerlink" title="Exploit Protection (漏洞利用保护)"></a>Exploit Protection (漏洞利用保护)</h4><ol>
 <li><p>任意代码保护(ACG) Arbitrary Code Guard<br><a href="https://www.anquanke.com/post/id/145884" target="_blank" rel="noopener">https://www.anquanke.com/post/id/145884</a></p>
 </li>
 <li><p>阻止远程图像(Block remote images) 通过发送待远程图片的邮件，根据服务器图片的访问情况，确认邮件查阅</p>
@@ -800,152 +983,6 @@
 
 </article>
     
-    <article id="title-程序员口头禅" class="article article-type-title" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/25/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%8F%A3%E5%A4%B4%E7%A6%85/"
-    >程序员口头禅</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/25/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%8F%A3%E5%A4%B4%E7%A6%85/" class="article-date">
-  <time datetime="2020-03-25T09:26:26.000Z" itemprop="datePublished">2020-03-25</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <ul>
-<li>这个不是我做的</li>
-<li>这个做不了</li>
-<li>在我的电脑上是好的</li>
-<li>换个浏览器试试</li>
-<li>之前代码我没动过</li>
-<li>这个可以做，就是要很多时间</li>
-<li>这个操作用户不会这样干</li>
-<li>这坨代码太臭了</li>
-<li>下个版本做</li>
-<li>需求没有说清楚</li>
-<li>这个不支持</li>
-<li>原本是好的吗？</li>
-<li>你会不会操作(测)？</li>
-<li>啥都没改，自动好了</li>
-</ul>
-<h3 id="欢迎补充"><a href="#欢迎补充" class="headerlink" title="欢迎补充~"></a>欢迎补充~</h3>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="title-生活" class="article article-type-title" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/25/%E7%94%9F%E6%B4%BB/"
-    >生活</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/25/%E7%94%9F%E6%B4%BB/" class="article-date">
-  <time datetime="2020-03-25T09:26:05.000Z" itemprop="datePublished">2020-03-25</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
@@ -1219,6 +1256,30 @@
     viewer_init()
 </script>
 
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
 
 
 

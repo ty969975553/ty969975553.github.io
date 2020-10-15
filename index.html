@@ -67,6 +67,266 @@
     
     
     
+    <article id="post-模拟音乐的频率公式" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/14/%E6%A8%A1%E6%8B%9F%E9%9F%B3%E4%B9%90%E7%9A%84%E9%A2%91%E7%8E%87%E5%85%AC%E5%BC%8F/"
+    >模拟音乐的频率公式</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/10/14/%E6%A8%A1%E6%8B%9F%E9%9F%B3%E4%B9%90%E7%9A%84%E9%A2%91%E7%8E%87%E5%85%AC%E5%BC%8F/" class="article-date">
+  <time datetime="2020-10-14T02:45:23.000Z" itemprop="datePublished">2020-10-14</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>昨天在翻阅taiga源代码的时候发现了一个神奇的Windows API Beep函数, 突然想到曾经有人跟我说过可以用Beep播放一首歌曲,<br>回忆起小时候用计算器的按键音当成各种调子按下，模拟音乐的简单快乐。<br>于是我便看了这份代码播放的音乐，当点击ICON图标时播放一首orange歌曲。<br>(猜测应该是这首<a href="https://c.y.qq.com/base/fcgi-bin/u?__=9xGuYfR" target="_blank" rel="noopener">https://c.y.qq.com/base/fcgi-bin/u?__=9xGuYfR</a>)</p>
+<h3 id="代码介绍"><a href="#代码介绍" class="headerlink" title="代码介绍"></a>代码介绍</h3><pre><code><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> BeepMusic</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="built_in">std</span>::<span class="built_in">array</span>&lt;<span class="built_in">std</span>::pair&lt;<span class="keyword">int</span>, <span class="keyword">float</span>&gt;, <span class="number">32</span>&gt; notes&#123;&#123;</span><br><span class="line">        &#123;<span class="number">84</span>, <span class="number">1</span> / <span class="number">2.f</span>&#125;, &#123;<span class="number">84</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;, &#123;<span class="number">86</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">84</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;,</span><br><span class="line">        &#123;<span class="number">82</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;, &#123;<span class="number">81</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;, &#123;<span class="number">77</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">79</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;,</span><br><span class="line">        &#123;<span class="number">72</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">77</span>, <span class="number">1</span> / <span class="number">2.f</span>&#125;, &#123;<span class="number">76</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">77</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;,</span><br><span class="line">        &#123;<span class="number">79</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">81</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;, &#123;<span class="number">79</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;, &#123;<span class="number">77</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;,</span><br><span class="line">        &#123;<span class="number">79</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;, &#123;<span class="number">81</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">84</span>, <span class="number">1</span> / <span class="number">2.f</span>&#125;, &#123;<span class="number">84</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;,</span><br><span class="line">        &#123;<span class="number">86</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">84</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;, &#123;<span class="number">82</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;, &#123;<span class="number">81</span>, <span class="number">1</span> / <span class="number">4.f</span>&#125;,</span><br><span class="line">        &#123;<span class="number">77</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">79</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">72</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">77</span>, <span class="number">1</span> / <span class="number">2.f</span>&#125;,</span><br><span class="line">        &#123;<span class="number">76</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">77</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">76</span>, <span class="number">1</span> / <span class="number">8.f</span>&#125;, &#123;<span class="number">74</span>, <span class="number">1</span> / <span class="number">2.f</span>&#125;,</span><br><span class="line">    &#125;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">playOrange</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">constexpr</span> <span class="keyword">auto</span> get_frequency = [](<span class="keyword">const</span> <span class="keyword">int</span> note) &#123;</span><br><span class="line">            <span class="keyword">if</span> (note &lt; <span class="number">0</span> || note &gt; <span class="number">119</span>) <span class="keyword">return</span> <span class="number">-1.0f</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">440.0f</span> *</span><br><span class="line">                <span class="built_in">std</span>::<span class="built_in">pow</span>(<span class="number">2.0f</span>, <span class="keyword">static_cast</span>&lt;<span class="keyword">float</span>&gt;(note - <span class="number">57</span>) / <span class="number">12.0f</span>);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">constexpr</span> <span class="keyword">auto</span> get_duration = [](<span class="keyword">const</span> <span class="keyword">float</span> duration) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1600</span> * duration;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [note, duration] : notes)</span><br><span class="line">        &#123;</span><br><span class="line">            ::Beep(<span class="keyword">static_cast</span>&lt;DWORD&gt;(get_frequency(note)),</span><br><span class="line">                <span class="keyword">static_cast</span>&lt;DWORD&gt;(get_duration(duration)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  <span class="comment">// namespace BeepMusic</span></span><br></pre></td></tr></table></figure></code></pre>
+<p>其中有个公式<br>    $$<br>    440 \times 2 ^ {\frac{(x-57)}{12}}<br>    $$<br> 哪来的？</p>
+<p>经反复查找资料<br>    MIDI代表乐器数字接口。该标准指定了软件和电子设备可以传输和接收音乐的方式。</p>
+<p>另外一个公式在开源项目 audacity<br>    $$<br>    440 \times 2 ^ {\frac{(x-69)}{12}}<br>    $$</p>
+<p>这个2个公式本身是什么逻辑，哪里来的，很难猜到，需要了解乐理知识</p>
+<h3 id="乐理知识"><a href="#乐理知识" class="headerlink" title="乐理知识"></a>乐理知识</h3><ul>
+<li><p>乐音体系: 有固定音高的音（乐音）的总和，叫做乐音体系。 一般的钢琴 88琴键 $A_2 - C^5$</p>
+</li>
+<li><p>音级： 在乐音体系中的每个音，就叫做“音级”。音级包括有基本音级和变化音级两种。 自然</p>
+</li>
+<li><p>音列：将乐音体系中的音，依照音高关系和次序，由低到高（上行）或由高向低（下行）排列起来，叫做“音列”。</p>
+</li>
+<li><p>半音： 在整个乐音体系中，相邻的两个音级（不论基本音级或变化音级）之间的音高关系就是“半音”，半音是音高关系中的最小单位。用分数1/2来标记。</p>
+</li>
+<li><p>全音： 在乐音体系中，两个半音相加，就形成了全音。用阿拉伯数字1来标记。</p>
+</li>
+<li><p>音名： 在乐音体系中，七个具有独立名称的音级叫做基本音级（也叫自然音级） “C D E F G A B”  钢琴白键都是基本音级</p>
+</li>
+<li><p>变化音级： # 升音级  $^#C$ 升半音 , b 降音级 $^bD$ 降半音 , # 重升音级  $^×E$ 升Q全音 , bb 重降音级 $^{bb}F$ 降半音</p>
+</li>
+<li><p>大谱钢琴键盘对照表   <img src="paino.gif" alt="对照表"></p>
+</li>
+</ul>
+<h4 id="标准音"><a href="#标准音" class="headerlink" title="标准音"></a>标准音</h4><p>中央C 440Hz  第一国际高音<br>小字a $a^1 = 435 hz$  第二国际高音  演奏会音高</p>
+<h4 id="音律关系"><a href="#音律关系" class="headerlink" title="音律关系"></a>音律关系</h4><h5 id="纯律"><a href="#纯律" class="headerlink" title="纯律"></a>纯律</h5><p>西洋乐器</p>
+<h5 id="五度相生律"><a href="#五度相生律" class="headerlink" title="五度相生律"></a>五度相生律</h5><p>五度相生律又叫“三分损益律”，它是按纯五度的关系向上或向下推算的办法，来找出整个各个音级的精确高度。即是用分音列中第二分音与第三分音之间的音高关系，连续相生而求得出的各个音级的准确音高。 民族乐器。</p>
+<h5 id="十二平均律"><a href="#十二平均律" class="headerlink" title="十二平均律"></a>十二平均律</h5><p>将纯八度分成十二个均等的部分的音律叫做十二平均律。其中每一个部分就是一个半音，每个半音的距离是相等的，它的最大好处是转调方便。十二平均律多用在钢琴、手风琴、电子琴、风琴。</p>
+<h3 id="最终代码公式"><a href="#最终代码公式" class="headerlink" title="最终代码公式"></a>最终代码公式</h3><pre><code><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> midi[<span class="number">127</span>];</span><br><span class="line"><span class="keyword">int</span> a = <span class="number">440</span>; <span class="comment">// a is 440 hz...</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; <span class="number">127</span>; ++x)</span><br><span class="line">&#123;</span><br><span class="line">    midi[x] = (a / <span class="number">32</span>) * (<span class="number">2</span> ^ ((x - <span class="number">9</span>) / <span class="number">12</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<p>公式<br>    $$<br>    \frac{440}{32} \times 2 ^ {\frac{(x-9)}{12}}<br>    $$</p>
+<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><pre> MIDI                   MIDI                   MIDI
+ Note     Frequency      Note   Frequency       Note   Frequency
+ C1  0    8.1757989156    12    16.3515978313    24    32.7031956626
+ Db  1    8.6619572180    13    17.3239144361    25    34.6478288721
+ D   2    9.1770239974    14    18.3540479948    26    36.7080959897
+ Eb  3    9.7227182413    15    19.4454364826    27    38.8908729653
+ E   4   10.3008611535    16    20.6017223071    28    41.2034446141
+ F   5   10.9133822323    17    21.8267644646    29    43.6535289291
+ Gb  6   11.5623257097    18    23.1246514195    30    46.2493028390
+ G   7   12.2498573744    19    24.4997147489    31    48.9994294977
+ Ab  8   12.9782717994    20    25.9565435987    32    51.9130871975
+ A   9   13.7500000000    21    27.5000000000    33    55.0000000000
+ Bb  10  14.5676175474    22    29.1352350949    34    58.2704701898
+ B   11  15.4338531643    23    30.8677063285    35    61.7354126570
+
+ C4  36  65.4063913251    48   130.8127826503    60   261.6255653006
+ Db  37  69.2956577442    49   138.5913154884    61   277.1826309769
+ D   38  73.4161919794    50   146.8323839587    62   293.6647679174
+ Eb  39  77.7817459305    51   155.5634918610    63   311.1269837221
+ E   40  82.4068892282    52   164.8137784564    64   329.6275569129
+ F   41  87.3070578583    53   174.6141157165    65   349.2282314330
+ Gb  42  92.4986056779    54   184.9972113558    66   369.9944227116
+ G   43  97.9988589954    55   195.9977179909    67   391.9954359817
+ Ab  44  103.8261743950   56   207.6523487900    68   415.3046975799
+ A   45  110.0000000000   57   220.0000000000    69   440.0000000000
+ Bb  46  116.5409403795   58   233.0818807590    70   466.1637615181
+ B   47  123.4708253140   59   246.9416506281    71   493.8833012561
+
+ C7  72  523.2511306012   84  1046.5022612024    96  2093.0045224048
+ Db  73  554.3652619537   85  1108.7305239075    97  2217.4610478150
+ D   74  587.3295358348   86  1174.6590716696    98  2349.3181433393
+ Eb  75  622.2539674442   87  1244.5079348883    99  2489.0158697766
+ E   76  659.2551138257   88  1318.5102276515   100  2637.0204553030
+ F   77  698.4564628660   89  1396.9129257320   101  2793.8258514640
+ Gb  78  739.9888454233   90  1479.9776908465   102  2959.9553816931
+ G   79  783.9908719635   91  1567.9817439270   103  3135.9634878540
+ Ab  80  830.6093951599   92  1661.2187903198   104  3322.4375806396
+ A   81  880.0000000000   93  1760.0000000000   105  3520.0000000000
+ Bb  82  932.3275230362   94  1864.6550460724   106  3729.3100921447
+ B   83  987.7666025122   95  1975.5332050245   107  3951.0664100490
+
+ C10 108 4186.0090448096  120  8372.0180896192
+ Db  109 4434.9220956300  121  8869.8441912599
+ D   110 4698.6362866785  122  9397.2725733570
+ Eb  111 4978.0317395533  123  9956.0634791066
+ E   112 5274.0409106059  124 10548.0818212118
+ F   113 5587.6517029281  125 11175.3034058561
+ Gb  114 5919.9107633862  126 11839.8215267723
+ G   115 6271.9269757080  127 12543.8539514160
+ Ab  116 6644.8751612791
+ A   117 7040.0000000000
+ Bb  118 7458.6201842894
+ B   119 7902.1328200980
+</pre>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9F%B3%E4%B9%90/" rel="tag">音乐</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Windows程序诊断技术" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/09/10/Windows%E7%A8%8B%E5%BA%8F%E8%AF%8A%E6%96%AD%E6%8A%80%E6%9C%AF/"
+    >Windows程序诊断技术</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/09/10/Windows%E7%A8%8B%E5%BA%8F%E8%AF%8A%E6%96%AD%E6%8A%80%E6%9C%AF/" class="article-date">
+  <time datetime="2020-09-10T03:34:24.000Z" itemprop="datePublished">2020-09-10</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="诊断程序"><a href="#诊断程序" class="headerlink" title="诊断程序"></a>诊断程序</h2><p>Windows具有支持桌面应用程序中以及桌面应用程序中的诊断的API和服务。</p>
+<h3 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h3><ul>
+<li><p>评估执行引擎(Assessment Execution Engine) AXE API Win7 以上 AxeHosting.h 查不到更多信息了</p>
+</li>
+<li><p>调试和错误处理</p>
+</li>
+<li><p>硬件计数器分析</p>
+</li>
+<li><p>网络诊断框架</p>
+</li>
+<li><p>网络监控器</p>
+</li>
+<li><p>性能计数器</p>
+</li>
+<li><p>性能日志和警报</p>
+</li>
+<li><p>流程快照</p>
+</li>
+<li><p>流程状态API</p>
+</li>
+<li><p>系统事件通知服务</p>
+</li>
+<li><p>系统监控器</p>
+</li>
+<li><p>工具帮助库</p>
+</li>
+<li><p>Windows错误报告</p>
+</li>
+<li><p>Windows事件</p>
+</li>
+<li><p>Windows Performance Analyzer(WPA)</p>
+</li>
+<li><p>Windows Performance Toolkit(WPT)</p>
+</li>
+<li><p>Windows故障排除平台</p>
+</li>
+</ul>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/" rel="tag">windows</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-windows安全性" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -117,7 +377,7 @@
 <p> 通用凭证 通用凭证可以由用户进程读取和写入</p>
 <p> 用户名格式</p>
 <ul>
-<li><a href="mailto:UserName@Example.Microsoft.com">UserName@Example.Microsoft.com</a></li>
+<li><a href="mailto:&#85;&#x73;&#x65;&#x72;&#78;&#x61;&#x6d;&#x65;&#64;&#69;&#120;&#x61;&#109;&#x70;&#108;&#101;&#x2e;&#77;&#x69;&#x63;&#114;&#x6f;&#115;&#111;&#102;&#116;&#x2e;&#99;&#111;&#109;">&#85;&#x73;&#x65;&#x72;&#78;&#x61;&#x6d;&#x65;&#64;&#69;&#120;&#x61;&#109;&#x70;&#108;&#101;&#x2e;&#77;&#x69;&#x63;&#114;&#x6f;&#115;&#111;&#102;&#116;&#x2e;&#99;&#111;&#109;</a></li>
 <li>DOMAIN \ UserName</li>
 </ul>
 </li>
@@ -132,7 +392,8 @@
 <li><p>GINA</p>
 </li>
 </ol>
-<h2 id="Authorization-授权"><a href="#Authorization-授权" class="headerlink" title="Authorization 授权"></a>Authorization 授权</h2><h3 id="Access-Control"><a href="#Access-Control" class="headerlink" title="Access Control"></a>Access Control</h3><pre><code>[美国国防部定义的C2级安全性](https://docs.microsoft.com/zh-cn/windows/win32/secauthz/c2-level-security)</code></pre><h4 id="访问控制模型"><a href="#访问控制模型" class="headerlink" title="访问控制模型"></a>访问控制模型</h4><ol>
+<h2 id="Authorization-授权"><a href="#Authorization-授权" class="headerlink" title="Authorization 授权"></a>Authorization 授权</h2><h3 id="Access-Control"><a href="#Access-Control" class="headerlink" title="Access Control"></a>Access Control</h3><pre><code>[美国国防部定义的C2级安全性](https://docs.microsoft.com/zh-cn/windows/win32/secauthz/c2-level-security)</code></pre>
+<h4 id="访问控制模型"><a href="#访问控制模型" class="headerlink" title="访问控制模型"></a>访问控制模型</h4><ol>
 <li><p>Access tokens</p>
 </li>
 <li><p>Security descriptors</p>
@@ -299,12 +560,13 @@
 </tr>
 </tbody></table>
 <p> SID 结构</p>
-<pre><code>S - R - I - S
-S-1-5-32-544  本地Administrators组
-1 修订级别
-5 SECURITY_NT_AUTHORITY
-32 SECURITY_BUILTIN_DOMAIN_RID
-544 DOMAIN_ALIAS_RID_ADMINS</code></pre></li>
+<pre><code> S - R - I - S
+ S-1-5-32-544  本地Administrators组
+ 1 修订级别
+ 5 SECURITY_NT_AUTHORITY
+ 32 SECURITY_BUILTIN_DOMAIN_RID
+ 544 DOMAIN_ALIAS_RID_ADMINS</code></pre>
+</li>
 </ol>
 <h3 id="Access-Control-Editor"><a href="#Access-Control-Editor" class="headerlink" title="Access Control Editor"></a>Access Control Editor</h3><h3 id="Client-Server-Access-Control"><a href="#Client-Server-Access-Control" class="headerlink" title="Client/Server Access Control"></a>Client/Server Access Control</h3><h3 id="Access-Control-for-Application-Resources"><a href="#Access-Control-for-Application-Resources" class="headerlink" title="Access Control for Application Resources"></a>Access Control for Application Resources</h3><h3 id="Mandatory-Integrity-Control"><a href="#Mandatory-Integrity-Control" class="headerlink" title="Mandatory Integrity Control"></a>Mandatory Integrity Control</h3><p>强制完整性控制</p>
 <p>Windows Vista定义了四个完整性级别：低(SID: S-1-16-4096)、中(SID: S-1-16-8192)、高(SID: S-1-16-12288)、系统(SID: S-1-16-16384)。默认情况下，普通用户启动的进程将获得中完整性级别，而提升的进程则获得高完整性级别。通过引入完整性级别，强制完整性控制可以分类隔离程序，使得沙箱化潜在危险程序（如进行网络通信的程序）成为可能。低完整性进程所拥有的访问权限少于那些拥有更高完整性级别的进程。</p>
@@ -1111,184 +1373,6 @@ S-1-5-32-544  本地Administrators组
 
 </article>
     
-    <article id="post-windows下httpGet请求" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/04/07/windows%E4%B8%8BhttpGet%E8%AF%B7%E6%B1%82/"
-    >windows下httpGet请求</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/04/07/windows%E4%B8%8BhttpGet%E8%AF%B7%E6%B1%82/" class="article-date">
-  <time datetime="2020-04-07T07:54:51.000Z" itemprop="datePublished">2020-04-07</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;WinInet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">"wininet.lib"</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">namespace</span> WinInet</span><br><span class="line">&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> region HttpGet</span></span><br><span class="line">    <span class="keyword">static</span>  __inline</span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="title">ParserUrl</span><span class="params">(<span class="built_in">string</span> Url, <span class="built_in">string</span>&amp; Host, <span class="built_in">string</span>&amp; Filename, WORD&amp; Port)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Port = INTERNET_DEFAULT_HTTP_PORT;</span><br><span class="line">        <span class="keyword">if</span> (Url.substr(<span class="number">0U</span>, <span class="number">7</span>) != <span class="string">"http://"</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Url = Url.substr(<span class="number">7</span>);</span><br><span class="line">        <span class="keyword">int</span>  HostLen = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (<span class="keyword">int</span>)Url.<span class="built_in">size</span>(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (Url[i] == (<span class="string">':'</span>) || Url[i] == (<span class="string">'/'</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            HostLen++;</span><br><span class="line">        &#125;</span><br><span class="line">        Host = Url.substr(<span class="number">0</span>, HostLen);</span><br><span class="line">        Url = Url.substr(HostLen);</span><br><span class="line">        <span class="keyword">if</span> (Url[<span class="number">0</span>] == <span class="string">':'</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; (<span class="keyword">int</span>)Url.<span class="built_in">size</span>(); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (Url[i] == (<span class="string">'/'</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">string</span> strPort = Url.substr(<span class="number">0</span>, i);</span><br><span class="line">                    Port = atoi(strPort.c_str());</span><br><span class="line">                    Url = Url.substr(i);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Filename = Url;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> _inline</span><br><span class="line">        <span class="function"><span class="built_in">string</span>  <span class="title">HttpGet</span><span class="params">(<span class="built_in">string</span> Url, DWORD&amp; httpStatus)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span>              ret;</span><br><span class="line">        DWORD               byteread = <span class="number">0</span>;</span><br><span class="line">        HINTERNET           m_hInternetSession = <span class="literal">NULL</span>;</span><br><span class="line">        HINTERNET           m_hHttpConnection = <span class="literal">NULL</span>;</span><br><span class="line">        HINTERNET           m_hHttpFile = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>                <span class="built_in">buffer</span>[<span class="number">1024</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        LPCSTR              ppszAcceptTypes[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">        DWORD   dwContentLength = <span class="number">0</span>, dwIndex = <span class="number">0</span>, filesize = <span class="number">0xffffffff</span>, totalSize = <span class="number">0</span>;</span><br><span class="line">        DWORD   dwBuffLen = <span class="keyword">sizeof</span>(dwContentLength);</span><br><span class="line"></span><br><span class="line">        DWORD dwFlags = INTERNET_FLAG_RELOAD;</span><br><span class="line">        DWORD TimeOut = <span class="number">15000</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span>  m_sServer, m_sObject;</span><br><span class="line">        WORD m_nPort = INTERNET_DEFAULT_HTTP_PORT;</span><br><span class="line">        httpStatus = DWORD(<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">if</span> (!ParserUrl(Url, m_sServer, m_sObject, m_nPort))</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        LPCSTR      headers = (<span class="string">"\r\n\r\n"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hInternetSession = ::InternetOpenA((<span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1"</span>), INTERNET_OPEN_TYPE_PRECONFIG, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_CONNECT_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_DATA_RECEIVE_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_DATA_SEND_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (m_hInternetSession == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hHttpConnection = ::InternetConnectA(m_hInternetSession, m_sServer.c_str(), m_nPort, <span class="literal">NULL</span>,</span><br><span class="line">            <span class="literal">NULL</span>, INTERNET_SERVICE_HTTP, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpConnection == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line">        <span class="comment">//Issue the request to read the file</span></span><br><span class="line"></span><br><span class="line">        ppszAcceptTypes[<span class="number">0</span>] = (<span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span>);  <span class="comment">//We support accepting any mime file type since this is a simple download of a file</span></span><br><span class="line">        ppszAcceptTypes[<span class="number">1</span>] = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hHttpFile = HttpOpenRequestA(m_hHttpConnection, <span class="string">"GET"</span>, m_sObject.c_str(), <span class="string">"HTTP/1.0"</span>, <span class="literal">NULL</span>, ppszAcceptTypes, dwFlags, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpFile == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!::HttpSendRequestA(m_hHttpFile, headers, <span class="built_in">strlen</span>(headers), <span class="literal">NULL</span>, <span class="number">0</span>))</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        dwBuffLen = <span class="keyword">sizeof</span>(httpStatus);</span><br><span class="line">        <span class="keyword">if</span> ((!HttpQueryInfoA(m_hHttpFile, HTTP_QUERY_STATUS_CODE | HTTP_QUERY_FLAG_NUMBER, &amp;httpStatus, &amp;dwBuffLen,</span><br><span class="line">            &amp;dwIndex)) || (httpStatus != HTTP_STATUS_OK))</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line">        dwBuffLen = <span class="keyword">sizeof</span>(dwContentLength);</span><br><span class="line">        <span class="keyword">if</span> ((HttpQueryInfoA(m_hHttpFile, HTTP_QUERY_CONTENT_LENGTH | HTTP_QUERY_FLAG_NUMBER, &amp;dwContentLength, &amp;dwBuffLen,</span><br><span class="line">            &amp;dwIndex)))</span><br><span class="line">        &#123;</span><br><span class="line">            filesize = dwContentLength;</span><br><span class="line">            ret.reserve(dwContentLength);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            DWORD byteread = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (!InternetReadFile(m_hHttpFile, <span class="built_in">buffer</span>, <span class="keyword">sizeof</span>(<span class="built_in">buffer</span>), &amp;byteread) || (byteread == <span class="number">0</span>))</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            totalSize += byteread;</span><br><span class="line">            ULONG written = <span class="number">0</span>;</span><br><span class="line">            ret += <span class="built_in">string</span>(<span class="built_in">buffer</span>, byteread);</span><br><span class="line">            <span class="comment">//ret-&gt;Write(buffer, byteread, &amp;written);</span></span><br><span class="line">            <span class="keyword">if</span> (totalSize &gt;= filesize)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    EXIT:</span><br><span class="line">        <span class="keyword">if</span> (m_hInternetSession)</span><br><span class="line">            InternetCloseHandle(m_hInternetSession);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpConnection)</span><br><span class="line">            InternetCloseHandle(m_hHttpConnection);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpFile)</span><br><span class="line">            InternetCloseHandle(m_hHttpFile);</span><br><span class="line">        <span class="keyword">return</span>  ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> endregion HttpGet</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用方法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DWORD httpStatus;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">string</span> buff = WinInet::HttpGet(w2a(url.c_str()), httpStatus);</span><br><span class="line">  <span class="keyword">if</span> (httpStatus != <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="title-知名博客集锦" class="article article-type-title" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/25/%E7%9F%A5%E5%90%8D%E5%8D%9A%E5%AE%A2%E9%9B%86%E9%94%A6/"
-    >知名博客集锦</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/25/%E7%9F%A5%E5%90%8D%E5%8D%9A%E5%AE%A2%E9%9B%86%E9%94%A6/" class="article-date">
-  <time datetime="2020-03-25T12:08:52.000Z" itemprop="datePublished">2020-03-25</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h3 id="🐂🍺"><a href="#🐂🍺" class="headerlink" title="🐂🍺"></a>🐂🍺</h3><ul>
-<li>Fabrice Bellard <a href="https://bellard.org/" target="_blank" rel="noopener">https://bellard.org/</a></li>
-</ul>
-<h3 id="C-程序员博客列表"><a href="#C-程序员博客列表" class="headerlink" title="C++程序员博客列表"></a>C++程序员博客列表</h3><ul>
-<li>VCZH <a href="http://www.cppblog.com/vczh" target="_blank" rel="noopener">http://www.cppblog.com/vczh</a></li>
-<li>朝闻道 <a href="https://www.cnblogs.com/findumars/" target="_blank" rel="noopener">https://www.cnblogs.com/findumars/</a></li>
-<li>chromium技术博客 <a href="https://gclxry.com/" target="_blank" rel="noopener">https://gclxry.com/</a></li>
-<li>morewindow <a href="https://blog.csdn.net/morewindows" target="_blank" rel="noopener">https://blog.csdn.net/morewindows</a></li>
-<li>c++ <a href="http://r12f.com/" target="_blank" rel="noopener">http://r12f.com/</a></li>
-<li>vs调试器 <a href="http://r12f.com/" target="_blank" rel="noopener">http://r12f.com/</a></li>
-<li>wxquare <a href="https://www.cnblogs.com/wxquare/" target="_blank" rel="noopener">https://www.cnblogs.com/wxquare/</a></li>
-<li>c++服务端 <a href="https://www.cnblogs.com/moyangvip/" target="_blank" rel="noopener">https://www.cnblogs.com/moyangvip/</a></li>
-<li>王垠 <a href="http://www.yinwang.org/" target="_blank" rel="noopener">http://www.yinwang.org/</a></li>
-<li>陈皓 <a href="https://coolshell.cn/" target="_blank" rel="noopener">https://coolshell.cn/</a></li>
-</ul>
-<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ul>
-<li>何登成AliSql <a href="http://hedengcheng.com/" target="_blank" rel="noopener">http://hedengcheng.com/</a></li>
-</ul>
-<h3 id="JAVA程序员博客列表"><a href="#JAVA程序员博客列表" class="headerlink" title="JAVA程序员博客列表"></a>JAVA程序员博客列表</h3><ul>
-<li>ajian005 <a href="https://blog.csdn.net/ajian005/" target="_blank" rel="noopener">https://blog.csdn.net/ajian005/</a></li>
-</ul>
-<h3 id="算法博客"><a href="#算法博客" class="headerlink" title="算法博客"></a>算法博客</h3><ul>
-<li>hnust_xiehonghao <a href="https://blog.csdn.net/hnust_xiehonghao" target="_blank" rel="noopener">https://blog.csdn.net/hnust_xiehonghao</a></li>
-</ul>
-<h3 id="知识图谱"><a href="#知识图谱" class="headerlink" title="知识图谱"></a>知识图谱</h3><ul>
-<li><a href="https://github.com/TeamStuQ/skill-map" target="_blank" rel="noopener">https://github.com/TeamStuQ/skill-map</a></li>
-</ul>
-<h3 id="安全博客"><a href="#安全博客" class="headerlink" title="安全博客"></a>安全博客</h3><ul>
-<li>seebug <a href="https://paper.seebug.org/" target="_blank" rel="noopener">https://paper.seebug.org/</a></li>
-<li>predator-wang <a href="https://www.cnblogs.com/predator-wang/" target="_blank" rel="noopener">https://www.cnblogs.com/predator-wang/</a></li>
-<li>killcoco <a href="https://blog.csdn.net/qq_36810340" target="_blank" rel="noopener">https://blog.csdn.net/qq_36810340</a></li>
-</ul>
-<blockquote>
-<p>有趣的二进制</p>
-</blockquote>
-<h3 id="其他行业教学视频合集"><a href="#其他行业教学视频合集" class="headerlink" title="其他行业教学视频合集"></a>其他行业教学视频合集</h3><ul>
-<li>知乎专栏 <a href="https://zhuanlan.zhihu.com/p/27664328" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27664328</a></li>
-</ul>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
@@ -1562,6 +1646,30 @@ S-1-5-32-544  本地Administrators组
     viewer_init()
 </script>
 
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
 
 
 
