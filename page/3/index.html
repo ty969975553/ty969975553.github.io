@@ -67,6 +67,188 @@
     
     
     
+    <article id="post-windows下httpGet请求" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/07/windows%E4%B8%8BhttpGet%E8%AF%B7%E6%B1%82/"
+    >windows下httpGet请求</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/07/windows%E4%B8%8BhttpGet%E8%AF%B7%E6%B1%82/" class="article-date">
+  <time datetime="2020-04-07T07:54:51.000Z" itemprop="datePublished">2020-04-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;WinInet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">&quot;wininet.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">namespace</span> WinInet</span><br><span class="line">&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> region HttpGet</span></span><br><span class="line">    <span class="keyword">static</span>  __inline</span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="title">ParserUrl</span><span class="params">(<span class="built_in">string</span> Url, <span class="built_in">string</span>&amp; Host, <span class="built_in">string</span>&amp; Filename, WORD&amp; Port)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Port = INTERNET_DEFAULT_HTTP_PORT;</span><br><span class="line">        <span class="keyword">if</span> (Url.substr(<span class="number">0U</span>, <span class="number">7</span>) != <span class="string">&quot;http://&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Url = Url.substr(<span class="number">7</span>);</span><br><span class="line">        <span class="keyword">int</span>  HostLen = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (<span class="keyword">int</span>)Url.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (Url[i] == (<span class="string">&#x27;:&#x27;</span>) || Url[i] == (<span class="string">&#x27;/&#x27;</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            HostLen++;</span><br><span class="line">        &#125;</span><br><span class="line">        Host = Url.substr(<span class="number">0</span>, HostLen);</span><br><span class="line">        Url = Url.substr(HostLen);</span><br><span class="line">        <span class="keyword">if</span> (Url[<span class="number">0</span>] == <span class="string">&#x27;:&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; (<span class="keyword">int</span>)Url.size(); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (Url[i] == (<span class="string">&#x27;/&#x27;</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">string</span> strPort = Url.substr(<span class="number">0</span>, i);</span><br><span class="line">                    Port = atoi(strPort.c_str());</span><br><span class="line">                    Url = Url.substr(i);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Filename = Url;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> _inline</span><br><span class="line">        <span class="function"><span class="built_in">string</span>  <span class="title">HttpGet</span><span class="params">(<span class="built_in">string</span> Url, DWORD&amp; httpStatus)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span>              ret;</span><br><span class="line">        DWORD               byteread = <span class="number">0</span>;</span><br><span class="line">        HINTERNET           m_hInternetSession = <span class="literal">NULL</span>;</span><br><span class="line">        HINTERNET           m_hHttpConnection = <span class="literal">NULL</span>;</span><br><span class="line">        HINTERNET           m_hHttpFile = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>                buffer[<span class="number">1024</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        LPCSTR              ppszAcceptTypes[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">        DWORD   dwContentLength = <span class="number">0</span>, dwIndex = <span class="number">0</span>, filesize = <span class="number">0xffffffff</span>, totalSize = <span class="number">0</span>;</span><br><span class="line">        DWORD   dwBuffLen = <span class="keyword">sizeof</span>(dwContentLength);</span><br><span class="line"></span><br><span class="line">        DWORD dwFlags = INTERNET_FLAG_RELOAD;</span><br><span class="line">        DWORD TimeOut = <span class="number">15000</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span>  m_sServer, m_sObject;</span><br><span class="line">        WORD m_nPort = INTERNET_DEFAULT_HTTP_PORT;</span><br><span class="line">        httpStatus = DWORD(<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">if</span> (!ParserUrl(Url, m_sServer, m_sObject, m_nPort))</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        LPCSTR      headers = (<span class="string">&quot;\r\n\r\n&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hInternetSession = ::InternetOpenA((<span class="string">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1&quot;</span>), INTERNET_OPEN_TYPE_PRECONFIG, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_CONNECT_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_DATA_RECEIVE_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line">        InternetSetOption(m_hInternetSession, INTERNET_OPTION_DATA_SEND_TIMEOUT, &amp;TimeOut, <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (m_hInternetSession == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hHttpConnection = ::InternetConnectA(m_hInternetSession, m_sServer.c_str(), m_nPort, <span class="literal">NULL</span>,</span><br><span class="line">            <span class="literal">NULL</span>, INTERNET_SERVICE_HTTP, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpConnection == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line">        <span class="comment">//Issue the request to read the file</span></span><br><span class="line"></span><br><span class="line">        ppszAcceptTypes[<span class="number">0</span>] = (<span class="string">&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;</span>);  <span class="comment">//We support accepting any mime file type since this is a simple download of a file</span></span><br><span class="line">        ppszAcceptTypes[<span class="number">1</span>] = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m_hHttpFile = HttpOpenRequestA(m_hHttpConnection, <span class="string">&quot;GET&quot;</span>, m_sObject.c_str(), <span class="string">&quot;HTTP/1.0&quot;</span>, <span class="literal">NULL</span>, ppszAcceptTypes, dwFlags, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpFile == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!::HttpSendRequestA(m_hHttpFile, headers, <span class="built_in">strlen</span>(headers), <span class="literal">NULL</span>, <span class="number">0</span>))</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        dwBuffLen = <span class="keyword">sizeof</span>(httpStatus);</span><br><span class="line">        <span class="keyword">if</span> ((!HttpQueryInfoA(m_hHttpFile, HTTP_QUERY_STATUS_CODE | HTTP_QUERY_FLAG_NUMBER, &amp;httpStatus, &amp;dwBuffLen,</span><br><span class="line">            &amp;dwIndex)) || (httpStatus != HTTP_STATUS_OK))</span><br><span class="line">            <span class="keyword">goto</span> EXIT;</span><br><span class="line">        dwBuffLen = <span class="keyword">sizeof</span>(dwContentLength);</span><br><span class="line">        <span class="keyword">if</span> ((HttpQueryInfoA(m_hHttpFile, HTTP_QUERY_CONTENT_LENGTH | HTTP_QUERY_FLAG_NUMBER, &amp;dwContentLength, &amp;dwBuffLen,</span><br><span class="line">            &amp;dwIndex)))</span><br><span class="line">        &#123;</span><br><span class="line">            filesize = dwContentLength;</span><br><span class="line">            ret.reserve(dwContentLength);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            DWORD byteread = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (!InternetReadFile(m_hHttpFile, buffer, <span class="keyword">sizeof</span>(buffer), &amp;byteread) || (byteread == <span class="number">0</span>))</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            totalSize += byteread;</span><br><span class="line">            ULONG written = <span class="number">0</span>;</span><br><span class="line">            ret += <span class="built_in">string</span>(buffer, byteread);</span><br><span class="line">            <span class="comment">//ret-&gt;Write(buffer, byteread, &amp;written);</span></span><br><span class="line">            <span class="keyword">if</span> (totalSize &gt;= filesize)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    EXIT:</span><br><span class="line">        <span class="keyword">if</span> (m_hInternetSession)</span><br><span class="line">            InternetCloseHandle(m_hInternetSession);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpConnection)</span><br><span class="line">            InternetCloseHandle(m_hHttpConnection);</span><br><span class="line">        <span class="keyword">if</span> (m_hHttpFile)</span><br><span class="line">            InternetCloseHandle(m_hHttpFile);</span><br><span class="line">        <span class="keyword">return</span>  ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> endregion HttpGet</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DWORD httpStatus;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">string</span> buff = WinInet::HttpGet(w2a(url.c_str()), httpStatus);</span><br><span class="line">  <span class="keyword">if</span> (httpStatus != <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/" rel="tag">windows</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="title-知名博客集锦" class="article article-type-title" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/25/%E7%9F%A5%E5%90%8D%E5%8D%9A%E5%AE%A2%E9%9B%86%E9%94%A6/"
+    >知名博客集锦</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/25/%E7%9F%A5%E5%90%8D%E5%8D%9A%E5%AE%A2%E9%9B%86%E9%94%A6/" class="article-date">
+  <time datetime="2020-03-25T12:08:52.000Z" itemprop="datePublished">2020-03-25</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h3 id="🐂🍺"><a href="#🐂🍺" class="headerlink" title="🐂🍺"></a>🐂🍺</h3><ul>
+<li>Fabrice Bellard <a target="_blank" rel="noopener" href="https://bellard.org/">https://bellard.org/</a></li>
+</ul>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><ul>
+<li>randomascii <a target="_blank" rel="noopener" href="https://randomascii.wordpress.com/">https://randomascii.wordpress.com/</a></li>
+</ul>
+<h3 id="C-程序员博客列表"><a href="#C-程序员博客列表" class="headerlink" title="C++程序员博客列表"></a>C++程序员博客列表</h3><ul>
+<li>VCZH <a target="_blank" rel="noopener" href="http://www.cppblog.com/vczh">http://www.cppblog.com/vczh</a></li>
+<li>朝闻道 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/findumars/">https://www.cnblogs.com/findumars/</a></li>
+<li>chromium技术博客 <a target="_blank" rel="noopener" href="https://gclxry.com/">https://gclxry.com/</a></li>
+<li>morewindow <a target="_blank" rel="noopener" href="https://blog.csdn.net/morewindows">https://blog.csdn.net/morewindows</a></li>
+<li>c++ <a target="_blank" rel="noopener" href="http://r12f.com/">http://r12f.com/</a></li>
+<li>vs调试器 <a target="_blank" rel="noopener" href="http://r12f.com/">http://r12f.com/</a></li>
+<li>wxquare <a target="_blank" rel="noopener" href="https://www.cnblogs.com/wxquare/">https://www.cnblogs.com/wxquare/</a></li>
+<li>c++服务端 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/moyangvip/">https://www.cnblogs.com/moyangvip/</a></li>
+<li>王垠 <a target="_blank" rel="noopener" href="http://www.yinwang.org/">http://www.yinwang.org/</a></li>
+<li>陈皓 <a target="_blank" rel="noopener" href="https://coolshell.cn/">https://coolshell.cn/</a></li>
+<li>saschawillems <a target="_blank" rel="noopener" href="https://www.saschawillems.de/">https://www.saschawillems.de/</a>  图形</li>
+</ul>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ul>
+<li>何登成AliSql <a target="_blank" rel="noopener" href="http://hedengcheng.com/">http://hedengcheng.com/</a></li>
+</ul>
+<h3 id="JAVA程序员博客列表"><a href="#JAVA程序员博客列表" class="headerlink" title="JAVA程序员博客列表"></a>JAVA程序员博客列表</h3><ul>
+<li>ajian005 <a target="_blank" rel="noopener" href="https://blog.csdn.net/ajian005/">https://blog.csdn.net/ajian005/</a></li>
+</ul>
+<h3 id="算法博客"><a href="#算法博客" class="headerlink" title="算法博客"></a>算法博客</h3><ul>
+<li>hnust_xiehonghao <a target="_blank" rel="noopener" href="https://blog.csdn.net/hnust_xiehonghao">https://blog.csdn.net/hnust_xiehonghao</a></li>
+</ul>
+<h3 id="知识图谱"><a href="#知识图谱" class="headerlink" title="知识图谱"></a>知识图谱</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/TeamStuQ/skill-map">https://github.com/TeamStuQ/skill-map</a></li>
+</ul>
+<h3 id="安全博客"><a href="#安全博客" class="headerlink" title="安全博客"></a>安全博客</h3><ul>
+<li>seebug <a target="_blank" rel="noopener" href="https://paper.seebug.org/">https://paper.seebug.org/</a></li>
+<li>predator-wang <a target="_blank" rel="noopener" href="https://www.cnblogs.com/predator-wang/">https://www.cnblogs.com/predator-wang/</a></li>
+<li>killcoco <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36810340">https://blog.csdn.net/qq_36810340</a></li>
+</ul>
+<blockquote>
+<p>有趣的二进制</p>
+</blockquote>
+<h3 id="其他行业教学视频合集"><a href="#其他行业教学视频合集" class="headerlink" title="其他行业教学视频合集"></a>其他行业教学视频合集</h3><ul>
+<li>知乎专栏 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27664328">https://zhuanlan.zhihu.com/p/27664328</a></li>
+</ul>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="title-程序员修炼之道-读书笔记" class="article article-type-title" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -134,48 +316,9 @@
 <li>不要假定要证明  </li>
 <li>学习一种文本操纵语言<br>脚本语言的作用:<br>数据库的维护<br>java属性的访问<br>测试数据生成<br>写书<br>C与Object Pascal的接口<br>生成web文档  </li>
 <li>编写能编写代码的代码  </li>
-<li>你不可能写出完美的软件<br>没有什么东西比常识和坦率更让人感到惊讶了。<br>-爱默生  </li>
-<li>通过合约进行设计  </li>
-<li>早点崩溃  </li>
-<li>如果不可能发生，请用断言确定它不会发生  </li>
-<li>将异常用于异常的问题  </li>
-<li>要有始有终  </li>
-<li>使模块之间中耦合性降到最低  </li>
-<li>要配置不要集成（多使用元数据metadata)  </li>
-<li>将抽象放入代码，将细节放入元数据  </li>
-<li>分析工作流，改善并发性  </li>
-<li>用服务进行设计  </li>
-<li>总是为并发性进行设计  </li>
-<li>视图与模型分离  </li>
-<li>使用黑板工作流方式  </li>
-<li>不要靠巧合编程(先思考再编码)  </li>
-<li>估算你算法的阶  </li>
-<li>测试你的估算  </li>
-<li>何时需要重构<br>重复<br>非正交性的设计<br>过时的知识<br>性能  </li>
-<li>早重构，常重构(类似肿瘤)<br>重构的注意事项：<br>不要在重构中添加新功能<br>重构之前先确定有良好的测试<br>采用短小，深思熟虑的方式  </li>
-<li>为测试而设计  </li>
-<li>测试你的软件，否则你的用户就得测试</li>
-<li>不要使用你不了解的向导代码（自己应该有自己代码生成器）</li>
-<li>不要收集需求而是挖掘他们!  </li>
-<li>抽象比细节活得更长久  </li>
-<li>使用项目词汇表  </li>
-<li>不要再盒子外面思考—找到盒子  </li>
-<li>倾听反复出现的疑虑，请准备好  </li>
-<li>对于有些事情，做甚于描述  </li>
-<li>不要做形式方法的奴隶  </li>
-<li>昂贵的工具不一定能做出合适的设计  </li>
-<li>围绕功能而不是每个人职务分组  </li>
-<li>不要使用手工流程  </li>
-<li>早测试、常测试、自动测试  </li>
-<li>要通过所有的测试，代码才算完成  </li>
-<li>要通过蓄意破坏测试你的测试  </li>
-<li>测试代码覆盖，而不是覆盖代码  </li>
-<li>一个bug只抓一次  </li>
-<li>把英语当成一种编程语言  </li>
-<li>把文档建在里面，而不是拴在外面  </li>
-<li>温和地超过用户期望  </li>
-<li>在你的作品上签名  </li>
+<li>你不可能写出完美的软件<br>没有什么东西比常识和坦率更让人感到惊讶了。  </li>
 </ol>
+<p> -爱默生<br>31. 通过合约进行设计<br>32. 早点崩溃<br>33. 如果不可能发生，请用断言确定它不会发生<br>34. 将异常用于异常的问题<br>35. 要有始有终<br>36. 使模块之间中耦合性降到最低<br>37. 要配置不要集成（多使用元数据metadata)<br>38. 将抽象放入代码，将细节放入元数据<br>39. 分析工作流，改善并发性<br>40. 用服务进行设计<br>41. 总是为并发性进行设计<br>42. 视图与模型分离<br>43. 使用黑板工作流方式<br>44. 不要靠巧合编程(先思考再编码)<br>45. 估算你算法的阶<br>46. 测试你的估算<br>47. 何时需要重构<br>重复<br>非正交性的设计<br>过时的知识<br>性能<br>48. 早重构，常重构(类似肿瘤)<br>重构的注意事项：<br>不要在重构中添加新功能<br>重构之前先确定有良好的测试<br>采用短小，深思熟虑的方式<br>49. 为测试而设计<br>50. 测试你的软件，否则你的用户就得测试<br>51. 不要使用你不了解的向导代码（自己应该有自己代码生成器）<br>52. 不要收集需求而是挖掘他们!<br>53. 抽象比细节活得更长久<br>54. 使用项目词汇表<br>55. 不要再盒子外面思考—找到盒子<br>56. 倾听反复出现的疑虑，请准备好<br>57. 对于有些事情，做甚于描述<br>58. 不要做形式方法的奴隶<br>59. 昂贵的工具不一定能做出合适的设计<br>60. 围绕功能而不是每个人职务分组<br>61. 不要使用手工流程<br>62. 早测试、常测试、自动测试<br>63. 要通过所有的测试，代码才算完成<br>64. 要通过蓄意破坏测试你的测试<br>65. 测试代码覆盖，而不是覆盖代码<br>66. 一个bug只抓一次<br>67. 把英语当成一种编程语言<br>68. 把文档建在里面，而不是拴在外面<br>69. 温和地超过用户期望<br>70. 在你的作品上签名  </p>
 
       
       <!-- reward -->
@@ -247,7 +390,7 @@
 
       
       <h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ol>
-<li><p>QT5: LNK1123: 转换到 COFF 期间失败: 文件无效或损坏<br> 解答： vs的某个exe和系统的exe不匹配<br> cvtres.exe<br> <a href="http://www.cnblogs.com/newpanderking/articles/3372969.html" target="_blank" rel="noopener">http://www.cnblogs.com/newpanderking/articles/3372969.html</a><br> 实在不行就安装vs的sp1补丁包</p>
+<li><p>QT5: LNK1123: 转换到 COFF 期间失败: 文件无效或损坏<br> 解答： vs的某个exe和系统的exe不匹配<br> cvtres.exe<br> <a target="_blank" rel="noopener" href="http://www.cnblogs.com/newpanderking/articles/3372969.html">http://www.cnblogs.com/newpanderking/articles/3372969.html</a><br> 实在不行就安装vs的sp1补丁包</p>
 </li>
 <li><p>fatal error LNK1318: 非意外的 PDB 错误<br> 清理重新编译、 去除链接器生成调试信息</p>
 </li>
@@ -403,9 +546,9 @@
       
 
       
-      <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// c++11</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tuple, <span class="keyword">size_t</span> N&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tuple_print</span> &#123;</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> Tuple&amp; t, <span class="built_in">std</span>::ostream&amp; os)</span> </span>&#123;</span><br><span class="line">       tuple_print&lt;Tuple, N - <span class="number">1</span>&gt;::<span class="built_in">print</span>(t, os);</span><br><span class="line">       os &lt;&lt; <span class="string">", "</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">get</span>&lt;N - <span class="number">1</span>&gt;(t);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 类模板的特化版本</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tuple&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tuple_print</span>&lt;Tuple, 1&gt; &#123;</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> Tuple&amp; t, <span class="built_in">std</span>::ostream&amp; os)</span> </span>&#123;</span><br><span class="line">       os &lt;&lt; <span class="string">"("</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">get</span>&lt;<span class="number">0</span>&gt;(t);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// operator&lt;&lt;</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="built_in">std</span>::ostream&amp; <span class="keyword">operator</span> &lt;&lt;(<span class="built_in">std</span>::ostream&amp; os, <span class="keyword">const</span> <span class="built_in">std</span>::tuple&lt;Args...&gt;&amp; t) &#123;</span><br><span class="line">   tuple_print&lt;<span class="keyword">decltype</span>(t), <span class="keyword">sizeof</span>...(Args)&gt;::<span class="built_in">print</span>(t, os);</span><br><span class="line">   <span class="keyword">return</span> os &lt;&lt; <span class="string">")"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// c++11</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tuple, <span class="keyword">size_t</span> N&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tuple_print</span> &#123;</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> Tuple&amp; t, <span class="built_in">std</span>::ostream&amp; os)</span> </span>&#123;</span><br><span class="line">       tuple_print&lt;Tuple, N - <span class="number">1</span>&gt;::print(t, os);</span><br><span class="line">       os &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; <span class="built_in">std</span>::get&lt;N - <span class="number">1</span>&gt;(t);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 类模板的特化版本</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tuple&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tuple_print</span>&lt;</span>Tuple, <span class="number">1</span>&gt; &#123;</span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> Tuple&amp; t, <span class="built_in">std</span>::ostream&amp; os)</span> </span>&#123;</span><br><span class="line">       os &lt;&lt; <span class="string">&quot;(&quot;</span> &lt;&lt; <span class="built_in">std</span>::get&lt;<span class="number">0</span>&gt;(t);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// operator&lt;&lt;</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="built_in">std</span>::ostream&amp; <span class="keyword">operator</span> &lt;&lt;(<span class="built_in">std</span>::ostream&amp; os, <span class="keyword">const</span> <span class="built_in">std</span>::tuple&lt;Args...&gt;&amp; t) &#123;</span><br><span class="line">   tuple_print&lt;<span class="keyword">decltype</span>(t), <span class="keyword">sizeof</span>...(Args)&gt;::print(t, os);</span><br><span class="line">   <span class="keyword">return</span> os &lt;&lt; <span class="string">&quot;)&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//C++14</span></span><br><span class="line"><span class="comment">// 数组转换为 tuple</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Array, <span class="built_in">std</span>::<span class="keyword">size_t</span>... I&gt;</span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">a2t_impl</span><span class="params">(<span class="keyword">const</span> Array&amp; a, <span class="built_in">std</span>::index_sequence&lt;I...&gt;)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">std</span>::make_tuple(a[I]...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="built_in">std</span>::<span class="keyword">size_t</span> N, <span class="keyword">typename</span> Indices = <span class="built_in">std</span>::make_index_sequence&lt;N&gt;&gt;</span><br><span class="line"><span class="keyword">auto</span> a2t(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">array</span>&lt;T, N&gt;&amp; a) &#123;</span><br><span class="line">    <span class="keyword">return</span> a2t_impl(a, Indices&#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 漂亮地打印 tuple</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Ch</span>, <span class="title">class</span> <span class="title">Tr</span>, <span class="title">class</span> <span class="title">Tuple</span>, <span class="title">std</span>:</span>:<span class="keyword">size_t</span>... Is&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_tuple_impl</span><span class="params">(<span class="built_in">std</span>::basic_ostream&lt;Ch, Tr&gt;&amp; os,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">const</span> Tuple&amp; t,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="built_in">std</span>::index_sequence&lt;Is...&gt;)</span> </span>&#123;</span><br><span class="line">    ((os &lt;&lt; (Is == <span class="number">0</span> ? <span class="string">""</span> : <span class="string">", "</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">get</span>&lt;Is&gt;(t)), ...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Ch</span>, <span class="title">class</span> <span class="title">Tr</span>, <span class="title">class</span>... <span class="title">Args</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">auto</span>&amp; <span class="title">operator</span>&lt;&lt;(std::basic_ostream&lt;Ch, Tr&gt;&amp; os, const std::tuple&lt;Args...&gt;&amp; t) &#123;</span></span><br><span class="line"><span class="class">    os &lt;&lt; "(";</span></span><br><span class="line"><span class="class">    print_tuple_impl(os, t, std::index_sequence_for&lt;Args...&gt;&#123;&#125;);</span></span><br><span class="line"><span class="class">    return os &lt;&lt; ")";</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//C++14</span></span><br><span class="line"><span class="comment">// 数组转换为 tuple</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Array, <span class="built_in">std</span>::<span class="keyword">size_t</span>... I&gt;</span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">a2t_impl</span><span class="params">(<span class="keyword">const</span> Array&amp; a, <span class="built_in">std</span>::index_sequence&lt;I...&gt;)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">std</span>::make_tuple(a[I]...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="built_in">std</span>::<span class="keyword">size_t</span> N, <span class="keyword">typename</span> Indices = <span class="built_in">std</span>::make_index_sequence&lt;N&gt;&gt;</span><br><span class="line"><span class="keyword">auto</span> a2t(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">array</span>&lt;T, N&gt;&amp; a) &#123;</span><br><span class="line">    <span class="keyword">return</span> a2t_impl(a, Indices&#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 漂亮地打印 tuple</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Ch</span>, <span class="keyword">class</span> <span class="title">Tr</span>, <span class="keyword">class</span> <span class="title">Tuple</span>, <span class="title">std</span>:</span>:<span class="keyword">size_t</span>... Is&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_tuple_impl</span><span class="params">(<span class="built_in">std</span>::basic_ostream&lt;Ch, Tr&gt;&amp; os,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">const</span> Tuple&amp; t,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="built_in">std</span>::index_sequence&lt;Is...&gt;)</span> </span>&#123;</span><br><span class="line">    ((os &lt;&lt; (Is == <span class="number">0</span> ? <span class="string">&quot;&quot;</span> : <span class="string">&quot;, &quot;</span>) &lt;&lt; <span class="built_in">std</span>::get&lt;Is&gt;(t)), ...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Ch</span>, <span class="keyword">class</span> <span class="title">Tr</span>, <span class="title">class</span>... <span class="title">Args</span>&gt;</span></span><br><span class="line"><span class="keyword">auto</span>&amp; <span class="keyword">operator</span>&lt;&lt;(<span class="built_in">std</span>::basic_ostream&lt;Ch, Tr&gt;&amp; os, <span class="keyword">const</span> <span class="built_in">std</span>::tuple&lt;Args...&gt;&amp; t) &#123;</span><br><span class="line">    os &lt;&lt; <span class="string">&quot;(&quot;</span>;</span><br><span class="line">    print_tuple_impl(os, t, <span class="built_in">std</span>::index_sequence_for&lt;Args...&gt;&#123;&#125;);</span><br><span class="line">    <span class="keyword">return</span> os &lt;&lt; <span class="string">&quot;)&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
       <!-- reward -->
@@ -493,9 +636,10 @@
 | 阻止从 USB 运行的不受信任和未签名的进程 | b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
 | 阻止 Office 通信应用程序创建子进程 | 26190899-1602-49e8-8b27-eb1d0a1ce869 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
 | 阻止 Adobe Reader 创建子流程 | 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
-| 通过 WMI 事件订阅阻止持久性 | e6db77e5-3df2-4cf1-b95a-636979351e5b | 不支持 | Windows 10 版本 1903 (内部版本 18362) 或更高版本 |</code></pre>
+| 通过 WMI 事件订阅阻止持久性 | e6db77e5-3df2-4cf1-b95a-636979351e5b | 不支持 | Windows 10 版本 1903 (内部版本 18362) 或更高版本 |
+</code></pre>
 <h4 id="Exploit-Protection-漏洞利用保护"><a href="#Exploit-Protection-漏洞利用保护" class="headerlink" title="Exploit Protection (漏洞利用保护)"></a>Exploit Protection (漏洞利用保护)</h4><ol>
-<li><p>任意代码保护(ACG) Arbitrary Code Guard<br><a href="https://www.anquanke.com/post/id/145884" target="_blank" rel="noopener">https://www.anquanke.com/post/id/145884</a></p>
+<li><p>任意代码保护(ACG) Arbitrary Code Guard<br><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/145884">https://www.anquanke.com/post/id/145884</a></p>
 </li>
 <li><p>阻止远程图像(Block remote images) 通过发送待远程图片的邮件，根据服务器图片的访问情况，确认邮件查阅</p>
 </li>
@@ -683,7 +827,7 @@
 
       
       <p><img src="result.png" alt="测试结果"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ChangeFilter</span><span class="params">(m_hWnd, WM_NOTEPAPER_SHOWTIP, MSGFLT_ALLOW)</span></span>;</span><br><span class="line"></span><br><span class="line">DWORD CMainWindow::ChangeFilter(HWND hwnd, UINT uMsg, DWORD dwMsgFlt)</span><br><span class="line">&#123;</span><br><span class="line">    BOOL                fSuccess = FALSE;</span><br><span class="line">    DWORD            dwMsgFltInfo = MSGFLTINFO_NONE;</span><br><span class="line">    CHANGEFILTERSTRUCT  ChangeFilterStruct;</span><br><span class="line"></span><br><span class="line">    ChangeFilterStruct.cbSize = <span class="keyword">sizeof</span>(CHANGEFILTERSTRUCT);</span><br><span class="line">    fSuccess = ChangeWindowMessageFilterEx(hwnd, uMsg, dwMsgFlt, &amp;ChangeFilterStruct);</span><br><span class="line">    dwMsgFltInfo = ChangeFilterStruct.ExtStatus;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!fSuccess) &#123;</span><br><span class="line">        wprintf(<span class="string">L"\nChangeWindowMessageFilterEx failed with %lu"</span>, GetLastError());</span><br><span class="line">        dwMsgFltInfo = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dwMsgFltInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ChangeFilter</span><span class="params">(m_hWnd, WM_NOTEPAPER_SHOWTIP, MSGFLT_ALLOW)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">DWORD <span class="title">CMainWindow::ChangeFilter</span><span class="params">(HWND hwnd, UINT uMsg, DWORD dwMsgFlt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    BOOL                fSuccess = FALSE;</span><br><span class="line">    DWORD            dwMsgFltInfo = MSGFLTINFO_NONE;</span><br><span class="line">    CHANGEFILTERSTRUCT  ChangeFilterStruct;</span><br><span class="line"></span><br><span class="line">    ChangeFilterStruct.cbSize = <span class="keyword">sizeof</span>(CHANGEFILTERSTRUCT);</span><br><span class="line">    fSuccess = ChangeWindowMessageFilterEx(hwnd, uMsg, dwMsgFlt, &amp;ChangeFilterStruct);</span><br><span class="line">    dwMsgFltInfo = ChangeFilterStruct.ExtStatus;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!fSuccess) &#123;</span><br><span class="line">        wprintf(<span class="string">L&quot;\nChangeWindowMessageFilterEx failed with %lu&quot;</span>, GetLastError());</span><br><span class="line">        dwMsgFltInfo = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dwMsgFltInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
@@ -753,13 +897,13 @@
       
 
       
-      <p>整理于 <a href="http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin" target="_blank" rel="noopener">http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin</a></p>
+      <p>整理于 <a target="_blank" rel="noopener" href="http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin">http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin</a></p>
 <p> <img src="https://note.youdao.com/yws/public/resource/0a79a67d0cd6f714303f83f564ba0dac/xmlnote/0A94AF3BCA574FCA9324E04A33A843E7/12904" alt="xmind"></p>
 <h2 id="判断是否管理员权限"><a href="#判断是否管理员权限" class="headerlink" title="判断是否管理员权限"></a>判断是否管理员权限</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Windows API IsUserAnAdmin()</span></span><br><span class="line"><span class="function">BOOL <span class="title">Am_I_In_Admin_Group</span><span class="params">(BOOL bCheckAdminMode <span class="comment">/*= FALSE*/</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    BOOL   fAdmin;</span><br><span class="line">    HANDLE  hThread;</span><br><span class="line">    TOKEN_GROUPS *ptg = <span class="literal">NULL</span>;</span><br><span class="line">    DWORD  cbTokenGroups;</span><br><span class="line">    DWORD  dwGroup;</span><br><span class="line">    PSID   psidAdmin;</span><br><span class="line">    SID_IDENTIFIER_AUTHORITY SystemSidAuthority= SECURITY_NT_AUTHORITY;</span><br><span class="line">    <span class="keyword">if</span> ( !OpenThreadToken ( GetCurrentThread(), TOKEN_QUERY, FALSE, &amp;hThread))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( GetLastError() == ERROR_NO_TOKEN)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (! OpenProcessToken ( GetCurrentProcess(), TOKEN_QUERY, </span><br><span class="line">                &amp;hThread))</span><br><span class="line">                <span class="keyword">return</span> ( FALSE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( GetTokenInformation ( hThread, TokenGroups, <span class="literal">NULL</span>, <span class="number">0</span>, &amp;cbTokenGroups))</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( GetLastError() != ERROR_INSUFFICIENT_BUFFER)</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( ! ( ptg= (TOKEN_GROUPS*)_alloca ( cbTokenGroups))) </span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( !GetTokenInformation ( hThread, TokenGroups, ptg, cbTokenGroups,</span><br><span class="line">        &amp;cbTokenGroups) )</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( ! AllocateAndInitializeSid ( &amp;SystemSidAuthority, <span class="number">2</span>, </span><br><span class="line">        SECURITY_BUILTIN_DOMAIN_RID, </span><br><span class="line">        DOMAIN_ALIAS_RID_ADMINS,</span><br><span class="line">        <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, &amp;psidAdmin) )</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    fAdmin= FALSE;</span><br><span class="line">    <span class="keyword">for</span> ( dwGroup= <span class="number">0</span>; dwGroup &lt; ptg-&gt;GroupCount; dwGroup++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( EqualSid ( ptg-&gt;Groups[dwGroup].Sid, psidAdmin))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(bCheckAdminMode)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>((ptg-&gt;Groups[dwGroup].Attributes) &amp; SE_GROUP_ENABLED)</span><br><span class="line">                &#123;</span><br><span class="line">                    fAdmin = TRUE;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                fAdmin = TRUE;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    FreeSid ( psidAdmin);</span><br><span class="line">    <span class="keyword">return</span> ( fAdmin);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意只有原来是Disable的权限才可以提成Enable， 如果原来就没有这个权限， 是提不上去的。</span></span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">EnablePrivilege</span><span class="params">(HANDLE hToken, LPCTSTR lpszPrivilegeName)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TOKEN_PRIVILEGES tkp = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    BOOL bRet = LookupPrivilegeValue( <span class="literal">NULL</span>, lpszPrivilegeName, &amp;tkp.Privileges[<span class="number">0</span>].Luid );</span><br><span class="line">    <span class="keyword">if</span>(!bRet) <span class="keyword">return</span> FALSE;</span><br><span class="line"></span><br><span class="line">    tkp.PrivilegeCount = <span class="number">1</span>;</span><br><span class="line">    tkp.Privileges[<span class="number">0</span>].Attributes = SE_PRIVILEGE_ENABLED;</span><br><span class="line">    bRet = AdjustTokenPrivileges( hToken, FALSE, &amp;tkp, <span class="keyword">sizeof</span>(tkp), <span class="literal">NULL</span>, <span class="literal">NULL</span> );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bRet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="如何判断用户的进程完整性级别"><a href="#如何判断用户的进程完整性级别" class="headerlink" title="如何判断用户的进程完整性级别"></a>如何判断用户的进程完整性级别</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> CIntegrityLevel::Print(<span class="built_in">std</span>::wostream&amp; os) <span class="keyword">const</span></span><br><span class="line">&#123;</span><br><span class="line">    SID* pSid = (SID*)m_pIntegrity-&gt;Label.Sid;</span><br><span class="line">    DWORD rid = pSid-&gt;SubAuthority[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    LPCTSTR lpszIntegrity = <span class="string">L"Unknown"</span>;</span><br><span class="line">    <span class="keyword">switch</span> (rid)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_UNTRUSTED_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Untrusted"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_LOW_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Low"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_MEDIUM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Medium"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_MEDIUM_PLUS_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"Medium +"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_HIGH_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"High"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_SYSTEM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"System"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L"XXXXX"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    os &lt;&lt; <span class="string">L"Integrity: "</span> &lt;&lt; lpszIntegrity &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="如何判断用户的进程完整性级别"><a href="#如何判断用户的进程完整性级别" class="headerlink" title="如何判断用户的进程完整性级别"></a>如何判断用户的进程完整性级别</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CIntegrityLevel::Print</span><span class="params">(<span class="built_in">std</span>::wostream&amp; os)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SID* pSid = (SID*)m_pIntegrity-&gt;Label.Sid;</span><br><span class="line">    DWORD rid = pSid-&gt;SubAuthority[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    LPCTSTR lpszIntegrity = <span class="string">L&quot;Unknown&quot;</span>;</span><br><span class="line">    <span class="keyword">switch</span> (rid)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_UNTRUSTED_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;Untrusted&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_LOW_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;Low&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_MEDIUM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;Medium&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_MEDIUM_PLUS_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;Medium +&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_HIGH_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;High&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_SYSTEM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;System&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;XXXXX&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    os &lt;&lt; <span class="string">L&quot;Integrity: &quot;</span> &lt;&lt; lpszIntegrity &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="如何指定程序默认启动运行的级别"><a href="#如何指定程序默认启动运行的级别" class="headerlink" title="如何指定程序默认启动运行的级别?"></a>如何指定程序默认启动运行的级别?</h2><p>在VC里配置Manifest文件.</p>
 <ul>
@@ -786,152 +930,6 @@
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows%E5%AE%89%E5%85%A8/" rel="tag">windows安全</a></li></ul>
 
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="title-程序员口头禅" class="article article-type-title" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/25/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%8F%A3%E5%A4%B4%E7%A6%85/"
-    >程序员口头禅</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/25/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%8F%A3%E5%A4%B4%E7%A6%85/" class="article-date">
-  <time datetime="2020-03-25T09:26:26.000Z" itemprop="datePublished">2020-03-25</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <ul>
-<li>这个不是我做的</li>
-<li>这个做不了</li>
-<li>在我的电脑上是好的</li>
-<li>换个浏览器试试</li>
-<li>之前代码我没动过</li>
-<li>这个可以做，就是要很多时间</li>
-<li>这个操作用户不会这样干</li>
-<li>这坨代码太臭了</li>
-<li>下个版本做</li>
-<li>需求没有说清楚</li>
-<li>这个不支持</li>
-<li>原本是好的吗？</li>
-<li>你会不会操作(测)？</li>
-<li>啥都没改，自动好了</li>
-</ul>
-<h3 id="欢迎补充"><a href="#欢迎补充" class="headerlink" title="欢迎补充~"></a>欢迎补充~</h3>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="title-生活" class="article article-type-title" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/25/%E7%94%9F%E6%B4%BB/"
-    >生活</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/25/%E7%94%9F%E6%B4%BB/" class="article-date">
-  <time datetime="2020-03-25T09:26:05.000Z" itemprop="datePublished">2020-03-25</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
 
     </footer>
 

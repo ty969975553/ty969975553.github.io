@@ -127,12 +127,13 @@
 </li>
 <li><p>PhInitializeNamespacePolicy  mutex</p>
 </li>
-<li><p>PhInitializeMitigationPolicy //Mitigation：缓解 <a href="https://docs.microsoft.com/zh-cn/windows/security/threat-protection/overview-of-threat-mitigations-in-windows-10" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/security/threat-protection/overview-of-threat-mitigations-in-windows-10</a></p>
+<li><p>PhInitializeMitigationPolicy //Mitigation：缓解 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/security/threat-protection/overview-of-threat-mitigations-in-windows-10">https://docs.microsoft.com/zh-cn/windows/security/threat-protection/overview-of-threat-mitigations-in-windows-10</a></p>
 </li>
 <li><p>PhInitializeRestartPolicy  //vista 因为更新等原因重启后 重新启动计算机应用程序  RegisterApplicationRestart EWX_RESTARTAPPS<br>一般方式： WM_QUERYENDSESSION   RegisterApplicationRestart 系统重启是用ExitWindowsEx+EWX_RESTARTAPPS 或者InitiateShutdown+SHUTDOWN_RESTARTAPPS</p>
 </li>
 <li><p>PhInitializeAppSystem<br> PhProcessProviderInitialization  </p>
-<pre><code> PhProcessImageListInitialization</code></pre>
+<pre><code> PhProcessImageListInitialization
+</code></pre>
 <p> PhServiceProviderInitialization<br> PhNetworkProviderInitialization</p>
 </li>
 </ol>
