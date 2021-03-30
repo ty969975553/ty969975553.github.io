@@ -67,6 +67,373 @@
     
     
     
+    <article id="title-Microsoft Defender ATP" class="article article-type-title" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/25/Microsoft%20Defender%20ATP/"
+    >Microsoft Defender ATP</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/25/Microsoft%20Defender%20ATP/" class="article-date">
+  <time datetime="2020-03-25T11:38:53.000Z" itemprop="datePublished">2020-03-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h3 id="Microsoft-Defender-ATP"><a href="#Microsoft-Defender-ATP" class="headerlink" title="Microsoft Defender ATP"></a>Microsoft Defender ATP</h3><p> <img src="MicrosoftDefenderATP.svg" alt="xmind"></p>
+<h4 id="减少攻击面"><a href="#减少攻击面" class="headerlink" title="减少攻击面"></a>减少攻击面</h4><pre><code>| 规则名称 | GUID | 文件 &amp; 文件夹排除 | 支持的最低操作系统 |
+| ---- | ---- |---- | ---- |
+| 阻止来自电子邮件客户端和 Web 邮件的可执行内容 | BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止所有 Office 应用程序创建子进程 | D4F940AB-401B-4EFC-AADC-AD5F3C50688A | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 Office 应用程序创建可执行内容 | 3B576869-A4EC-4529-8536-B80A7769E899 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 Office 应用程序将代码注入其他进程 | 75668C1F-73B5-4CF0-BB93-3ECF5CB7CC84 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 JavaScript 或 VBScript 启动下载的可执行内容 | D3E037E1-3EB8-44C8-A917-57927947596D | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止执行可能混淆的脚本 | 5BEB7EFE-FD9A-4556-801D-275E5FFC04CC | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 Office 宏的 Win32 API 调用 | 92E97FA1-2EDF-4476-BDD6-9DD0B4DDDC7B | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止可执行文件，除非它们满足流行、年龄或受信任的列表条件 | 01443614-cd74-433a-b99e-2ecdc07bfc25 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 对勒索软件使用高级防护 | c1db55ab-c21a-4637-bb3f-a12568109d35 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止从 Windows 本地安全颁发机构子系统中盗取凭据 ( # A0) | 9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止从 PSExec 和 WMI 命令发起的进程创建 | d1e49aac-8f56-4280-b9ba-993a6d77406c | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止从 USB 运行的不受信任和未签名的进程 | b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 Office 通信应用程序创建子进程 | 26190899-1602-49e8-8b27-eb1d0a1ce869 | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 阻止 Adobe Reader 创建子流程 | 7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c | 支持 | Windows 10 版本 1709 (RS3、内部版本 16299) 或更高版本 |
+| 通过 WMI 事件订阅阻止持久性 | e6db77e5-3df2-4cf1-b95a-636979351e5b | 不支持 | Windows 10 版本 1903 (内部版本 18362) 或更高版本 |
+</code></pre>
+<h4 id="Exploit-Protection-漏洞利用保护"><a href="#Exploit-Protection-漏洞利用保护" class="headerlink" title="Exploit Protection (漏洞利用保护)"></a>Exploit Protection (漏洞利用保护)</h4><ol>
+<li><p>任意代码保护(ACG) Arbitrary Code Guard<br><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/145884">https://www.anquanke.com/post/id/145884</a></p>
+</li>
+<li><p>阻止远程图像(Block remote images) 通过发送待远程图片的邮件，根据服务器图片的访问情况，确认邮件查阅</p>
+</li>
+<li><p>阻止不受信任的字体(Block untrusted fonts)</p>
+</li>
+<li><p>数据执行保护(DEP) DEP 的主要优点是可以帮助防止数据页执行代码</p>
+</li>
+<li><p>导出地址筛选(EAF)</p>
+</li>
+<li><p>强制ASLR   Address Space Load Randomization</p>
+</li>
+<li><p>Null 页安全缓解</p>
+</li>
+<li><p>随机内存分配(由下而上 ASLR)</p>
+</li>
+<li><p>模拟执行 (SimExec)</p>
+</li>
+<li><p>验证 API 调用 (CallerCheck)</p>
+</li>
+<li><p>验证异常链 (SEHOP)</p>
+</li>
+<li><p>验证堆栈完整性 (StackPivot)</p>
+</li>
+<li><p>证书信任（可配置的证书固定） 企业版证书</p>
+</li>
+<li><p>堆喷射分配</p>
+</li>
+<li><p>阻止低完整性图像</p>
+</li>
+<li><p>代码完整性防护</p>
+</li>
+<li><p>禁用扩展点</p>
+</li>
+<li><p>禁用win32k系统调用</p>
+</li>
+<li><p>不允许子进程</p>
+</li>
+<li><p>导入地址筛选(IAF)</p>
+</li>
+<li><p>验证处理使用情况</p>
+</li>
+<li><p>验证堆完整性</p>
+</li>
+<li><p>验证映像依赖项完整性</p>
+</li>
+</ol>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows%E5%AE%89%E5%85%A8/" rel="tag">Windows安全</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="title-c++序列化" class="article article-type-title" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/25/c++%E5%BA%8F%E5%88%97%E5%8C%96/"
+    >c++序列化</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/25/c++%E5%BA%8F%E5%88%97%E5%8C%96/" class="article-date">
+  <time datetime="2020-03-25T11:38:53.000Z" itemprop="datePublished">2020-03-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="title-高低权限消息" class="article article-type-title" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/25/%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B6%88%E6%81%AF/"
+    >高低权限进程消息通信</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/25/%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B6%88%E6%81%AF/" class="article-date">
+  <time datetime="2020-03-25T11:17:35.000Z" itemprop="datePublished">2020-03-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p><img src="result.png" alt="测试结果"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ChangeFilter</span><span class="params">(m_hWnd, WM_NOTEPAPER_SHOWTIP, MSGFLT_ALLOW)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">DWORD <span class="title">CMainWindow::ChangeFilter</span><span class="params">(HWND hwnd, UINT uMsg, DWORD dwMsgFlt)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    BOOL                fSuccess = FALSE;</span><br><span class="line">    DWORD            dwMsgFltInfo = MSGFLTINFO_NONE;</span><br><span class="line">    CHANGEFILTERSTRUCT  ChangeFilterStruct;</span><br><span class="line"></span><br><span class="line">    ChangeFilterStruct.cbSize = <span class="keyword">sizeof</span>(CHANGEFILTERSTRUCT);</span><br><span class="line">    fSuccess = ChangeWindowMessageFilterEx(hwnd, uMsg, dwMsgFlt, &amp;ChangeFilterStruct);</span><br><span class="line">    dwMsgFltInfo = ChangeFilterStruct.ExtStatus;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!fSuccess) &#123;</span><br><span class="line">        wprintf(<span class="string">L&quot;\nChangeWindowMessageFilterEx failed with %lu&quot;</span>, GetLastError());</span><br><span class="line">        dwMsgFltInfo = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dwMsgFltInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows%E5%AE%89%E5%85%A8/" rel="tag">windows安全</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="title-window安全概念" class="article article-type-title" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/03/25/window%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5/"
+    >window安全相关</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/25/window%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5/" class="article-date">
+  <time datetime="2020-03-25T11:14:42.000Z" itemprop="datePublished">2020-03-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>整理于 <a target="_blank" rel="noopener" href="http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin">http://www.cppblog.com/weiym/archive/2013/08/25/202751.html?opt=admin</a></p>
+<p> <img src="https://note.youdao.com/yws/public/resource/0a79a67d0cd6f714303f83f564ba0dac/xmlnote/0A94AF3BCA574FCA9324E04A33A843E7/12904" alt="xmind"></p>
+<h2 id="判断是否管理员权限"><a href="#判断是否管理员权限" class="headerlink" title="判断是否管理员权限"></a>判断是否管理员权限</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Windows API IsUserAnAdmin()</span></span><br><span class="line"><span class="function">BOOL <span class="title">Am_I_In_Admin_Group</span><span class="params">(BOOL bCheckAdminMode <span class="comment">/*= FALSE*/</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    BOOL   fAdmin;</span><br><span class="line">    HANDLE  hThread;</span><br><span class="line">    TOKEN_GROUPS *ptg = <span class="literal">NULL</span>;</span><br><span class="line">    DWORD  cbTokenGroups;</span><br><span class="line">    DWORD  dwGroup;</span><br><span class="line">    PSID   psidAdmin;</span><br><span class="line">    SID_IDENTIFIER_AUTHORITY SystemSidAuthority= SECURITY_NT_AUTHORITY;</span><br><span class="line">    <span class="keyword">if</span> ( !OpenThreadToken ( GetCurrentThread(), TOKEN_QUERY, FALSE, &amp;hThread))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( GetLastError() == ERROR_NO_TOKEN)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (! OpenProcessToken ( GetCurrentProcess(), TOKEN_QUERY, </span><br><span class="line">                &amp;hThread))</span><br><span class="line">                <span class="keyword">return</span> ( FALSE);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( GetTokenInformation ( hThread, TokenGroups, <span class="literal">NULL</span>, <span class="number">0</span>, &amp;cbTokenGroups))</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( GetLastError() != ERROR_INSUFFICIENT_BUFFER)</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( ! ( ptg= (TOKEN_GROUPS*)_alloca ( cbTokenGroups))) </span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( !GetTokenInformation ( hThread, TokenGroups, ptg, cbTokenGroups,</span><br><span class="line">        &amp;cbTokenGroups) )</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    <span class="keyword">if</span> ( ! AllocateAndInitializeSid ( &amp;SystemSidAuthority, <span class="number">2</span>, </span><br><span class="line">        SECURITY_BUILTIN_DOMAIN_RID, </span><br><span class="line">        DOMAIN_ALIAS_RID_ADMINS,</span><br><span class="line">        <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, &amp;psidAdmin) )</span><br><span class="line">        <span class="keyword">return</span> ( FALSE);</span><br><span class="line">    fAdmin= FALSE;</span><br><span class="line">    <span class="keyword">for</span> ( dwGroup= <span class="number">0</span>; dwGroup &lt; ptg-&gt;GroupCount; dwGroup++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( EqualSid ( ptg-&gt;Groups[dwGroup].Sid, psidAdmin))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(bCheckAdminMode)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>((ptg-&gt;Groups[dwGroup].Attributes) &amp; SE_GROUP_ENABLED)</span><br><span class="line">                &#123;</span><br><span class="line">                    fAdmin = TRUE;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                fAdmin = TRUE;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    FreeSid ( psidAdmin);</span><br><span class="line">    <span class="keyword">return</span> ( fAdmin);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意只有原来是Disable的权限才可以提成Enable， 如果原来就没有这个权限， 是提不上去的。</span></span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">EnablePrivilege</span><span class="params">(HANDLE hToken, LPCTSTR lpszPrivilegeName)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TOKEN_PRIVILEGES tkp = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    BOOL bRet = LookupPrivilegeValue( <span class="literal">NULL</span>, lpszPrivilegeName, &amp;tkp.Privileges[<span class="number">0</span>].Luid );</span><br><span class="line">    <span class="keyword">if</span>(!bRet) <span class="keyword">return</span> FALSE;</span><br><span class="line"></span><br><span class="line">    tkp.PrivilegeCount = <span class="number">1</span>;</span><br><span class="line">    tkp.Privileges[<span class="number">0</span>].Attributes = SE_PRIVILEGE_ENABLED;</span><br><span class="line">    bRet = AdjustTokenPrivileges( hToken, FALSE, &amp;tkp, <span class="keyword">sizeof</span>(tkp), <span class="literal">NULL</span>, <span class="literal">NULL</span> );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bRet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何判断用户的进程完整性级别"><a href="#如何判断用户的进程完整性级别" class="headerlink" title="如何判断用户的进程完整性级别"></a>如何判断用户的进程完整性级别</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CIntegrityLevel::Print</span><span class="params">(<span class="built_in">std</span>::wostream&amp; os)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SID* pSid = (SID*)m_pIntegrity-&gt;Label.Sid;</span><br><span class="line">    DWORD rid = pSid-&gt;SubAuthority[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    LPCTSTR lpszIntegrity = <span class="string">L&quot;Unknown&quot;</span>;</span><br><span class="line">    <span class="keyword">switch</span> (rid)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_UNTRUSTED_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;Untrusted&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_LOW_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;Low&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_MEDIUM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;Medium&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_MEDIUM_PLUS_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;Medium +&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_HIGH_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;High&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">case</span> SECURITY_MANDATORY_SYSTEM_RID:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;System&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            lpszIntegrity = <span class="string">L&quot;XXXXX&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    os &lt;&lt; <span class="string">L&quot;Integrity: &quot;</span> &lt;&lt; lpszIntegrity &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何指定程序默认启动运行的级别"><a href="#如何指定程序默认启动运行的级别" class="headerlink" title="如何指定程序默认启动运行的级别?"></a>如何指定程序默认启动运行的级别?</h2><p>在VC里配置Manifest文件.</p>
+<ul>
+<li><p>asInvoker：默认选项，新的进程将简单地继承其父进程的访问令牌</p>
+</li>
+<li><p>highestAvailable：应用程序会选择该用户允许范围内尽可能高的权限。对于标准用户来说，该选项与asInvoker一样，而对于管理员来说，这就意味着请求Admin令牌。</p>
+</li>
+<li><p>requireAdministrator：应用程序需要Admin令牌。运行该程序时，标准用户将要输入管理员的用户名和密码，而管理员则要在弹出的确认对话框中进行确认。</p>
+</li>
+<li><p><img src="https://note.youdao.com/yws/public/resource/df3ab20df5c03ba0ad1faef9f79e2f72/xmlnote/DD710385513C4681AA35C58A73D66AA4/12900" alt="AAA"></p>
+</li>
+</ul>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows%E5%AE%89%E5%85%A8/" rel="tag">windows安全</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="title-程序员口头禅" class="article article-type-title" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -265,7 +632,32 @@
 <p>DACL 是安全对象(securable object)的一个属性</p>
 <p>SACL 是系统中的一个列表，用来记录指定用户（组）、指定类型的访问的访问结果，并记录。</p>
 <h3 id="4-ACE-访问控制项-Access-Control-ITEM"><a href="#4-ACE-访问控制项-Access-Control-ITEM" class="headerlink" title="4.ACE 访问控制项 (Access Control ITEM)"></a>4.ACE 访问控制项 (Access Control ITEM)</h3><h3 id="5-没有UAC文件系统和注册表虚拟化技术"><a href="#5-没有UAC文件系统和注册表虚拟化技术" class="headerlink" title="5.没有UAC文件系统和注册表虚拟化技术"></a>5.没有UAC文件系统和注册表虚拟化技术</h3><h3 id="6-应用程序清单文件"><a href="#6-应用程序清单文件" class="headerlink" title="6.应用程序清单文件"></a>6.应用程序清单文件</h3><p>1、RunAsInvoker<br>2、RunAsHighest<br>3、RunAsAdmin</p>
-<h3 id="7-组域"><a href="#7-组域" class="headerlink" title="7.组域"></a>7.组域</h3>
+<h3 id="7-组域"><a href="#7-组域" class="headerlink" title="7.组域"></a>7.组域</h3><h4 id="开发最佳实践"><a href="#开发最佳实践" class="headerlink" title="开发最佳实践"></a>开发最佳实践</h4><ol>
+<li>最小特权原则 currentuser (CAN-2003-0352)</li>
+<li>避免缓冲区溢出   writing solid code</li>
+<li>加密 DPAPI</li>
+<li>安全相关的编译链接选项开启</li>
+<li>剔除被取缔API 和加密算法<br><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/bb288454(v=msdn.10)?redirectedfrom=MSDN">https://docs.microsoft.com/en-us/previous-versions/bb288454(v=msdn.10)?redirectedfrom=MSDN</a>危险API列表 SDL检查 开启，vs工具会提示</li>
+<li>不使用异常<br>__try {}<br>__except{} 不用</li>
+<li>EncodePointer  DecodePointer 对指针处理</li>
+<li>使用新版编译器</li>
+<li>静态分析工具消除警告</li>
+<li>使用x64程序  </li>
+<li>SAL注解：用SAL注解所有C++字符串缓冲区</li>
+</ol>
+<h5 id="安全编译选项"><a href="#安全编译选项" class="headerlink" title="安全编译选项"></a>安全编译选项</h5><ol>
+<li><p>/GS 控制堆栈检查调用 (体积增大)<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/cpp/build/reference/gs-control-stack-checking-calls?view=vs-2019">https://docs.microsoft.com/zh-cn/cpp/build/reference/gs-control-stack-checking-calls?view=vs-2019</a></p>
+</li>
+<li><p>/SafeSEH<br>设计SafeSEH保护机制的目的，以为了防止那种攻击者通过覆盖堆栈上的异常处理函数句柄，从而控制程序执行流程的攻击。<br>Windwos XP SP2</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dumpbin  __except_handler4   IMAGE_LOAD_CONFIG_DIRECTORY</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG  10  <span class="comment">// Load Configuration Directory</span></span></span><br></pre></td></tr></table></figure></li>
+<li><p>/DynamicBase 地址随机化  PE  IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 操作系统必须开启ALSR功能，不然无效</p>
+</li>
+<li><p>/NXCOMPAT  PE头部<br>DEP 数据执行保护 DEP，就是禁止应用程序和服务在非可执行的内存区（non-executable memory）上执行指令。<br>DEP 分为软件DEP 和硬件DEP 硬件DEP 需要CPU提供支持</p>
+</li>
+<li><p>/guard:cf 控制流防护编译选项和链接选项都要开启</p>
+</li>
+</ol>
+
       
       <!-- reward -->
       
@@ -513,84 +905,13 @@
 
 </article>
     
-    <article id="post-活法" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/03/24/%E6%B4%BB%E6%B3%95/"
-    >活法读书笔记</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/03/24/%E6%B4%BB%E6%B3%95/" class="article-date">
-  <time datetime="2020-03-24T06:17:12.000Z" itemprop="datePublished">2020-03-24</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>1.树立共同理想<br>2.不要急功近利<br>3.心怀敬畏之心<br>4.现场解决问题<br>5.选取愚直方式<br>6.公私要分明（公车就是公车）<br>7.能力*激情 =成果<br>8.一心为公（所有的成果都是社会的成果） 当然也是自己努力的成果</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BC%81%E4%B8%9A%E5%8F%91%E5%B1%95/" rel="tag">企业发展</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
   </nav>
   
 </section>
